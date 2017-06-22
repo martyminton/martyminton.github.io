@@ -1,0 +1,227 @@
+<?php
+
+	if( ! ini_get('date.timezone') )
+	{
+		// date_default_timezone_set('GMT');
+		date_default_timezone_set('America/New_York');
+	}
+
+
+	$site = 'http://'.$_SERVER['HTTP_HOST'];
+	$subject = 'LM&O Website Query';
+
+	$from_email = 'webmain@'.$_SERVER['SERVER_NAME'];
+
+
+	// Rules
+
+	// exe / dmg / zip
+
+	// allowed file types
+	$allowedTypes = array(
+		'image/gif',
+		'image/jpeg',
+		'image/jpg',
+		'image/pjpeg',
+		'image/x-png',
+		'image/png',
+		);
+
+	// allow max file size in bytes
+	$allowedSize = 50 * 1000 * 1000; // 50 MB
+
+	// max size of file to attach to email in bytes
+	$attachSize = 5 * 1000 * 1000; // 5 MB
+
+
+
+	// ----------------------------------
+
+	// $errors array
+	$errors = array();
+
+
+	// get fields from post
+	$name 		= isset($_POST['name']) 	? $_POST['name'] 		: '';
+	$to 		= isset($_POST['to']) 		? $_POST['to'] 			: 'no one';
+	$phone 		= isset($_POST['phone']) 	? $_POST['phone'] 		: '';
+	$email 		= isset($_POST['email'])	? $_POST['email'] 		: '';
+	$comments 	= isset($_POST['comments']) ? $_POST['comments'] 	: '';
+
+	// validate form here
+	$requiredFields = array('to','name', 'phone', 'email', 'comments');
+
+	foreach( $requiredFields as $field )
+	{
+		 if( ! $field )
+		{
+			$errors[] = ucfirst($field) .' field is required.';
+		}
+	}
+
+	// Allowed emails
+	$emailList = array(
+		'Sherri'	=> 'Sherri Green <SherriGreen@lmo.com>',
+		'Christi'	=> 'Christi Burnum <ChristiBurnum@lmo.com>',
+		'Mike'		=> 'Mike Kapetanovic <MikeKapetanovic@lmo.com>',
+		'Jennifer'	=> 'Jennifer Lennon <JenniferLennon@lmo.com>',
+		'Horacio'	=> 'Horacio Zamora <HoracioZamora@lmo.com>',
+		'Nora'		=> 'Nora Petitt <NoraPetitt@lmo.com>',
+	);
+
+	if( ! isset($emailList[$to]) )
+	{
+		$errors[] = 'Can not send an email to ' .$to;
+	}
+	else
+	{
+		$to = $emailList[$to];
+	}
+
+	// file var for upload file
+	$file = isset($_FILES['file']) ? $_FILES['file'] : false;
+
+	// is there a file?
+	if($file)
+	{
+		$attachFile = false;
+		$fileLink = false;
+
+		// any upload errors
+		if( $file['error'] > 0 && $file['error'] != 4 )
+		{
+			$errors[] = codeToMessage($file['error']);
+		}
+
+		// check file type
+		if( !in_array($file['type'], $allowedTypes) )
+		{
+		//	$errors[] = 'This file type is not allowed';
+		}
+
+		// check file size
+		if( $file['size'] > $allowedSize )
+		{
+			$errors[] = 'The file size is larger then the allowed size. (' . $allowedSize .')';
+		}
+
+		// attach file?
+		if( $file['size'] < $attachSize )
+		{
+			$attachFile = true;
+		}
+
+		// if no errros save file and attach if possible
+		if( count($errors) === 0 )
+		{
+
+			$filename = time() . '_' . $file['name'];
+
+			$fullFilename = 'upload/' . $filename;
+
+			if( file_exists($fullFilename) )
+			{
+				$errors[] = $filename . " already exists.";
+			}
+			else
+			{
+				move_uploaded_file( $file["tmp_name"], $fullFilename);
+				$url = $site .'/'. $fullFilename;
+				$fileLink = '<a href="/'.$url .'">Attached File ( '. $file['size'].' )</a>';
+			}
+
+		}
+
+	}
+
+
+	$resp = array(
+		'status' 	=> false,
+		'to'		=> $to,
+		'from'		=> $email,
+		'name' 		=> $name,
+		'errors' 	=> $errors
+		);
+
+	if( count($errors) > 0 )
+	{
+		$json = json_encode($resp);
+		header('Content-type: application/json');
+		die($json);
+		exit;
+	}
+
+	$random_hash = md5(date('r', time()));
+
+	// html headers
+	//$headers  = 'MIME-Version: 1.0';
+	//$headers .= "\r\nContent-type: text/html; charset=iso-8859-1";
+	$headers = "From: LM&O Contact Form <{$from_email}>";
+	$headers .= "\r\nReply-To: {$name} <{$email}>";
+
+
+	$message = "
+Greetings LM&O Staff Member,
+
+$name, is interested in speaking with you at $phone, or $email.
+
+They left the following message for you to read:
+
+$comments
+		";
+
+
+	if( $file && $fileLink )
+	{
+		$message .= "\n-----------------------------\n";
+		$message .= "Attachment: {$url}";
+		$message .= "\n-----------------------------\n";
+	}
+
+
+	// dev only
+	$to = 'jerry@viminteractive.com';
+
+
+	$resp['status'] = @mail($to, $subject, $message, $headers);
+
+
+	$json = json_encode($resp);
+	header('Content-type: application/json');
+	die($json);
+	exit;
+
+	// php upload errors
+	function codeToMessage($code)
+	{
+		switch ($code) {
+			case UPLOAD_ERR_INI_SIZE:
+				$message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+				break;
+			case UPLOAD_ERR_FORM_SIZE:
+				$message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+				break;
+			case UPLOAD_ERR_PARTIAL:
+				$message = "The uploaded file was only partially uploaded";
+				break;
+			case UPLOAD_ERR_NO_FILE:
+				$message = "No file was uploaded";
+				break;
+			case UPLOAD_ERR_NO_TMP_DIR:
+				$message = "Missing a temporary folder";
+				break;
+			case UPLOAD_ERR_CANT_WRITE:
+				$message = "Failed to write file to disk";
+				break;
+			case UPLOAD_ERR_EXTENSION:
+				$message = "File upload stopped by extension";
+				break;
+
+			default:
+				$message = "Unknown upload error";
+				break;
+		}
+		return $message;
+	}
+
+	?>

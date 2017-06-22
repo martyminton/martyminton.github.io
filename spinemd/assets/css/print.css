@@ -1,0 +1,48 @@
+body {
+	background: white;
+	font-size: 1em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #000;
+}
+
+h1 { font-size: 250%; }
+h2 { font-size: 175%; }
+h3 { font-size: 135%; }
+h4 { font-size: 100%; font-variant: small-caps; }
+h5 { font-size: 100%; }
+h6 { font-size: 90%; font-style: italic; }
+
+a:link, a:visited {
+	color: #000;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+div, section {
+	background: none;
+}
+
+header, footer, nav, .glossary, form, .bx-pager, #contactform, #slider-prev, #slider-next, .top-specialist,  #nav-next, #nav-prev {
+	display: none;
+}
+
+ul, li, .bxslider, .column, h6, h1,h2,h3,h4,h5,h6,div,section {
+	width: 100% !important;
+	float: none;
+	overflow: hidden;
+	clear:both;
+}
+
+a, img {
+	display: block;
+	float: none !important;
+}
+
+.banner {
+	width: 100%;
+	background-size: 100%;
+}
+

@@ -1,0 +1,76 @@
+@import "base.scss";
+@import "ui/reset.scss";
+@import "ui/colors.scss";
+@import "ui/typography.scss";
+@import "ui/colors.scss";
+body {
+	background: white;
+	font-family: $gotham;
+	overflow-x: hidden;
+	/* min-width:1060px; */
+
+	&.cb{
+		overflow:hidden;
+	}
+}
+
+.clear {
+	clear: both;
+}
+
+.contain {
+	width: 1000px;
+	margin: auto;
+	position: relative;
+	height: 100%;
+}
+
+a, button, textarea, input {
+	outline: 0;
+}
+
+
+
+@import "ui/buttons.scss";
+@import "ui/forms.scss";
+@import "layout.scss";
+@import "ui/animate.scss";
+@import "ui/showcase.scss";
+@import "ui/responsive.scss";
+@import "ui/color-box.scss";
+
+/* Jerry added stuff right here! */
+.server-error { text-align: center; color: #f00; margin-top: 10px; display: none; }
+button.disabled, button.disabled:hover { background: #646469; cursor: default; }
+
+// seperate confirmation page
+#thank-you-page {
+	section#contact {
+		height: auto;
+		margin-top: 300px;
+		.thankyou {
+			display: block;
+		}
+	}
+}
+.file_wrapper label{ float:left; }
+
+#progress {
+
+	float: right;
+
+	p {
+		display: block;
+		width: 240px;
+		padding: 2px 5px;
+		margin: 2px 0;
+		border: 1px inset #446;
+		border-radius: 5px;
+		background: #eee url(../images/progress.png) 100% 0 repeat-y;
+
+		&.success { background: #0c0 none 0 0 no-repeat; }
+		&.failed { background: #c00 none 0 0 no-repeat; }
+	}
+
+
+}

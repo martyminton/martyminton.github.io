@@ -1,0 +1,86 @@
+/* Different Background Image than Homepage */
+body {background:#f1f1f1 url(../images/bg-secondary.jpg) top left repeat-x;}
+
+#content {width:980px; background:url(../images/content-secondary-bg.jpg) top left no-repeat;}
+
+#content .left {float:left; width:600px; padding:65px 80px 30px 0; color:#464646;}
+#content .left p {font-size:12px; line-height:22px; padding:10px 0 10px 0;}
+#content .left h3 {font-size:14px; font-weight:bold; color:#3774b4; padding:15px 0 0 0;}
+#content .left a {color:#3774b4; text-decoration:underline;}
+#content .left a:hover {text-decoration:none;}
+#content .left ul {margin:5px 0 15px 55px; list-style-type:disc;}
+#content .left ul li {padding:5px 0 5px 0; list-style-type:disc;}
+#content .left .floatleft {float:left; padding:10px 40px 10px 0;}
+#content .left .floatright {float:right; padding:10px 0 10px 10px;}
+#content .left .blue {color:#3774b4;}
+
+/* H1 Tags for Secondary Pages */
+#content .left h1.about {width:550px; height:20px; background:url(../images/h1-about-us.gif) top left no-repeat; font-size:1px; text-indent:-9999px;}
+#content .left h1.solutions {width:550px; height:20px; background:url(../images/h1-solutions.gif) top left no-repeat; font-size:1px; text-indent:-9999px;}
+#content .left h1.contracts {width:550px; height:20px; background:url(../images/h1-contracts.gif) top left no-repeat; font-size:1px; text-indent:-9999px;}
+#content .left h1.careers {width:550px; height:20px; background:url(../images/h1-careers.gif) top left no-repeat; font-size:1px; text-indent:-9999px;}
+
+
+/* Right Column */
+#content .right {float:left; width:300px; padding:55px 0 30px 0;}
+#content .right .sidenav {padding:0 0 30px 0;}
+
+/* Sidenav Section Headings */
+#content .right .sidenav h2.solutions {width:300px; height:50px; text-indent:-9999px; font-size:1px; background:url(../images/sidenav-solutions.gif) top left no-repeat;}
+#content .right .sidenav h2.about {width:300px; height:50px; text-indent:-9999px; font-size:1px; background:url(../images/sidenav-about.gif) top left no-repeat;}
+#content .right .sidenav h2.contracts {width:300px; height:50px; text-indent:-9999px; font-size:1px; background:url(../images/sidenav-contracts.gif) top left no-repeat;}
+#content .right .sidenav h2.careers {width:300px; height:50px; text-indent:-9999px; font-size:1px; background:url(../images/sidenav-careers.gif) top left no-repeat;}
+
+/* Sidenav Styling */
+#content .right .sidenav ul {background:url(../images/sidenav-bg.gif) top left repeat-y; width:300px; padding:15px 0 5px 0;}
+#content .right .sidenav ul li {padding:7px 0 7px 25px;}
+#content .right .sidenav ul li a {color:#464646; text-decoration:none; display:block; height:11px; font-size:11px; background:url(../images/sidenav-arrows.gif) top left no-repeat; padding:0 0 0 18px}
+#content .right .sidenav ul li a:hover {color:#3c679b;}
+#content .right .sidenav ul li .active {color:#3c679b; background:url(../images/sidenav-arrows.gif) 0 -11px no-repeat;}
+#content .right .sidenav .footer {background:url(../images/sidenav-footer-bg.gif) top left no-repeat; height:25px; width:300px;}
+
+/* Commitment Callout */
+#content .right .commitment {background:url(../images/sidebar-post-it.jpg) top left no-repeat; padding:10px 0 50px 115px; color:#464646;}
+#content .right .commitment h3 {color:#0b56a4; font-size:18px; text-transform:uppercase; padding:0 0 0 0;}
+#content .right .commitment a {color:#3774b4; font-size:12px; text-decoration:none;}
+#content .right .commitment a:hover {text-decoration:underline;}
+#content .right .commitment p {color:#464646;}
+
+/* Testimonial Callout */
+#content .right .testimonial {}
+#content .right .testimonial h3 {color:#0b56a4; font-size:18px; border-bottom:1px solid #bebebe; padding:0 0 2px 0; margin:0 0 10px 0;}
+#content .right .testimonial .quote {background:url(../images/testimonial-bg.jpg) top left no-repeat; width:250px; height:185px; padding:15px 25px 15px 25px; color:#3f3f3f; font-size:11px; font-style:italic; line-height:22px;}
+#content .right .testimonial .quote strong {display:block; text-align:right; padding-top:10px;}
+
+/* Footer */
+#footer-wrap {background:url(../images/footer-bg.jpg) top left repeat-x; }
+#footer-container {position:relative; margin:0 auto; width:980px; text-align:left;}
+
+#footer {background:url(../images/footer-seal.png) top left no-repeat; padding:0 0 0 90px; width:890px; height:200px;}
+#footer ul {display:block; height:25px; padding:35px 0 0 0;}
+#footer ul li {float:left; padding:0 25px 0 0;}
+#footer ul li a {color:#5e849b; font-size:11px; font-weight:bold; text-transform:uppercase; text-decoration:none;}
+#footer ul li a:hover {text-decoration:underline;}
+#footer p {color:#3b5672; font-size:12px; line-height:18px;}
+
+#employee {float:right; width:365px; background:url(../images/employee-access-tab.png) top left no-repeat;}
+#employee .buttons {display:none; padding:20px 0 0 72px; margin:0;}
+#employee .buttons a {display:block; height:44px; float:left; text-indent:-9999px;}
+#employee .buttons .webmail {width:112px; background:url(../images/employee-access-buttons.png) top left no-repeat;}
+#employee .buttons .webmail:hover {background:url(../images/employee-access-buttons.png) 0 -44px no-repeat;}
+#employee .buttons .deltek {width:112px; background:url(../images/employee-access-buttons.png) top right no-repeat;}
+#employee .buttons .deltek:hover {background:url(../images/employee-access-buttons.png) -111px -44px no-repeat;}
+#employee .employee-access {display:block; width:255px; height:27px; text-indent:-9999px; background:url(../images/employee-access-btn.gif) top left no-repeat; margin:20px 0 15px 55px;}
+#employee .employee-access:hover {background:url(../images/employee-access-btn.gif) 0 -27px no-repeat;}
+
+
+input.equation {float:left; font-size:32px; color:#3774B4; background: #fff; border: 1px solid #999;  font-family:Arial; font-weight:bold; text-align:center; width:55px; margin-left:10px;}
+form label.error, label.error{color:red; padding:5px 0 5px 0; font-size:11px; display:block;}
+input.error,select.error,textarea.error{border:1px solid #3774B4;}
+
+.spanclass {float:left; display:block; width:130px; text-align:center; font-size:36px; color:#3774B4;font-family:Arial;}
+p.contactform {padding:0px 0 0 0; color:#6286aa;}
+
+div.security {width:500px; height:70px; padding:0px 0 0 0px;}
+div.security label {clear:left; margin:25px 0 0 0;}
+div.right h5 {font-size:18px; line-height:24px; background:#283b4e; padding:15px; margin-bottom:200px;}

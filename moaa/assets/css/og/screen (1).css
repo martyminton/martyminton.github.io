@@ -1,0 +1,498 @@
+/*Start Reset*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+
+html { line-height: 1; font-size: 62.5%; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+div, span, ul, li, fieldset, input, textarea, blockquote { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+ul { list-style: none; }
+
+td, th { vertical-align: top; }
+
+a { text-decoration: none; }
+
+table { border-collapse: separate; border-spacing: 0; }
+
+caption, th, td { text-align: left; font-weight: normal; }
+
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+
+blockquote, q { quotes: "" ""; }
+
+strong, b { font-weight: bold; }
+
+em, i { font-style: italic; }
+
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+/* change colours to suit your needs */
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* change border colour to suit your needs */
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #cccccc; margin: 1em 0; padding: 0; }
+
+input, select { vertical-align: middle; outline: none; }
+
+textarea { outline: none; }
+
+/*End Reset*/
+.skip { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; width: 600px; color: #FFF; }
+.skip:focus, .skip:active { position: static; width: auto; height: auto; left: 0px; margin-right: 10px; }
+
+.noreveal:focus, .noreveal:active { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; width: 600px; color: #FFF; }
+
+.access { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.forPrint { display: none; }
+
+button, input[type="submit"] { cursor: pointer; }
+
+/* functions */
+strong, b { font-family: 'Minion W08 Bold'; }
+
+/*layout styles*/
+body { background: url(/assets/images/layout/moaa_bg.jpg) repeat; overflow-x: hidden; }
+
+.contain { max-width: 1240px; min-width: 1000px; position: relative; margin: auto; padding: 20px; }
+
+section { position: relative; width: 100%; min-width: 1050px; }
+section .background { position: absolute; top: 0; right: 0; left: 0; bottom: 0; }
+
+.border-left, .border-right { position: absolute; top: 0; bottom: 0; width: 67px; z-index: 1; }
+
+.border-left { left: 0; background: url(/assets/images/layout/leftborder.png); }
+
+.border-right { right: 0; background: url(/assets/images/layout/rightborder.png); }
+
+/*home*/
+section#home { height: 1145px; background: url(/assets/images/layout/intro_splashimage.jpg) no-repeat; background-size: cover; background-position: 50% 0; }
+section#home .contain { z-index: 6; overflow: hidden; }
+section#home img.logo { margin: 302px auto 0; display: block; position: relative; z-index: 1; opacity: 0; }
+section#home h2 { opacity: 0; }
+section#home h1 { width: 100%; text-align: center; padding: 20px 0; position: relative; z-index: 1; opacity: 0; }
+section#home .scroll-down { width: 175px; padding: 70px 0; text-align: center; margin: 87px auto 0; font-size: 17px; font-size: 1.7rem; color: #fff; position: relative; z-index: 1; background: url(/assets/images/layout/intro_scrolllines.png) no-repeat 0 0; height: 186px; text-transform: uppercase; position: relative; top: -60px; opacity: 0; }
+section#home .scroll-down a { display: block; width: 99%; padding: 15px 0; color: #fff; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+section#home .scroll-down a:hover { background: rgba(0, 0, 0, 0.2); -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+section#home .year { position: relative; top: -600px; width: 100%; text-align: center; z-index: -1; opacity: 0; }
+section#home .sun { background: url(/assets/images/layout/intro_sun.png) no-repeat 0 0; width: 100px; height: 100px; position: absolute; right: 360px; top: 770px; opacity: .3; background-size: 100%; }
+section#home .sun-glare { background: url(/assets/images/layout/intro_sunglow.png) no-repeat 0 0; width: 1027px; height: 193px; position: absolute; right: -110px; top: 730px; }
+section#home .clouds { width: 100%; height: 100%; background: url(/assets/images/layout/intro_clouds.png) no-repeat -300px 0; position: absolute; top: 0; }
+section#home .night { position: absolute; top: 0; right: 0; left: 0; bottom: 0; background: #000; z-index: 5; opacity: 0; }
+
+/*president*/
+section#president { height: 1442px; background: url(/assets/images/layout/presidentletter_bg.jpg) no-repeat; background-size: cover; background-position: 50% 0; }
+section#president h3 { float: right; clear: right; width: 300px; margin-right: 100px; }
+section#president h3.first { margin-top: 169px; }
+section#president h3.last { margin-bottom: 10px; }
+section#president p { width: 300px; position: relative; float: right; clear: right; margin-right: 100px; }
+section#president #moaa_presidentletter_signature { width: 162px; position: relative; float: right; clear: right; margin-right: 240px; }
+section#president blockquote { float: right; clear: right; width: 800px; margin-right: 100px; margin-top: 20px; margin-bottom: 20px; }
+
+/*advocacy*/
+section#advocacy { height: 3122px; text-align: center; }
+section#advocacy .background { background: url(/assets/images/layout/advocacy_background.jpg) no-repeat 50% 0; }
+section#advocacy h3 { text-align: left; }
+section#advocacy h3.first { margin-top: 380px; color: #fff; width: 100%; text-align: center; }
+section#advocacy h3.sub-title { color: #fff; width: 100%; text-align: center; margin-top: 25px; }
+section#advocacy p { width: 455px; color: #c3c3c3; margin: 0 auto; text-align: left; }
+section#advocacy ul { width: 455px; }
+section#advocacy a.btn { margin: 50px auto; }
+section#advocacy blockquote { width: 840px; margin: 40px auto; }
+section#advocacy blockquote cite { color: #c3c3c3; }
+section#advocacy blockquote:after { right: 324px; bottom: 95px; }
+section#advocacy .svg { position: relative; margin-top: 78px; z-index: 1; }
+section#advocacy .svg:before { position: absolute; top: 0; left: 50%; width: 17px; height: 22px; margin-left: -8.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 0 0; }
+section#advocacy .svg:after { position: absolute; bottom: 0; left: 50%; width: 18px; height: 22px; margin-left: -8.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; }
+
+section#education { height: 1660px; }
+section#education .contain { height: 100%; }
+section#education .background { background: url(/assets/images/layout/educationalassistance_background.jpg) no-repeat 50% 0; top: -250px; }
+section#education #education-number { display: block; min-height: 117px; }
+section#education #Layer_122 { position: absolute; top: 1557px; left: 867px; z-index: 2; }
+section#education #education-main-number { position: relative; letter-spacing: -26px; display: block; min-width: 310px; }
+section#education #education-main-number:after { position: absolute; top: 0; left: -135px; content: "$"; }
+section#education h3 { margin: 0px 0 0 200px; width: 400px; color: #fff; }
+section#education h3.first { margin-top: 348px; }
+section#education h3.last { margin-top: 30px; }
+section#education p { width: 450px; color: #c3c3c3; margin: 0 0 20px 200px; }
+section#education a.btn { margin: 35px 0 0 230px; }
+section#education .very-large-2 { position: absolute; top: 124px; left: 467px; }
+section#education .sub-very-large { position: absolute; top: 180px; left: 741px; width: 175px; }
+section#education .sub-very-large span.title { font-size: 45px; font-size: 4.5rem; color: #fff; display: block; }
+section#education .sub-very-large p { color: #c3c3c3; width: 100%; margin: 0; text-transform: uppercase; }
+section#education .sub-very-large #moaa_educationalassistance_coins { min-height: 120px; width: 105px; }
+section#education #moaa_educational_line { min-height: 236px; width: 68px; position: absolute; left: 800px; top: 410px; min-width: 75px; min-height: 237px; }
+section#education #moaa_educational_line.animation-top:before { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#education #moaa_educational_line.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#education #moaa_educational_line:before { position: absolute; top: 0; left: 50%; width: 17px; height: 22px; margin-left: -33.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 0 0; opacity: 0; }
+section#education #moaa_educational_line:after { position: absolute; bottom: 0; left: 50%; width: 18px; height: 22px; margin-left: 14.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 0; }
+section#education #moaa_educationalassistance_gradcap { width: 151px; height: 70px; position: absolute; left: 784px; top: 668px; }
+section#education .number-count { position: absolute; left: 750px; top: 728px; width: 260px; display: block; min-height: 139px; }
+section#education .number-count p { margin: 0; text-transform: uppercase; width: 100%; text-align: center; }
+section#education #line-box { position: absolute; top: 908px; left: 194px; }
+section#education #line-box.animation-top:before { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#education #line-box:before { position: absolute; top: 6px; left: 100%; width: 17px; height: 22px; margin-left: -25.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 0 0; opacity: 0; }
+section#education blockquote { position: absolute; width: 790px; color: #fff; top: 1046px; left: 202px; background: url(/assets/images/layout/educationalassistnce_quoteboxshadow.png) no-repeat 0 0; line-height: 48px; padding: 50px 65px; letter-spacing: 0; }
+section#education blockquote cite { text-align: right; padding-right: 42px; display: block; box-sizing: border-box; padding-top: 5px; color: #c3c3c3; }
+section#education blockquote:before { top: 52px; left: 35px; }
+section#education blockquote:after { bottom: 122px; }
+
+section#discounts { height: 2684px; margin-top: 300px; }
+section#discounts h3 { color: #fff; }
+section#discounts h3.first { margin-top: 276px; margin-left: 195px; }
+section#discounts h3.last { margin-left: 195px; margin-top: 26px; margin-bottom: 30px; }
+section#discounts p { color: #c3c3c3; margin-left: 195px; width: 440px; }
+section#discounts p img { display: block; margin: 0 auto 20px; }
+section#discounts p.col-1 { width: 200px; float: left; }
+section#discounts p.col-1 img { margin: 0 auto 55px; }
+section#discounts p.col-2 { width: 220px; margin-left: 50px; float: left; }
+section#discounts .background { background: url(/assets/images/layout/discounts_background.jpg) no-repeat 50% 0; }
+section#discounts a.btn { margin: 47px 320px 0; z-index: 1; }
+section#discounts #continous-line { position: absolute; top: -569px; right: 312px; }
+section#discounts .very-large-2 { top: 556px; left: 440px; position: absolute; }
+section#discounts .members { position: absolute; top: 760px; left: 730px; width: 200px; color: #fff; font-size: 45px; font-size: 4.5rem; }
+section#discounts #Layer_5 { position: absolute; top: 668px; left: 96px; }
+section#discounts .svg, section#discounts .content { float: left; }
+section#discounts ul { margin: 101px 0 0 96px; width: 925px; height: 790px; padding: 65px 59px; position: relative; z-index: 1; }
+section#discounts ul li { width: 100%; clear: both; height: 196px; margin-bottom: 63px; }
+section#discounts ul li a { color: #e74848; }
+section#discounts ul li.right .svg { float: right; margin-top: 10px; }
+section#discounts ul li.right .content { margin-left: 165px; width: 460px; padding-top: 13px; }
+section#discounts ul li.right .content p { width: 100%; }
+section#discounts ul li.last .content { padding-top: 24px; }
+section#discounts .content { margin-left: 44px; margin-top: 4px; width: 600px; }
+section#discounts .content p { margin: 0; width: 82%; }
+section#discounts #layer-5-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#discounts #layer-5-wrapper:after { position: absolute; top: 3101px; left: 928px; width: 18px; height: 22px; margin-left: -52.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 1; z-index: 1; }
+
+section#insurance { height: 2000px; padding-top: 261px; }
+section#insurance .background { background: url(/assets/images/layout/othernews_insurance_bg.jpg) no-repeat 50% 0; z-index: -1; top: 460px; }
+section#insurance #Layer_7 { left: 810px; position: absolute; top: 640px; }
+section#insurance #insurance-percentage span { position: relative; letter-spacing: -10px; }
+section#insurance .rain { height: 400px; width: 570px; position: absolute; left: 0px; top: 50px; overflow: hidden; }
+section#insurance .rain .drop { position: absolute; opacity: 0; top: -300px; }
+section#insurance .rain .drop.one { /*top: 21px;*/ left: 370px; }
+section#insurance .rain .drop.two { left: 457px; /*top: 45px;*/ }
+section#insurance .rain .drop.three { left: 281px; /*top: 91px;*/ }
+section#insurance .rain .drop.four { left: 367px; /*top: 101px;*/ }
+section#insurance .rain .drop.five { left: 215px; /*top: 191px;*/ }
+section#insurance .rain .drop.six { left: 603px; /*top: 42px;*/ }
+section#insurance .rain .drop.seven { left: 572px; /*top: 63px;*/ }
+section#insurance .rain .drop.eight { left: 424px; /*top: 130px;*/ }
+section#insurance .rain .drop.nine { left: 300px; /*top: 152px;*/ }
+section#insurance .rain .drop.ten { left: 594px; /*top: 113px;*/ }
+section#insurance .rain .drop.eleven { left: 545px; /*top: 159px;*/ }
+section#insurance .rain .drop.twelve { left: 401px; /*top: 187px;*/ }
+section#insurance .rain .drop.thirteen { left: 484px; /*top: 202px;*/ }
+section#insurance .rain .drop.fourteen { left: 250px; /*top: 238px;*/ }
+section#insurance .rain .drop.fithteen { left: 340px; /*top: 217px;*/ }
+section#insurance .rain .drop.sixteen { left: 600px; /*top: 238px;*/ }
+section#insurance #moaa_insurance_umbrella { position: absolute; left: 229px; top: 231px; }
+section#insurance .very-large-2 { position: absolute; left: 500px; top: 251px; }
+section#insurance h3 { color: #fff; }
+section#insurance h3.first { margin-top: 473px; margin-left: 192px; }
+section#insurance h3.last { margin-left: 196px; margin-top: 25px; }
+section#insurance p { color: #747474; margin-left: 195px; margin-top: 4px; width: 430px; }
+section#insurance p.recommend { position: absolute; top: 530px; left: 520px; text-transform: uppercase; text-align: center; width: 220px; }
+section#insurance a.btn { margin-left: 195px; margin-top: 27px; }
+section#insurance #layer-7-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#insurance #layer-7-wrapper:before { position: absolute; top: 618px; left: 807px; width: 18px; height: 22px; margin-left: 12.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px 0px; opacity: 1; z-index: 1; }
+
+section#career { height: 2500px; margin-top: -180px; }
+section#career #Layer_8 { position: absolute; left: 667px; top: 254px; }
+section#career h3 { color: #fff; }
+section#career h3.first { margin-top: 320px; margin-left: 194px; }
+section#career h3.last { margin-left: 194px; margin-top: 32px; }
+section#career p { color: #747474; margin-left: 194px; margin-left: 194px; margin-top: 4px; width: 410px; }
+section#career ul { margin-left: 194px; width: 400px; }
+section#career a.btn { margin-left: 353px; margin-top: 52px; z-index: 1; }
+section#career .two { position: absolute; left: 670px; top: 254px; width: 330px; height: 294px; background: url(/assets/images/layout/careers_careerfairboxshadow.png) no-repeat 0 0; }
+section#career .two .very-large-2 { opacity: 1; text-align: center; line-height: 264px; }
+section#career .two p { text-transform: uppercase; text-align: center; width: 100%; margin: 0; margin-top: -14px; }
+section#career .two .svg { position: absolute; top: 80px; left: 70px; z-index: -1; }
+section#career .three { position: absolute; left: 670px; top: 549px; width: 330px; height: 294px; }
+section#career .three .very-large-2 { opacity: 1; text-align: center; line-height: 264px; }
+section#career .three p { text-transform: uppercase; text-align: center; width: 100%; margin: 0; margin-top: -14px; }
+section#career .three .svg { position: absolute; top: 80px; left: 70px; z-index: -1; }
+section#career .four { position: absolute; left: 670px; top: 843px; width: 330px; height: 287px; background: url(/assets/images/layout/careers_careerfairboxshadow.png) no-repeat 0 0; }
+section#career .four .very-large-2 { opacity: 1; text-align: center; line-height: 264px; }
+section#career .four p { text-transform: uppercase; text-align: center; width: 100%; margin: 0; margin-top: -14px; }
+section#career .four .svg { position: absolute; top: 80px; left: 70px; z-index: -1; }
+section#career blockquote { width: 670px; margin-left: 122px; margin-top: 64px; color: #fff; }
+section#career blockquote cite { width: 100%; text-align: right; padding-right: 30px; display: block; box-sizing: border-box; padding-top: 27px; }
+section#career blockquote:after { bottom: 84px; right: 186px; }
+section#career #Layer_9 { top: 1129px; left: 49px; position: absolute; }
+section#career #Layer_10 { top: 1745px; left: 50px; position: absolute; }
+
+section#printmedia { height: 2920px; }
+section#printmedia h3 { color: #fff; }
+section#printmedia h3.first { margin-top: 490px; margin-left: 153px; }
+section#printmedia h3.last { margin-left: 153px; margin-top: 27px; }
+section#printmedia p { color: #747474; margin-left: 153px; width: 770px; margin-top: 0; }
+section#printmedia #moaa_printdigital_bookcase { margin: 57px 0 0 180px; width: 656px; display: block; }
+section#printmedia .bookshelf { position: absolute; left: 245px; top: 753px; display: none; }
+section#printmedia a.btn { margin: 55px 0 0 447px; position: relative; z-index: 1; }
+section#printmedia blockquote { color: #fff; width: 940px; margin-left: 49px; margin-top: 75px; padding: 60px 140px; background: url(/assets/images/layout/printdigital_quoteboxshadow.png) no-repeat 0 0; }
+section#printmedia blockquote cite { text-align: right; display: block; padding-right: 0; padding-top: 20px; }
+section#printmedia blockquote:before { left: 115px; top: 58px; }
+section#printmedia blockquote:after { right: 626px; bottom: 140px; }
+section#printmedia #Layer_11 { position: absolute; left: 43px; top: 414px; }
+section#printmedia #Layer_12 { position: absolute; left: 31px; top: 1771px; }
+section#printmedia #layer-12-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#printmedia #layer-12-wrapper:after { position: absolute; top: 2915px; left: 583px; width: 18px; height: 22px; margin-left: -54.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 1; z-index: 1; }
+
+section#chapters { height: 1750px; }
+section#chapters .background { background: url(/assets/images/layout/chapters_usamap.jpg) no-repeat 50% 0; }
+section#chapters .map { position: relative; width: 100%; }
+section#chapters .map .bullet { position: absolute; background: url(/assets/images/layout/map-bullet.png) no-repeat 0 0; height: 18px; width: 18px; }
+section#chapters .map .bullet-1 { left: 150px; top: 150px; }
+section#chapters .map .bullet-2 { left: 80px; top: 190px; }
+section#chapters .map .bullet-3 { left: 120px; top: 190px; }
+section#chapters .map .bullet-4 { left: 220px; top: 250px; }
+section#chapters .map .bullet-5 { left: 100px; top: 400px; }
+section#chapters .map .bullet-6 { left: 270px; top: 340px; }
+section#chapters .map .bullet-7 { left: 0px; top: 290px; }
+section#chapters .map .bullet-8 { left: 50px; top: 470px; }
+section#chapters .map .bullet-9 { left: 440px; top: 190px; }
+section#chapters .map .bullet-10 { left: 240px; top: 620px; }
+section#chapters .map .bullet-11 { right: 150px; top: 270px; }
+section#chapters .map .bullet-12 { right: 350px; top: 260px; }
+section#chapters .map .bullet-13 { right: 430px; top: 589px; }
+section#chapters .map .bullet-14 { right: 220px; top: 488px; }
+section#chapters .map .bullet-15 { right: 100px; top: 400px; }
+section#chapters .map .bullet-16 { right: 270px; top: 380px; }
+section#chapters .map .bullet-17 { right: 60px; top: 290px; }
+section#chapters .map .bullet-18 { right: 430px; top: 470px; }
+section#chapters .map .bullet-19 { right: 440px; top: 250px; }
+section#chapters .map .bullet-20 { right: 240px; top: 620px; }
+section#chapters #Layer_891 { position: absolute; z-index: 1; left: 545px; top: 719px; }
+section#chapters h3 { color: #fff; text-transform: uppercase; }
+section#chapters h3.first { margin-top: 369px; margin-left: 196px; }
+section#chapters h3.last { margin-left: 196px; margin-top: 17px; }
+section#chapters p { margin-left: 196px; color: #747474; width: 480px; }
+section#chapters ul { margin-left: 196px; margin-top: 77px; }
+section#chapters ul h3 { margin-bottom: 13px; }
+section#chapters a.btn { margin-left: 198px; margin-top: 44px; }
+section#chapters #Layer_001 { position: absolute; top: 810px; left: 870px; z-index: 10; }
+section#chapters .very-large-2 { position: absolute; }
+section#chapters .very-large-2.top { top: 144px; left: 340px; }
+section#chapters .members { font-size: 45px; font-size: 4.5rem; position: absolute; top: 373px; left: 700px; color: #fff; }
+section#chapters .number-count { position: absolute; left: 800px; width: 240px; top: 520px; text-align: center; }
+section#chapters .number-count span { display: block; float: left; }
+section#chapters .number-count span#plus { font-size: 50px; font-size: 5rem; padding-top: 36px; padding-left: 10px; }
+section#chapters .number-count p { margin: 0; width: 71%; text-transform: uppercase; }
+section#chapters #Layer_14 { position: absolute; top: 667px; right: 120px; }
+section#chapters #layer-891-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#chapters #layer-891-wrapper:before { position: absolute; top: 713px; left: 931px; width: 18px; height: 22px; margin-left: -59.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px 0px; opacity: 1; z-index: 1; }
+section#chapters #layer-891-wrapper:after { position: absolute; top: 4780px; left: 583px; width: 18px; height: 22px; margin-left: -29.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 1; z-index: 1; }
+
+section#spouse { height: 2780px; }
+section#spouse .background { background: url(/assets/images/layout/spouses_background.jpg) no-repeat 50% 0; }
+section#spouse #Layer_2211 { position: absolute; top: 592px; left: 78px; }
+section#spouse #Layer_9871 { position: absolute; top: 1845px; left: 549px; }
+section#spouse #Layer_6541 { position: absolute; top: 1248px; left: 550px; }
+section#spouse .content { background: url(/assets/images/layout/spouse-quoteboxshadow.png) no-repeat 0 0; margin-top: 580px; margin-left: 70px; padding: 71px 63px; }
+section#spouse .content h3 { color: #fff; }
+section#spouse .content h3.last { margin-top: 13px; }
+section#spouse .content p { color: #747474; width: 382px; margin-top: 0px; }
+section#spouse .content a.btn { margin-top: 46px; z-index: 1; }
+section#spouse blockquote { width: 820px; margin-left: 128px; margin-top: 57px; color: #fff; letter-spacing: 0px; }
+section#spouse blockquote cite { float: right; width: 546px; text-align: left; line-height: 24px; }
+section#spouse blockquote:after { bottom: 12px; right: 46px; }
+
+sup { font-size: 10px; font-size: 1rem; vertical-align: super; position: relative; }
+
+section#voices { height: 1050px; }
+section#voices h3 { color: #fff; margin-top: 502px; margin-left: 195px; position: relative; }
+section#voices h3 sup { font-size: 20px; font-size: 2rem; vertical-align: super; position: relative; top: -8px; }
+section#voices p { color: #747474; margin-left: 195px; width: 460px; }
+section#voices .members { font-size: 45px; font-size: 4.5rem; position: absolute; top: 513px; right: 203px; color: #fff; }
+section#voices .very-large-2 { position: absolute; top: 283px; right: 230px; }
+section#voices #Layer_19 { position: absolute; top: 1050px; left: 607px; z-index: 1; }
+section#voices #moaa_voices_infantry { position: absolute; left: 450px; top: 596px; }
+section#voices #layer-19-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#voices #layer-19-wrapper:before { position: absolute; top: 1042px; left: 670px; width: 18px; height: 22px; margin-left: -56.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px 0px; opacity: 1; z-index: 1; }
+section#voices #layer-19-wrapper:after { position: absolute; top: 2205px; left: 583px; width: 18px; height: 22px; margin-left: 30.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 1; z-index: 1; }
+
+section#vso { height: 1665px; }
+section#vso .background { background: url(/assets/images/layout/vso_background.jpg) no-repeat 50% bottom; }
+section#vso h3 { color: #fff; margin-top: 1212px; margin-left: 265px; position: relative; }
+section#vso p { color: #747474; margin-left: 265px; width: 460px; }
+section#vso #Layer_129 { position: absolute; top: 1630px; left: 607px; z-index: 1; }
+section#vso #layer-129-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#vso #layer-129-wrapper:before { position: absolute; top: 1622px; left: 669px; width: 18px; height: 22px; margin-left: -56.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px 0px; opacity: 1; z-index: 1; }
+section#vso #layer-129-wrapper:after { position: absolute; top: 2785px; left: 582px; width: 18px; height: 22px; margin-left: 30.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px -32px; opacity: 1; z-index: 1; }
+
+section#bignews { height: 2230px; margin-top: -50px; }
+section#bignews .background { background: url(/assets/images/layout/othernews_insurance_bg.jpg) no-repeat 50% 410px, url(/assets/images/layout/othernews_stars.png) no-repeat 50% 2070px; }
+section#bignews .airplane { background: url(/assets/images/layout/othernews_fighterjet.png) no-repeat 0 0; width: 101px; height: 537px; position: absolute; }
+section#bignews .airplane.airplane-1 { top: 1030px; left: 339px; }
+section#bignews .airplane.airplane-2 { top: 929px; left: 447px; }
+section#bignews .airplane.airplane-3 { top: 820px; left: 559px; }
+section#bignews .airplane.airplane-4 { top: 930px; left: 679px; }
+section#bignews .airplane.airplane-5 { top: 1030px; left: 802px; }
+section#bignews #moaa_othernews_flagbackground { position: absolute; top: 1230px; left: 50%; margin-left: -442.5px; }
+section#bignews #moaa_othernews_badge { position: absolute; top: 1388px; left: 50%; margin-left: -164px; }
+section#bignews #moaa_othernews_banners { position: absolute; top: 1420px; left: 13%; margin-left: -50px; }
+section#bignews #moaa_othernews_banners_2 { position: absolute; top: 1420px; left: 71%; margin-left: -59px; }
+section#bignews #firework-1 { width: 310px; position: absolute; top: 810px; left: 710px; 		/*.path {
+		  stroke-dasharray: 50;
+		  //stroke-dashoffset: 1000;
+		  animation: dash 5s linear;
+		}
+
+		@keyframes dash {
+		  to {
+		    stroke-dashoffset: 1000;
+		  }
+		}*/ }
+section#bignews #firework-2 { width: 520px; position: absolute; top: 810px; left: 80px; 		/*.path {
+			stroke-dasharray: 1000;
+			stroke-dashoffset: 1000;
+			animation: dash 5s linear alternate infinite;
+		}
+
+		@keyframes dash {
+			from {
+				stroke-dashoffset: 1000;
+				}
+			to {
+				stroke-dashoffset: 0;
+			}
+		}*/ }
+section#bignews .content { position: absolute; top: 1740px; left: 50%; margin-left: -298px; width: 600px; z-index: 1; display: none; }
+section#bignews .content h3 { color: #fff; text-align: center; }
+section#bignews .content h3.last { margin-top: 20px; }
+section#bignews .content p { color: #747474; text-align: center; }
+section#bignews .content a.btn { margin-left: 173px; margin-top: 29px; }
+section#bignews .content .large-number { position: absolute; top: -301px; left: 271px; }
+section#bignews .content .large-number:before { position: absolute; top: 13px; left: -13px; content: "#"; width: 30px; height: 30px; color: #747474; font-size: 45px; font-size: 4.5rem; }
+
+section#survey { height: 4166px; }
+section#survey #Layer_20 { position: absolute; top: 0; left: 300px; }
+section#survey #Layer_7251 { position: absolute; top: 13px; left: 200px; z-index: -1; }
+section#survey h3 { color: #fff; }
+section#survey h3.first { margin-top: 551px; margin-left: 390px; width: 400px; text-align: center; }
+section#survey h3.last { margin-left: 427px; margin-top: 22px; }
+section#survey p { color: #747474; margin-left: 445px; text-align: center; width: 320px; margin-top: 3px; }
+section#survey p.deadline { width: 350px; padding-top: 10px; }
+section#survey #moaa_survey_ipad { position: absolute; top: 770px; left: 580px; }
+section#survey #moaa_survey_plussymbol { position: absolute; top: 788px; left: 741px; }
+section#survey #moaa_survey_hotel { position: absolute; top: 768px; left: 411px; }
+section#survey a.btn { margin-left: 508px; margin-top: 204px; }
+section#survey .building { font-size: 12px; font-size: 1.2rem; color: #FFFFFF; position: absolute; top: 888px; left: 416px; text-align: center; width: 120px; }
+section#survey .ipad { font-size: 12px; font-size: 1.2rem; color: #FFFFFF; position: absolute; top: 888px; left: 558px; text-align: center; width: 120px; }
+section#survey .plus { font-size: 12px; font-size: 1.2rem; color: #FFFFFF; position: absolute; top: 888px; left: 706px; text-align: center; width: 120px; }
+section#survey iframe { margin-top: 100px; opacity: 0; }
+section#survey #layer-7251-wrapper.animation-bottom:after { -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; opacity: 1; }
+section#survey #layer-7251-wrapper:before { position: absolute; top: 0; left: 664px; width: 18px; height: 22px; margin-left: -56.5px; content: ""; background: url(/assets/images/layout/airplane-sm.png) no-repeat 1px 0px; opacity: 1; z-index: 1; }
+
+.table { display: table; width: 100%; height: 100%; }
+.table .vertical-align { vertical-align: middle; display: table-cell; }
+
+nav { position: fixed; top: 0; bottom: 0; z-index: 10; width: 300px; opacity: 0; left: -300px; }
+nav .social { position: absolute; top: 50px; left: 0; width: 52px; }
+nav .social .social-container { position: absolute; top: 0px; left: -172px; background: rgba(158, 45, 40, 0.6); height: 50px; width: 100px; -moz-transition: left, 0.3s; -o-transition: left, 0.3s; -ms-transition: left, 0.3s; -webkit-transition: left, 0.3s; transition: left, 0.3s; z-index: -1; }
+nav .social .social-container a { text-indent: -9999px; padding: 0px; display: block; float: left; height: 20px; width: 50%; height: 100%; position: relative; }
+nav .social .social-container a#facebook:before { width: 10px; position: absolute; top: 50%; margin-top: -10px; left: 50%; margin-left: -5px; bottom: 0; right: 0; content: ""; height: 20px; background: url(/assets/images/layout/shareicons.png) no-repeat 0 0; }
+nav .social .social-container a#twitter:before { width: 24px; position: absolute; top: 50%; margin-top: -10px; left: 50%; bottom: 0; right: 0; content: ""; height: 20px; margin-left: -12px; background: url(/assets/images/layout/shareicons.png) no-repeat -10px 0; }
+nav .social a, nav .social div { display: block; width: 100%; padding: 15px 10px; text-transform: uppercase; color: #fff; font-size: 11px; font-size: 1.1rem; text-align: center; background: rgba(158, 45, 40, 0.6); margin-bottom: 1px; height: 20px; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+nav .social a:hover, nav .social a:focus, nav .social div:hover, nav .social div:focus { background: #9e2d28; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+nav .social a.share, nav .social div.share { padding-top: 20px; padding-bottom: 30px; width: 72px; position: relative; z-index: 1; }
+nav .social a.share:hover, nav .social div.share:hover { cursor: pointer; }
+nav .social a.share:hover .social-container, nav .social div.share:hover .social-container { left: 72px; -moz-transition: left, 0.3s; -o-transition: left, 0.3s; -ms-transition: left, 0.3s; -webkit-transition: left, 0.3s; transition: left, 0.3s; }
+nav .background { width: 52px; background: url(/assets/images/layout/nav-bg.png) repeat 0 0; height: 100%; }
+nav ul { position: absolute; left: 0; top: 150px; }
+nav ul li { margin-bottom: 0px; min-height: 40px; }
+nav ul li.current a { background-image: url(/assets/images/layout/navigation_banner_current.png); background-position: right 0; -moz-transition: background-image, 0.3s; -o-transition: background-image, 0.3s; -ms-transition: background-image, 0.3s; -webkit-transition: background-image, 0.3s; transition: background-image, 0.3s; }
+nav ul li.current a span.short { display: none; }
+nav ul li.current a span.full { display: block; }
+nav ul li.survey a { background-image: url(/assets/images/layout/navigation_banner_hover.png); background-position: right 0; -moz-transition: background-image, 0.3s; -o-transition: background-image, 0.3s; -ms-transition: background-image, 0.3s; -webkit-transition: background-image, 0.3s; transition: background-image, 0.3s; }
+nav ul li.survey span.full { display: block; }
+nav ul li.survey span.short { display: none; }
+nav ul a { display: inline-block; color: rgba(168, 63, 59, 0.5); height: 37px; }
+nav ul a span.full { display: none; text-align: left; padding: 13px 25px 13px 13px; color: #fff; font-size: 13px; font-size: 1.3rem; text-transform: uppercase; font-style: normal; text-shadow: 1px 1px 0px #000; position: relative; }
+nav ul a:hover { background-image: url(/assets/images/layout/navigation_banner_hover.png); background-position: right 0; }
+nav ul a:hover span.full { display: block; }
+nav ul a:hover span.short { display: none; }
+nav ul a span.short { width: 52px; text-align: center; display: block; color: #868686; }
+
+ul.bullet-list li { background: url(/assets/images/layout/bullet.png) no-repeat 0 5px; padding-left: 20px; }
+
+a.btn { display: inline-block; padding: 23px; background: url(/assets/images/layout/btn-red.jpg) no-repeat 0 0; color: #fff; text-shadow: 0px 1px 1px #000; font-size: 17px; font-size: 1.7rem; text-transform: uppercase; text-align: center; position: relative; margin: 0px auto; border: 7px solid #303030; }
+a.btn:hover { opacity: .85; font-weight: normal; }
+
+p { font-size: 16px; font-size: 1.6rem; color: #000; line-height: 22px; margin: 10px 0; }
+p.subpage { margin-bottom: 40px; }
+
+h1 { font-size: 72px; font-size: 7.2rem; color: #fff; text-transform: uppercase; font-weight: normal; }
+
+h2 { font-size: 25px; font-size: 2.5rem; color: #fff; width: 100%; text-align: center; font-weight: normal; }
+
+h3 { font-size: 65px; font-size: 6.5rem; color: #bd160f; text-transform: uppercase; font-weight: normal; }
+h3.sub-title { font-size: 28px; font-size: 2.8rem; }
+
+.very-large { font-size: 466px; font-size: 46.6rem; color: #4f0b0c; opacity: .4; }
+
+.very-large-2 { font-size: 302px; font-size: 30.2rem; color: #fff; opacity: .05; font-weight: normal; letter-spacing: -24px; }
+
+.large-number { font-size: 117px; font-size: 11.7rem; color: #fff; letter-spacing: -6px; }
+
+sub.quote-first-red { background: url(/assets/images/layout/quotes.png) no-repeat 0 0; width: 25px; height: 30px; display: inline-block; }
+
+sub.quote-first { background: url(/assets/images/layout/gray_quotes.png) no-repeat 0 0; width: 25px; height: 30px; display: inline-block; }
+
+sub.quote-last-red { background: url(/assets/images/layout/quotes.png) no-repeat -25px 0; width: 25px; height: 30px; display: inline-block; }
+
+sub.quote-last { background: url(/assets/images/layout/gray_quotes.png) no-repeat -25px 0; width: 25px; height: 30px; display: inline-block; }
+
+blockquote { color: #bd160f; font-size: 40px; font-size: 4rem; position: relative; font-weight: normal; line-height: 46px; 	/*&:before {
+		position: absolute;
+		top: 0;
+		left: -25px;
+		width: 25px;
+		height: 30px;
+		background: url(/assets/images/layout/quotes.png) no-repeat 0 0;
+		content: "";
+	}
+
+	&:after {
+		position: absolute;
+		bottom: 0;
+		right: 276px;
+		width: 25px;
+		height: 30px;
+		background: url(/assets/images/layout/quotes.png) no-repeat -25px 0;
+		content: "";
+	}*/ }
+blockquote.view-2 { color: #fff; 		/*&:before {
+			background: url(/assets/images/layout/gray_quotes.png) no-repeat 0 0;
+		}
+
+		&:after {
+			background: url(/assets/images/layout/gray_quotes.png) no-repeat -25px 0;
+		}*/ }
+blockquote cite { font-family: 'Minion W08 Regular 1167271' !important; text-transform: uppercase; font-size: 17px; font-size: 1.7rem; font-style: normal; display: block; width: 100%; text-align: center; padding-top: 40px; }
+
+ul { margin: 20px auto; text-align: left; }
+ul li { width: 100%; color: #fff; font-size: 19px; font-size: 1.9rem; margin-bottom: 20px; }
+
+h1 { font-family: 'Didot W02 Roman'; }
+
+section#home .scroll-down, section#education .sub-very-large span.title, section#discounts .members, nav ul a, p, .very-large, .very-large-2, .large-number { font-family: 'Minion W08 Regular 1167271'; }
+
+blockquote, ul { font-family: 'Minion W08 Italic'; }
+
+nav .social a, nav .social div, h3 { font-family: 'Gill Sans W04 Light'; }
+
+h2 { font-family: 'Minion W08 It Sbh'; }
+
+/*# sourceMappingURL=screen.css.map */

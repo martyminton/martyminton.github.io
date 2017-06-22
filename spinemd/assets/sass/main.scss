@@ -1,0 +1,191 @@
+@import "grid.scss";
+@import "shortcuts_local.scss";
+@import "site.scss";
+
+@include reset;
+@include fonts;
+html{}
+body{}
+img{max-width:100%;}
+textarea, input{}
+
+button, input[type="submit"]{cursor:pointer;}
+
+
+
+@include base;
+
+
+a{
+	&:hover, &:focus{}
+}
+
+ul.bread_crumbs{ 
+	li{}
+	a{
+		&:hover, &:focus{}
+	}
+}
+
+//.main_content for padding, margin, floats, width etc. Prevents WYGWAM from adding these
+.main_content{}
+
+// content styling
+.mc{
+	a{
+		&:hover, &:focus{}
+	}
+	h1, h2, h3, h4, h5, h6{}
+	h1{}
+	h2{}
+	h3{}
+	h4{}
+	h5{}
+	h6{}
+	
+	ul{ 
+		li{
+			li{}
+		}
+	}
+	
+	ol{
+		li{
+			li{}
+		}
+	}
+	
+	p{}
+	blockquote{
+		p{}
+	}
+	img{
+		&.left, &[align="left"]{ }
+		&.right, &[align="right"]{}
+	}
+	figure{
+		figcaption{}
+	}
+	
+
+	.form_row{}
+	label, .label{}
+	input{
+		&[type="text"]{}
+		&[type="email"]{}
+		&[type="number"]{}
+		&[type="url"]{}
+		&[type="radio"]{}
+		&[type="checkbox"]{}
+	}
+	textarea{}
+
+	table{}
+	thead{
+		th{}
+	}
+	tbody{
+		tr{
+			&:nth-child(odd){
+				td{}
+			}
+			&:nth-child(event){
+				td{}
+			}
+		}
+		td{}
+		th{}
+	}
+	tfoot{
+		td{}
+		th{}
+	}
+}
+
+	
+
+
+
+
+
+.pagination{
+	ul{
+		
+	}
+	li{
+		&.prev, &.next{
+			a{}
+		}
+		&.prev{
+			a{
+				&:hover, &:focus{}
+			}
+		}
+		&.next{
+			a{
+				&:hover, &:focus{}
+			}
+		}
+		&.active{
+			a{}
+		}
+	}
+	a{
+		&:hover, &:focus{}
+	}
+}
+
+
+
+
+.tabs{}
+.theTabs{margin-bottom: -1px; 
+	a{
+		&:hover, &:focus{}
+		&.active{}
+	}
+}
+.tabPane{display: none;}
+.tabPane.activePanel{display:block; 	h3{color:#313131;}
+	
+}
+
+@include clearfix;
+
+
+
+@import "tablet.scss";
+@import "mobile.scss";
+
+
+
+
+@include clearfix;
+
+
+.lt-ie9{
+	
+}
+
+
+
+.no-cssgradients{
+	
+}
+
+
+.lt-ie8{
+	
+}
+
+/* Maintenance */
+// a[href="#"]{color:#F00 !important;}
+// a[href=""] {color: #FF0 !important;}
+// img[alt=""]{border:5px solid #F00 !important;}
+// img[alt="Alt Text"]{border:5px solid #FF0 !important;}
+
+
+/* for WYGWAM */
+body.cke_panel_frame{background:none; font-size:13px;}
+body.wygwam_content{}
+html[contenteditable="true"]{background:none;}

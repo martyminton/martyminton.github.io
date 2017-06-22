@@ -1,0 +1,50 @@
+#feature {width:980px; height:262px; top left no-repeat; overflow:hidden;}
+#pager {position:absolute; top:385px; z-index:100;}
+#pager a {display:block; float:left; width:18px; height:5px; text-indent:-9999px; font-size:0px; background:url(../images/feature-indicators.gif) top left no-repeat; padding-right:5px;}
+#pager a:hover {background:url(../images/feature-indicators.gif) 0 -5px no-repeat;}
+#pager a.activeSlide {background:url(../images/feature-indicators.gif) 0 -10px no-repeat;}
+
+#content {width:980px; height:528px; background:url(../images/content-home-bg.jpg) top left no-repeat;}
+
+#content .left {float:left; width:545px; margin-top:50px; padding:5px 50px 40px 0; border-right:1px solid #d9d9d9; color:#464646; font-size:12px;}
+#content .left h1 {width:232px; height:17px; background:url(../images/h1-welcome-to-psa.gif) -2px 0 no-repeat; padding:0 0 0 0; font-size:1px; text-indent:-9999px;}
+#content .left p {line-height:24px; padding:10px 0 10px 0;}
+
+#content .right {float:left; width:304px; padding:50px 40px 0 40px;}
+#content .right h2 {width:304px; height:42px; background:url(../images/h2-newsfeed.gif) top left no-repeat; font-size:1px; text-indent:-9999px;}
+
+#content .right .news {}
+#content .right .news li {border-bottom:1px solid #d9d9d9; padding:10px 0 10px 0;}
+#content .right .news li h3 {font-weight:bold; color:#ce2323; font-size:12px; padding:0 0 2px 0;}
+#content .right .news li p {font-weight:normal; color:#464646; padding:0 0 5px 0;}
+#content .right .news li a {font-weight:bold; color:#3482ad; font-size:10px; text-transform:uppercase; text-decoration:none;}
+#content .right .news li a:hover {text-decoration:underline;}
+#content .right .news li .date {width:78px; height:59px; background:url(../images/date-square.png) top left no-repeat; float:left; text-align:center; font-weight:bold; color:#0b56a4; font-size:12px; padding:8px 0 0 0;}
+#content .right .news li .date span {display:block; font-size:26px; color:#7d7d7d; font-weight:normal;}
+#content .right .news .last {border:none;}
+
+#content .callouts {width:980px; clear:both; border-top:1px solid #d9d9d9; border-bottom:1px solid #d9d9d9;}
+#content .callouts a {float:left; display:block; text-indent:-9999px; margin:0; padding:0; font-size:1px; color:#f2f2f2;}
+#content .callouts .solutions {width:354px; height:95px; background:url(../images/callout-solutions.png) top left no-repeat;}
+#content .callouts .solutions:hover {background:url(../images/callout-solutions.png) 0 -95px no-repeat;}
+#content .callouts .contracts {width:308px; height:95px; background:url(../images/callout-contracts.png) top left no-repeat;}
+#content .callouts .contracts:hover {background:url(../images/callout-contracts.png) 0 -95px no-repeat;}
+#content .callouts .careers {width:318px; height:95px; background:url(../images/callout-careers.png) top left no-repeat; text-indent:-9999px;}
+#content .callouts .careers:hover {background:url(../images/callout-careers.png) 0 -95px no-repeat;}
+
+#footer {background:url(../images/footer-seal.png) top left no-repeat; padding:0 0 0 90px; width:890px; height:200px;}
+#footer ul {display:block; height:25px; padding:35px 0 0 0;}
+#footer ul li {float:left; padding:0 25px 0 0;}
+#footer ul li a {color:#5e849b; font-size:11px; font-weight:bold; text-transform:uppercase; text-decoration:none;}
+#footer ul li a:hover {text-decoration:underline;}
+#footer p {color:#3b5672; font-size:12px; line-height:18px;}
+
+#employee {float:right; width:365px; background:url(../images/employee-access-tab.png) top left no-repeat;}
+#employee .buttons {display:none; padding:20px 0 0 72px; margin:0;}
+#employee .buttons a {display:block; height:44px; float:left; text-indent:-9999px;}
+#employee .buttons .webmail {width:112px; background:url(../images/employee-access-buttons.png) top left no-repeat;}
+#employee .buttons .webmail:hover {background:url(../images/employee-access-buttons.png) 0 -44px no-repeat;}
+#employee .buttons .deltek {width:112px; background:url(../images/employee-access-buttons.png) top right no-repeat;}
+#employee .buttons .deltek:hover {background:url(../images/employee-access-buttons.png) -111px -44px no-repeat;}
+#employee .employee-access {display:block; width:255px; height:27px; text-indent:-9999px; background:url(../images/employee-access-btn.gif) top left no-repeat; margin:20px 0 15px 55px;}
+#employee .employee-access:hover {background:url(../images/employee-access-btn.gif) 0 -27px no-repeat;}

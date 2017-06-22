@@ -1,0 +1,64 @@
+# Standard .htaccess file
+
+# Secure .htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+# Block access to backup and source files
+# This files may be left by some text/html editors and
+# pose a great security danger, when someone can access them
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+# supress php errors
+# turn off on production
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
+# File Upload size
+#php_value upload_max_filesize 30M
+#php_value post_max_size 30M
+
+# Server Memory and Execution
+#php_value max_execution_time 400
+#php_value max_input_time 400
+#php_value memory_limit 128M
+
+# Don't show any directory without an index file
+Options -Indexes
+
+# Dont list files in index pages
+IndexIgnore *
+
+# EE 404 page for missing pages
+# May differ depending on where your template is located.
+ErrorDocument 404 /index.php?/site/404
+
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Remove the www from the URL
+# You may be able to do this through your web host or you may not need it at all.
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Force the www (not used here but listed for reference)
+# RewriteCond %{HTTP_HOST} !^www\.
+# RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L] 
+
+# Add a trailing slash to paths without an extension
+# Breaks POST 
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+# RewriteRule ^(.*)$ $1/ [L,R=301]
+
+# Remove index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /index.php/$1 [L]

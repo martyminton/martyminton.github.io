@@ -1,0 +1,26 @@
+$layout: "/assets/images/layout/";
+$home: "/assets/images/home/";
+$sub: "/assets/images/sub/";
+$fonts: "/assets/fonts/";
+
+//colors
+
+
+
+// Create global variables
+$base_width:0;
+$number_of_columns:0;
+$gutter_size:0;
+
+@mixin base{
+	$base_width: 984;
+	$number_of_columns: 12;
+	$gutter_size:7;
+}
+
+
+
+@mixin fonts{
+
+	
+}

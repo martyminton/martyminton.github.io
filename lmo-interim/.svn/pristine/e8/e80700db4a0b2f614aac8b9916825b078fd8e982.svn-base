@@ -1,0 +1,78 @@
+@mixin clearfix{
+	.clear_fix:after{ content: ""; display: block; height: 0; clear: both;}
+	.clear_fix{min-height: 1%;}
+}
+
+@mixin box-shadow ($params...){
+  -webkit-box-shadow: $params;
+     -moz-box-shadow: $params;
+          box-shadow: $params;
+}
+
+@mixin br($radius){
+  	border-radius: $radius;
+}
+
+@mixin gv($start, $end){
+  	background: $start; 
+  	background-image: -moz-linear-gradient(top, $start, $end);
+  	background-image: -webkit-gradient(linear, left top, left bottom, from($start), to($end)); 
+  	background-image: -webkit-linear-gradient(top, $start, $end); 
+  	background-image: -o-linear-gradient(top, $start, $end); 
+  	background-image: linear-gradient(top, $start, $end);
+  	background-image: -ms-linear-gradient(top, $start, $end); 
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='$start', endColorstr='$end');
+}
+
+@mixin gh($start, $end){
+  	background: ($start + $end) / 2; 
+  	background-image: -moz-linear-gradient(left, $start, $end); 
+    background-image: -webkit-gradient(linear, left center, right center, from($start), to($end)); 
+  	background-image: -webkit-linear-gradient(left center, right center, from($start), to($end)); 
+  	background-image: -o-linear-gradient(left, $start, $end); 
+  	background-image: linear-gradient(left, $start, $end); 
+  	background-image: -ms-linear-gradient(left, $start, $end); 
+}
+
+@mixin rotate ($deg) {
+  -moz-transform: rotate(#{$deg}deg);
+  -o-transform: rotate(#{$deg}deg);
+  -ms-transform: rotate(#{$deg}deg);
+  -webkit-transform: rotate(#{$deg}deg);
+}
+
+@mixin scale ($size) {
+	-moz-transform: scale(#{$size});
+	-o-transform: scale(#{$size});
+	-ms-transform: scale(#{$size});
+	-webkit-transform: scale(#{$size});
+}
+
+@mixin transition ($value...) {
+  -moz-transition: $value;
+  -o-transition: $value;
+  -ms-transition: $value;
+  -webkit-transition: $value;
+  transition: $value;
+}
+
+@mixin filter ($value...){
+	-moz-filter: $value;
+	-o-filter: $value;
+	-ms-filter: $value;
+	-webkit-filter: $value;
+	filter: $value;
+}
+
+@mixin rem($sizeValue: 1.6){
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin vendorize($property, $value) {
+	-webkit-#{$property}: $value;
+	-moz-#{$property}: $value;
+	-ms-#{$property}: $value;
+	-o-#{$property}: $value;
+	#{$property}: $value;
+}

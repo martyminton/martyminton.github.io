@@ -1,0 +1,634 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="assets/css/min.css" media="screen">
+	<!--<link rel="stylesheet" href="assets/css/print.css" media="print">-->
+	<link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/f55835a9-7ef5-4826-89b6-ca6100bcf158.css"/>
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7229072/631122/css/fonts.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<!--[if lt IE 8]><script src="assets/js/lib/modernizr.custom.33517.js"></script><![endif]-->
+	<title>LMO</title>
+</head>
+<body>
+
+	<header class="default">
+		<div class="contain">
+			<nav>
+				<ul>
+					<li class="family"><a href="#family">Family</a></li>
+					<li class="clients"><a href="#clients">Clients</a></li>
+					<li class="culture"><a href="#culture">Culture</a></li>
+					<li class="opportunities"><a href="#opportunities">We're Hiring</a></li>
+					<li class="contact"><a href="#contact">Say Hello</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section id="home">
+		<div class="contain">
+			<a class="logo">LMO</a>
+			<a class="logo-advertising">Advertising</a>
+			<a class="arrow-down"></a>
+		</div>
+	</section>
+
+	<section id="family">
+		<div class="contain">
+			<div class="content verticalAlign">
+				<h1 class="orange">We Create Demand</h1>
+				<h6 class="white">Because creativity unbound by strategy is art. and we don't sell art.</h6>
+			</div>
+		</div>
+	</section>
+
+	<section id="clients">
+		<div class="contain title">
+			<div class="content verticalAlign title">
+				<h1 class="orange">We build legacies</h1>
+				<h6 class="white">Tactics are great, big ideas are better.</h6>
+				<img src="assets/images/arrow-orange.png" class="arrow" />
+			</div>
+		</div>
+
+		<div class="showcase">
+			<ul class="bxslider">
+				<li id="national-guard" class="inline national-guard active" data-prev-class="na" data-next-class="fvc-bank">
+					<a href="national-guard.php" class="cta modalWindow">What we did for soldier of steel TM</a>
+				</li>
+				<li id="fvc-bank" class="inline fvc-bank" data-prev-class="national-guard" data-next-class="budget">
+					<a href="fvc-bank.php" class="cta modalWindow">What we're doing for fvcbank</a>
+				</li>
+				<li id="budget" class="inline budget" data-prev-class="fvc-bank" data-next-class="na">
+					<a href="budget.php" class="cta modalWindow">What we're doing for avis</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="logos">
+			<div class="title">
+				<div class="contain">
+					<h5 class="lightGrey">Our Clients</h5>
+				</div>
+			</div>
+			<div class="contain">
+				<ul class="client-logos">
+					<li><img src="assets/images/logo-client-air-national-guard.png" /></li>
+					<li><img src="assets/images/logo-client-avis.png" /></li>
+					<li><img src="assets/images/logo-client-big-brother-sisters.png" /></li>
+					<li><img src="assets/images/logo-client-booz-allen-hamilton.png" /></li>
+				</ul>
+
+				<ul class="client-logos">
+					<li><img src="assets/images/logo-client-budget.png" /></li>
+					<li><img src="assets/images/logo-client-bull-frog.png" /></li>
+					<li><img src="assets/images/logo-client-cafb.png" /></li>
+					<li><img src="assets/images/logo-client-fairmont.png" /></li>
+				</ul>
+
+				<ul class="client-logos">
+					<li><img src="assets/images/logo-client-french.png" /></li>
+					<li><img src="assets/images/logo-client-fvcbank.png" /></li>
+					<li><img src="assets/images/logo-client-jordan.png" /></li>
+					<li><img src="assets/images/logo-client-moaa.png" /></li>
+				</ul>
+
+				<ul class="client-logos">
+					<li><img src="assets/images/logo-client-national-guard.png" /></li>
+					<li><img src="assets/images/logo-client-o-team.png" /></li>
+					<li><img src="assets/images/logo-client-radius-travel.png" /></li>
+					<li><img src="assets/images/logo-client-thanks-usa.png" /></li>
+				</ul>
+
+				<ul class="client-logos">
+					<li class="last"><img src="assets/images/logo-client-urban-arias.png" /></li>
+					<li class="last"><img src="assets/images/logo-client-uscg.png" /></li>
+					<li class="last"><img src="assets/images/logo-client-wwff.png" /></li>
+					<li class="last"><img src="assets/images/logo-client-voices-of-america.png" /></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section id="culture">
+		<div class="culture-slideshow">
+			<div class="contain">
+				<div class="content verticalAlign title">
+					<h1 class="white">We Celebrate Culture</h1>
+					<h6 class="mildBlack">Because interesting lives prouce interesting results.</h6>
+				</div>
+			</div>
+			<div class="sliderEdgeLeft"></div>
+			<div class="sliderEdgeRight"></div>
+			<div class="sliderEdgeLeftBottom"></div>
+			<div class="sliderEdgeRightBottom"></div>
+			<ul class="culture-slider">
+				<li>
+					<div class="leftSide photo allison">
+						<span class="desc">
+							<h1 class="orange">Allison</h1>
+							<p>loves traveling and trying the food!</p>
+						</span>
+					</div>
+
+					<div class="photo andrew">
+						<span class="desc">
+							<h1 class="orange">Andrew</h1>
+							<p>serves as commish of the Glover Park Co-ed Softball League.</p>
+						</span>
+					</div>
+
+					<div class="photo ashley last">
+						<span class="desc">
+							<h1 class="orange">Ashley</h1>
+							<p>has been dancing with for over 20 years!</p>
+						</span>
+					</div>
+
+					<div class="leftSide photo becky">
+						<span class="desc">
+							<h1 class="orange">Becky</h1>
+							<p>A copywriter by trade, Becky is an artist at heart.</p>
+						</span>
+					</div>
+
+					<div class="photo blythe">
+						<span class="desc">
+							<h1 class="orange">Blythe</h1>
+							<p>travels around the world collecting ears.</p>
+						</span>
+					</div>
+
+					<div class="photo christi last">
+						<span class="desc">
+							<h1 class="orange">Christi</h1>
+							<p>likes adventures involving speed and the outdoors!</p>
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="leftSide photo chris">
+						<span class="desc">
+							<h1 class="orange">Chris</h1>
+							<p>coached an ankle-biter team to a championship.</p>
+						</span>
+					</div>
+
+					<div class="photo coco">
+						<span class="desc">
+							<h1 class="orange">Coco</h1>
+							<p>just shot skeet for the first time (and hit one!)</p>
+						</span>
+					</div>
+
+					<div class="photo craig last">
+						<span class="desc">
+							<h1 class="orange">Craig</h1>
+							<p>learned how to survive in the Amazon in Guyana.</p>
+						</span>
+					</div>
+
+					<div class="leftSide photo dave">
+						<span class="desc">
+							<h1 class="orange">Dave</h1>
+							<p>had a mole shaped like a cat.</p>
+						</span>
+					</div>
+
+					<div class="photo dustin">
+						<span class="desc">
+							<h1 class="orange">Dustin</h1>
+							<p>was crowned MVP of the DC Dart Club! </p>
+						</span>
+					</div>
+
+					<div class="photo ellie last">
+						<span class="desc">
+							<h1 class="orange">Ellie</h1>
+							<p>has big dreams of skiing in the Swiss Alps one day.</p>
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="leftSide photo emily">
+						<span class="desc">
+							<h1 class="orange">Emily</h1>
+							<p>enjoys supporting farm-to-table efforts like "Outstanding in the Field.' </p>
+						</span>
+					</div>
+
+					<div class="photo erica">
+						<span class="desc">
+							<h1 class="orange">Erica</h1>
+							<p>enjoys hiking and rock-climbing almost every weekend.</p>
+						</span>
+					</div>
+
+					<div class="photo hannah last">
+						<span class="desc">
+							<h1 class="orange">Hannah</h1>
+							<p>Riding a real elephant has been Hannah’s highlight of the year!</p>
+						</span>
+					</div>
+
+					<div class="leftSide photo hernando">
+						<span class="desc">
+							<h1 class="orange">Hernando</h1>
+							<p>and his wife mentor 3 kids through Southeast White House</p>
+						</span>
+					</div>
+
+					<div class="photo janette">
+						<span class="desc">
+							<h1 class="orange">Janette</h1>
+							<p>enjoys capturing moments of joy and happiness.</p>
+						</span>
+					</div>
+
+					<div class="photo jay last">
+						<span class="desc">
+							<h1 class="orange">Jay</h1>
+							<p>he loves finding whole in the wall restaurants and exploring cuisine.</p>
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="leftSide photo jordan">
+						<span class="desc">
+							<h1 class="orange">Jordan</h1>
+							<p>visited the Victoria and Albert Museum while in London.</p>
+						</span>
+					</div>
+
+					<div class="photo kathie">
+						<span class="desc">
+							<h1 class="orange">Kathie</h1>
+							<p>volunteers with Mr. Bones at the Natural History Museum.</p>
+						</span>
+					</div>
+
+					<div class="photo kim last">
+						<span class="desc">
+							<h1 class="orange">Kim</h1>
+							<p>As she rises up she reaches back with service projects.</p>
+						</span>
+					</div>
+
+					<div class="leftSide photo mike-c">
+						<span class="desc">
+							<h1 class="orange">Mike C.</h1>
+							<p>His ability to draw has gotten him out of more trouble.</p>
+						</span>
+					</div>
+
+					<div class="photo mike-g">
+						<span class="desc">
+							<h1 class="orange">Mike G.</h1>
+							<p>volunteers at the Caps' Convention to kick off the season.</p>
+						</span>
+					</div>
+
+					<div class="photo mike-j last">
+						<span class="desc">
+							<h1 class="orange">Mike</h1>
+							<p>enjoys snowboarding especially out West.</p>
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="leftSide photo ray">
+						<span class="desc">
+							<h1 class="orange">Ray</h1>
+							<p>enjoys doing makeup for celebrities.</p>
+						</span>
+					</div>
+
+					<div class="photo sean">
+						<span class="desc">
+							<h1 class="orange">Sean</h1>
+							<p>used to run marathons. Now, he chases after his little girls.</p>
+						</span>
+					</div>
+
+					<div class="photo sharon last">
+						<span class="desc">
+							<h1 class="orange">Sharon</h1>
+							<p>is the Chair for the St. Augustine St. Patrick’s Day Parade.</p>
+						</span>
+					</div>
+
+					<div class="leftSide photo sherri">
+						<span class="desc">
+							<h1 class="orange">Sherri</h1>
+							<p>walked 115km of the Camino de Santiago this summer.</p>
+						</span>
+					</div>
+
+					<div class="photo terrell">
+						<span class="desc">
+							<h1 class="orange">Terrell</h1>
+							<p>is a 5-year member of the DC Bocce League,</p>
+						</span>
+					</div>
+				</li>
+			</ul>
+			<div id="navigation">
+				<p><span id="slider-prev"></span></p>
+				<p><span id="slider-next"></span></p>
+			</div>
+		</div>
+	</section>
+
+	<section id="opportunities">
+		<div class="content">
+			<div class="title">
+				<div class="contain">
+					<h1 class="orange">Looking for work?</h1>
+					<h6 class="white">We're looking for talent.</h6>
+					<h5 class="lightGrey">Select a Position</h5>
+				</div>
+			</div>
+			<div class="contain">
+				<ul class="careers">
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=f45208b86d121d90&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">Media Planner</span>
+							<span class="experience">(2–4 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=bbc7c9f65615d320&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web&advn=7525473462907106&sjdu=P70S_xdt6d2DsZrC8s4xZqGqgm92rA1kDJv5e2wO1U6Xu5NHqj3zRWM5MiYugGiorbH986kj9QDdCS7izNZpRuwhpJVb9C07rfxtjoLTFozkYCBCmufhlVBwf62fqCU6ZmUX17PNglBUQX_EPSvWElfSrTSy3nmPet9Ud0w8JCU">
+							<span class="jobTitle">Social Media Planner</span>
+							<span class="experience">(2+ Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job last">
+						<a href="http://www.indeed.com/viewjob?jk=ecd487ab0e4d8e78&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">SEM Associate, Interactive </span>
+							<span class="experience">Entry Level</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=6e76f8bded99d126&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">Front-End Developer</span>
+							<span class="experience">(2+ Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-md.png" /></span>
+						</a>
+					</li>
+
+
+
+					<li class="job">
+						<a href="http://www.indeed.com/cmp/LM&O-Advertising/jobs/Project-Manager-Marketing-Automation-98fb34d973ef1bfc">
+							<span class="jobTitle">Project Manager Marketing Automation</span>
+							<span class="experience">(4–6 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+
+
+					<li class="job last">
+						<a href="http://www.indeed.com/viewjob?jk=cc0988c98849a585&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">Senior Performance Analyst, Interactive</span>
+							<span class="experience">(3–5 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/cmp/LM&O-Advertising/jobs/Senior-Performance-Analyst-65801c2d53504571">
+							<span class="jobTitle">Senior Performance Analyst</span>
+							<span class="experience">(3–5 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=2e14892b871e25a1&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">Associate Media Planner</span>
+							<span class="experience">(1–2 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job last">
+						<a href="http://www.indeed.com/viewjob?jk=af08c5b670b88e3e&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">Account Coordinator</span>
+							<span class="experience">(2+ Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=14b4baafa5f142e8&q=lm%26o&l=arlington%2C+va&tk=18bca3g810nkh0qb&from=web">
+							<span class="jobTitle">PHP Developer</span>
+							<span class="experience">(3–5 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-md.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=756ffe6e01949a05&q=lm%26o&l=arlington%2C+va&tk=18bcalap90nkh54l&from=web">
+							<span class="jobTitle">Search Engine Marketing (SEM) Strategist</span>
+							<span class="experience">NEED EXPERIENCE YEARS!</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job last">
+						<a href="http://www.indeed.com/viewjob?jk=a53a2fe0dc8330d1&q=lm%26o&l=arlington%2C+va&tk=18bcalap90nkh54l&from=web">
+							<span class="jobTitle">Junior Account Executive </span>
+							<span class="experience">(1–2 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/cmp/LM&O-Advertising/jobs/Senior-Media-Planner-1ad4d1ed6ebb49a1">
+							<span class="jobTitle">Senior Media Planner</span>
+							<span class="experience">(4+ Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<li class="job">
+						<a href="http://www.indeed.com/viewjob?jk=02d3072ad3db3601&q=lm%26o&l=arlington%2C+va&tk=18bcalap90nkh54l&from=web">
+							<span class="jobTitle">Marketing Manager, Interactive</span>
+							<span class="experience">(2+ Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+
+					<!-- Need Indeed job link -->
+					<li class="job last">
+						<a href="http://lmo.com/contact/careers/project-manager/">
+							<span class="jobTitle">Project Manager</span>
+							<span class="experience">(4–6 Years)</span>
+							<span class="location"><img src="assets/images/map-jobs-va.png" /></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section id="contact">
+		<div class="map">
+			<div class="contain">
+				<div class="wrapper">
+					<h6><img src="assets/images/icon-phone.png" /><a href="tel:7038752193">703.875.2193</a></h6>
+					<h3 class="orange">LMO</h3>
+					<address>1776 Wilson Boulevard<br>Suite 500<br>Arlington, VA 22209</address>
+					<a class="directions" href="https://goo.gl/maps/7o9q7">View Directions</a>
+				</div>
+			</div>
+		</div>
+		<div class="title">
+			<div class="contain">
+				<h1 class="orange">Say Hello</h1>
+				<h6 class="mildBlack">What should we talk about?</h6>
+				<h5 class="lightGrey">Select a Contact</h5>
+			</div>
+		</div>
+
+		<ul class="contacts">
+			<div class="contain">
+				<li>
+					<a href="#">
+						<h4>Being our Client</h4>
+						<img class="staff" src="assets/images/say-hello-sherri.png" width="129" height="129" />
+						<h4 class="name" data-name="Sherri">Sherri</h4>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<h4>Media Platforms</h4>
+						<img class="staff" src="assets/images/say-hello-christie.png" width="129" height="129" />
+						<h4 class="name" data-name="Christi">Christi</h4>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<h4>Digital Ideas and Technology</h4>
+						<img class="staff" src="assets/images/say-hello-mike.png" width="129" height="129" />
+						<h4 class="name" data-name="Mike">Mike</h4>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<h4>Production/Creative Freelance Opportunities</h4>
+						<img class="staff" src="assets/images/say-hello-jennifer.png" width="129" height="129" />
+						<h4 class="name" data-name="Jennifer">Jennifer</h4>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<h4>General Office Administration</h4>
+						<img class="staff" src="assets/images/say-hello-horacio.png" width="129" height="129" />
+						<h4 class="name" data-name="Horacio">Horacio</h4>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<h4>Working Here</h4>
+						<img class="staff" src="assets/images/say-hello-nora.png" width="129" height="129" />
+						<h4 class="name" data-name="Nora">Nora</h4>
+					</a>
+				</li>
+			</div>
+		</ul>
+
+		<div class="clear"></div>
+
+		<div class="contain">
+			<div class="form-container closed">
+				<form id="contact-form" method="post" action="mailer.php" enctype="multipart/form-data">
+					<div class="col-1">
+						<div class="inputWrapper">
+							<label for="name">Name</label>
+							<input type="text" id="name" name="name" placeholder="Enter your name here" >
+						</div>
+
+						<div class="inputWrapper">
+							<label for="phone">Phone</label>
+							<input type="text" id="phone" name="phone" placeholder="Enter your number here" >
+						</div>
+
+						<div class="inputWrapper">
+							<label for="email">Email</label>
+							<input type="text" id="email" name="email" >
+						</div>
+					</div>
+					<div class="col-1">
+						<div class="inputWrapper">
+							<label>How can we help?</label>
+							<textarea id="comments" name="comments" placeholder="Enter your comment here"></textarea>
+						</div>
+						<div class="inputWrapper">
+							<label for="file">Attachment</label>
+							<input type="file" id="file" name="file" placeholder="Choose a file">
+							<span class="sub-message">Send us your RFP, resume or proposal.</span>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<input type="hidden" id="to" name="to"  value="" />
+					<button class="form" type="submit">Send Message to <span class="name"></span></button>
+				</form>
+			</div>
+			<div class="thankyou">
+				<h1 class="white">Thank you.</h1>
+				<span class="thanks">We're excited to hear from you.</span>
+			</div>
+		</div>
+
+	</section>
+
+	<footer>
+		<div class="contain">
+			<a href="http://www.linkedin.com/pub/lmo-advertising/4a/1b6/8b5" class="linkedin">
+				<img src="assets/images/social-linkedin.png" />
+			</a>
+			<a href="https://www.facebook.com/LMOadvertising" class="facebook">
+				<img src="assets/images/social-facebook.png" />
+			</a>
+			<a href="http://instagram.com/lmoadv" class="instagram">
+				<img src="assets/images/social-instagram.png" />
+			</a>
+			<a href="http://www.pinterest.com/lmoadvertising/" class="pinterest">
+				<img src="assets/images/social-pinterest.png" />
+			</a>
+			<a href="https://twitter.com/lmoadv" class="twitter">
+				<img src="assets/images/social-twitter.png" />
+			</a>
+		</div>
+	</footer>
+
+	<div class="copyright">
+		<p>&copy; Copyright 2014 LMO Advertising, All Rights Reserved.  <a href="#" id="pp">Privacy Policy</a></p>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<script src="assets/js/min.js"></script>
+	<script src="assets/js/lib/waypoints.js"></script>
+	<script src="assets/js/lib/jquery.bxslider.js"></script>
+	<script src="assets/js/lib/jquery.colorbox.js"></script>
+	<script src="assets/js/lib/jquery.validate.js"></script>
+
+</body>
+</html>

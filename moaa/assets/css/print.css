@@ -1,0 +1,2 @@
+body {background: none;}
+header, nav, footer, section#home, .border-right, .border-left, svg, div.svg, .lazy-line, iframe {display: none;}

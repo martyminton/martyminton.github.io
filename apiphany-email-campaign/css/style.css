@@ -1,0 +1,48 @@
+body {background: url(../images/bg.jpg) #fff 0 -100px repeat-x; margin: 0; padding: 0; font-family: 'Source Sans Pro', sans-serif;}
+a {display: block}
+a.imgTxt {text-indent: -9999px; font-size: 1px; color: #49a1d4;}
+.clear {clear: both;}
+
+.trans {-moz-transition: opacity .4s; /* Firefox 4 */-webkit-transition: opacity .2s; /* Safari and Chrome */-o-transition: opacity .2s; /* Opera */}
+.trans:hover {opacity: 0.4;}
+
+.ground {width: 100%; height: 156px; position: absolute; z-index: 0; top: 690px}
+.ground img {width: 100%; height: 100%;}
+
+.wrapper {background: url(../images/effects.png); width: 1000px; margin: 0 auto; padding: 11px 0 0 0; z-index: 1; position: relative;}
+
+.col1 {width: 460px; float: left; margin: 0 0 0 116px;}
+.col1 a.logo {width: 228px; height: 86px; background: url(../images/logo.png); margin: 20px 0 0 0;}
+.col1 .video {background: #fff; width: 419px; height: 235px; padding: 14px; margin: 30px 0 0 0; box-shadow: #000 0px 4px 9px}
+
+.col2 {width: 275px; float: left; margin: 0 0 0 25px; padding: 20px 0 0 0;}
+.col2 h1 {font-size: 19px; color: #fff; padding: 0; margin: 20px 0 0 0;}
+.col2 h2 {font-size: 33px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 0; margin: 0;}
+.col2 h3 {font-size: 32px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 0; margin: 105px 0 0 0;}
+.col2 h4 {font-size: 30px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 0; margin: -9px 0 0 0; }
+.col2 h4 span {color: #99ccff;}
+.col2 h2 span {color: #ff6600;}
+.col2 ul{margin: 17px 0 0 0; line-height: 22px; padding: 0; font-size: 17px !important; list-style: square; color: #99ccff;font-weight: bold; text-transform: uppercase; list-style: inside;}
+.col2 p.getStarted {font-size: 14px; text-align: justify; color: #fff; padding: 0; margin: 19px 0 0 0;}
+.col2 a.download {color: #fff; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: uppercase; padding: 7px 0 0 0; text-align: center;}
+.col2 .download {background: url(../images/download.jpg); width: 246px; height: 23px; margin: -31px -13px; position: absolute;}
+
+.col2 #leadForm {margin: 0px 0 0 0; height: 127px;}
+.col2 #leadForm div.input {margin: 0 0 8px 0; height: 27px;}
+.col2 #leadForm div.input label {font-size: 14px; text-transform: uppercase; color: #fff; float: left; width: 75px; display: block}
+.col2 #leadForm div.input input {background: none; border: 1px solid #fff; width: 165px; float: right; height: 18px; color: #fff;}
+.col2 #leadForm div.input #submit {background: url(../images/btn.jpg); color: #fff; border: 0; padding: 0 7px; width: 64px; height: 22px; cursor: pointer; box-shadow: #000 0px 1px 3px;}
+.col2 #leadForm label.error {width: 100% !important; color: yellow !important; margin-left: 106px !important; font-size: 11px !important}
+.col2 p.content {color: yellow !important; display: none; background: #0c558d; padding: 10px; border: 1px solid #1f72b2;}
+.col2 .form {height: 129px; margin: 20px 0 0 0;}
+
+.col1 p.desc {padding: 0; margin: 25px 0 0 0; color: #fff; font-size: 14px; width: 446px; text-align: justify;}
+.col2 p.desc span {color: #fff;}
+
+.col2 p.link {color: #fff; padding: 0; margin: 25px 0 0 0; font-size: 14px;}
+.col2 a.terms {color: #fff; display:inline;}
+
+.col2 p.copyright {color: #006699; padding: 0; margin: 10px 0 0 0; font-size: 12px;}
+.col2 p.copyright a {display: inline; color: #003366;}
+.col2 a.twitter {background: url(../images/twitter.png); height: 22px; width: 23px; float: left; margin: 90px 10px 0 0;}
+.col2 a.facebook {background: url(../images/facebook.png); height: 22px; width: 23px; float: left; margin: 90px 0 0 0;}

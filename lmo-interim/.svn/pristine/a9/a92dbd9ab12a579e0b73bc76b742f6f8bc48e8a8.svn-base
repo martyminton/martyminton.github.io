@@ -1,0 +1,289 @@
+$(document).ready(function(){
+
+	assignHeightToSection();
+	firstImpression();
+	changeNavOnScroll();
+	modalWindow();
+	showcaseSizing();
+	//fixedScrolling();
+	contactForm();
+	formValidation();
+
+
+	var height2 = $(window).height() - 90;
+	$('#pp').colorbox({
+			width: 980,
+			height: height2,
+			href:'pp.html'
+	});
+
+
+	$('a[href*=#]:not([href=#])').click(function() {
+		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') || location.hostname == this.hostname) {
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+			if (target.length) {
+				$('html,body').animate({
+					scrollTop: target.offset().top - 90
+				}, 1000);
+			return false;
+			}
+		}
+	});
+
+
+
+	/*CLIENTS SHOWCASE*/
+	$('.bxslider').bxSlider({
+		infiniteLoop: false,
+		hideControlOnEnd: true,
+		onSlideBefore: function (currentSlideNumber, totalSlideQty, currentSlideHtmlObject) {
+			//console.log(currentSlideHtmlObject);
+			$('.bxslider li').removeClass('active');
+			$('.bxslider li').eq(currentSlideHtmlObject).addClass('active');
+		}
+	});
+
+	$('.culture-slider').bxSlider({
+		infiniteLoop: true,
+		hideControlOnEnd: false,
+		nextSelector: '#slider-next',
+		prevSelector: '#slider-prev'
+	});
+
+});
+
+$(window).resize(function(){
+
+	assignHeightToSection();
+
+});
+
+$(window).scroll(function(){
+	var nav = $('header.default'),
+	value = parseInt($(this).scrollTop()),
+	windowTop = $(window).scrollTop(),
+	resizes = windowSize();
+
+	if (windowTop > resizes[0] - 90) {
+		$('header').addClass('secondary');
+	} else {
+		$('header').removeClass('secondary').addClass('default');
+	}
+});
+
+function modalWindow() {
+	var listItem = $('.bxslider li a');
+
+	var height = $(window).height() - 90;
+
+	listItem.click(function(e){
+		e.preventDefault();
+
+
+
+		var idName = $(this).parent().attr('id');
+		$('.bxslider li.'+idName+' a').colorbox({
+			width: 980,
+			height: height
+		});
+
+	});
+}
+
+function contactForm() {
+	var staff = $('ul.contacts li a'),
+	button = $('button.form');
+
+	staff.click(function(e){
+		e.preventDefault();
+
+		staff.removeClass('brush');
+		$(this).addClass('brush');
+
+		$('section#contact').animate({
+			'height':'1500px'
+		}, 300);
+
+		$('.thankyou').hide();
+
+		setTimeout(function(){
+			if( $('.form-container.closed') ) {
+				$('.form-container').addClass('open');
+				$('.form-container').fadeIn('slow');
+			}
+		}, 400);
+
+		var name = $(this).find('h4.name').attr('data-name');
+
+		$('button.form span.name').text(name);
+
+		$('input[name="to"]').val(name);
+	});
+
+	$('#contact-form').submit(function(e){
+		//e.preventDefault();
+
+		//formValidation();
+
+	});
+}
+
+function formValidation() {
+	$( "#contact-form" ).validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			name: {
+				required: true
+			},
+			phone: {
+				required: true,
+				digits: true,
+				minlength: 10
+			},
+			comments: {
+				required: true
+			},
+			attachment: {
+				required: true
+			}
+		},
+		submitHandler: function(form) {
+			var data = {
+				name : $('#name').val(),
+				phone : $('#phone').val(),
+				email : $('#email').val(),
+				comments : $('#comments').val(),
+				file : $('#file').val(),
+				to: $('#to').val()
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "mailer.php",
+				data: data,
+				success: function(resp){
+
+					//debug
+					//console.log( resp );
+
+					// status was ok
+					if( resp.status != undefined && resp.status ) {
+						var staff = $('ul.contacts li a'),
+						button = $('button.form');
+
+						staff.removeClass('brush');
+						$('.form-container').fadeOut('slow');
+						$('section#contact').animate({
+							'height':'1200px'
+						}, 300);
+						$('.thankyou').fadeIn('slow');
+					}
+
+					// something happened
+					else {
+						//console.log( resp.errors );
+					}
+				}
+			});
+			//return false;
+		}
+	});
+}
+
+function fixedScrolling() {
+	$('#family, #clients, #culture, #opportunities, #contact').css({
+		'position':'fixed',
+		'top':'0'
+	});
+}
+
+function showcaseSizing() {
+	var height = $(window).height() - 90;
+
+	//console.log(height);
+
+	setTimeout(function(){
+		$('.bx-viewport').css({
+			'height': height
+		});
+	}, 500);
+}
+
+
+function changeNavOnScroll() {
+	var sections = $('section'),
+	section = $('section').attr('id'),
+	mainNav = $('nav ul li'),
+	mainNavA = $('a',mainNav);
+
+	sections.waypoint(function(down){
+
+		var id = $(this).attr('id');
+
+		mainNavA.removeClass('active');
+
+		$('a[href=#'+id+']', mainNav).addClass('active');
+
+	}, {offset: 90});
+
+}
+
+function firstImpression() {
+	//First Impression
+	setTimeout(function() {
+		$('a.logo').addClass('animated fadeIn').delay(500).css({opacity: 1});
+	},500);
+
+	setTimeout(function() {
+		$('a.logo-advertising').addClass('animated fadeIn').delay(500).css({opacity: 1});
+	},900);
+
+	setTimeout(function(){
+		$('nav li.family').addClass('animated bounceInDown').delay(500).css({opacity: 1});
+	},1100);
+
+	setTimeout(function(){
+		$('nav li.clients').addClass('animated bounceInDown').delay(500).css({opacity: 1});
+	},1200);
+
+	setTimeout(function(){
+		$('nav li.culture').addClass('animated bounceInDown').delay(500).css({opacity: 1});
+	},1300);
+
+	setTimeout(function(){
+		$('nav li.opportunities').addClass('animated bounceInDown').delay(500).css({opacity: 1});
+	},1400);
+
+	setTimeout(function(){
+		$('nav li.contact').addClass('animated bounceInDown').delay(500).css({opacity: 1});
+	},1500);
+
+	setTimeout(function(){
+		$('a.arrow-down').addClass('animated fadeIn').delay(500).css({opacity: 1});
+	},2500);
+}
+
+function windowSize() {
+
+	var windowHeight = $(window).height(),
+	windowWidth = $(window).width();
+
+	var sizes = new Array();
+	sizes[0] = windowHeight;
+	sizes[1] = windowWidth;
+	return sizes;
+
+	//console.log('Window Height: ' + windowHeight + ' / Window Width: ' + windowWidth);
+}
+
+function assignHeightToSection(){
+	var resizes = windowSize();
+
+	$('section#home').css({
+		height: resizes[0]
+	});
+}

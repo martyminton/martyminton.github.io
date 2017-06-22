@@ -1,0 +1,71 @@
+$layout: "../images/layout/";
+$home: "../images/home/";
+$sub: "../images/sub/";
+$font: "../fonts/";
+
+$base_width: 0;
+$number_of_columns: 0;
+$gutter_size:0;
+
+@mixin base{
+	$base_width: 1092;
+	$number_of_columns: 12;
+	$gutter_size:25;
+}
+
+@mixin main_base{
+	$base_width:770;
+	$number_of_columns:9;
+	$gutter_size:25;
+}
+
+@mixin fonts{
+	@font-face {
+	    font-family: 'sofia';
+	    src: url('#{$font}SofiaProBlack-webfont.eot');
+	    src: url('#{$font}SofiaProBlack-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('#{$font}SofiaProBlack-webfont.woff') format('woff'),
+	         url('#{$font}SofiaProBlack-webfont.ttf') format('truetype'),
+	         url('#{$font}SofiaProBlack-webfont.svg#sofia_pro_blackregular') format('svg');
+	    font-weight: bold;
+	    font-style: normal;
+	}
+
+	@font-face{
+		font-family:'sofia';
+		src: url('#{$font}SofiaProBlackIt-webfont.eot');
+	    src: url('#{$font}SofiaProBlackIt-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('#{$font}SofiaProBlackIt-webfont.woff') format('woff'),
+	         url('#{$font}SofiaProBlackIt-webfont.ttf') format('truetype'),
+	         url('#{$font}SofiaProBlackIt-webfont.svg#sofia_pro_blackitalic') format('svg');
+	    font-weight: bold;
+	    font-style: italic;
+	}
+
+	@font-face {
+	    font-family: 'sofia';
+	    src: url('#{$font}SofiaProLight-webfont.eot');
+	    src: url('#{$font}SofiaProLight-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('#{$font}SofiaProLight-webfont.woff') format('woff'),
+	         url('#{$font}SofiaProLight-webfont.ttf') format('truetype'),
+	         url('#{$font}SofiaProLight-webfont.svg#sofia_pro_lightregular') format('svg');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+
+	@font-face {
+	    font-family: 'sofia';
+	    src: url('#{$font}SofiaProLightIt-webfont.eot');
+	    src: url('#{$font}SofiaProLightIt-webfont.eot?#iefix') format('embedded-opentype'),
+	         url('#{$font}SofiaProLightIt-webfont.woff') format('woff'),
+	         url('#{$font}SofiaProLightIt-webfont.ttf') format('truetype'),
+	         url('#{$font}SofiaProLightIt-webfont.svg#sofia_pro_lightitalic') format('svg');
+	    font-weight: normal;
+	    font-style: italic;
+	}
+
+
+
+	%sofia{font-family:'sofia', Arial, Helvetica, sans-serif; font-weight:normal; font-style:normal;}
+
+}

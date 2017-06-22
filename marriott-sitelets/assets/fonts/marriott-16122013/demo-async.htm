@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Webfonts Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+	    body, textarea { font-family:Arial, Sans-Serif; line-height:1.6em; font-size:13px; }
+	    h1 { font-size:3em; }
+	    h2, h3 { color:#999; }
+	    .content { width:780px; margin: 20px auto 40px; }
+	    .demo { font-weight:bold; font-style:normal; color: #999 }
+	    .fontdisplay {font-size:2em;line-height:150%;margin: 10px 40px 0px 0px;}
+	    .guidelines { color:#333; }
+	    pre { padding:0 0 0 20px; }
+	    hr { border:0; border-bottom:1px solid #537094; margin:20px 0; }
+	    .link { color: #537094;text-decoration:none; font-weight:bold;}
+	    .uc {text-transform:uppercase}
+	    #para1{font-family:"ITC Avant Garde Gothic W01_n6";}
+#para2{font-family:"ITC Avant Garde Gothic W01_o6";}
+#para3{font-family:"ITC Avant Garde Gothic W01_n2";}
+#para4{font-family:"ITC Avant Garde Gothic W01_o2";}
+
+@media all and (min-width: 0px) {
+#para1{font-family:'ITC Avant Garde Gothic W01'; font-weight: 600; font-style: normal;}
+#para2{font-family:'ITC Avant Garde Gothic W01'; font-weight: 600; font-style: oblique;}
+#para3{font-family:'ITC Avant Garde Gothic W01'; font-weight: 200; font-style: normal;}
+#para4{font-family:'ITC Avant Garde Gothic W01'; font-weight: 200; font-style: oblique;}
+
+}
+    </style>
+    <style type="text/css">
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_n6";
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix");
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix") format("eot"),url("Fonts/e9a79553-7093-47c7-8d9c-70dc3619e94b.woff") format("woff"),url("Fonts/7265b8d0-a67c-4a8b-84aa-273d1759270a.ttf") format("truetype"),url("Fonts/75d377f2-28ee-43f8-b231-44f8eba218c4.svg#75d377f2-28ee-43f8-b231-44f8eba218c4") format("svg");
+font-weight: 600;
+font-style: normal;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_o6";
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix");
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix") format("eot"),url("Fonts/dc20a858-c78b-4d4e-b595-9f2981f7fb01.woff") format("woff"),url("Fonts/78e9d6a0-3eab-40f1-bd47-94f2496ca5ab.ttf") format("truetype"),url("Fonts/e19a45f4-7180-41a1-9815-c6350e91a172.svg#e19a45f4-7180-41a1-9815-c6350e91a172") format("svg");
+font-weight: 600;
+font-style: oblique;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_n2";
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix");
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix") format("eot"),url("Fonts/c68f0543-0caf-4988-b234-355520476b8c.woff") format("woff"),url("Fonts/2d4f1d98-ddb3-4acc-ae78-c8b1863f780e.ttf") format("truetype"),url("Fonts/80f98a03-905d-49e6-8614-cec7c32ca4f2.svg#80f98a03-905d-49e6-8614-cec7c32ca4f2") format("svg");
+font-weight: 200;
+font-style: normal;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_o2";
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix");
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix") format("eot"),url("Fonts/7571e8e6-97a2-48aa-97c1-b8aeeefc5409.woff") format("woff"),url("Fonts/8f1e17ad-3b38-4d51-83f5-4e5469174a77.ttf") format("truetype"),url("Fonts/1ee7d1fd-0f7c-4d70-b970-f4dc602eab62.svg#1ee7d1fd-0f7c-4d70-b970-f4dc602eab62") format("svg");
+font-weight: 200;
+font-style: oblique;
+}
+</style>
+<script type="text/javascript">
+var MTIProjectId='36402cb3-ab36-4948-b666-95956340f86f';
+ (function() {
+        var mtiTracking = document.createElement('script');
+        mtiTracking.type='text/javascript';
+        mtiTracking.async='true';
+        mtiTracking.src=('https:'==document.location.protocol?'https:':'http:')+'//fast.fonts.net/t/trackingCode.js';
+        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild( mtiTracking );
+   })();
+</script>
+</head>
+<body>
+    <div class="content">
+        <h1 class="demo">Fonts.com Web fonts</h1>
+        <p style="margin-top: -10px; font-size: 1.5em; color: #666"><b>@font-face implementation instructions</b></p>
+        <p>The asynchronous script loads in the background allowing the other elements of your website to load first and undeterred.</p>
+        <hr />
+        <p class="uc">The fonts contained in this kit are:</p>
+        <div class="fontdisplay">
+            <div id="para1"> ITC Avant Garde Gothic® Bold </div>
+<div id="para2"> ITC Avant Garde Gothic® Bold Oblique </div>
+<div id="para3"> ITC Avant Garde Gothic® Book </div>
+<div id="para4"> ITC Avant Garde Gothic® Book Oblique </div>
+
+        </div>
+        <hr />
+        Click here for <a class="link uc" href="demo.htm">css only</a> web fonts implementation
+        <hr />
+        <div class="guidelines">
+            <h2>CSS Implementation Guidelines</h2>
+            <p>You and any third party web font hosting service are responsible for ensuring that the font software in the self-hosting kit, in its original format, can only be used on the Web Sites for which the self-hosting kit was downloaded and cannot be used or referenced by any other web site. This includes, but is not limited to installing adequate technical protection measures that restrict the use and/or access to the font software, for instance by utilizing JavaScript or access control mechanism for cross-origin resource sharing and protecting against use on web sites other than the Web Sites for which the self-hosting kit was downloaded by restricting domain access only to such Web Sites. You must also retain the pageview tracking code on any Web Site that you self-host. In the event this Agreement terminates for any reason, the font software included with the self-hosting kit must be deleted from the server and all copies must be destroyed or returned to Monotype Imaging.</p>
+            <p>View <a class="link" href="http://new.fonts.com/info/legal/eula/web-fonts" target="_blank">"WEB FONT SOFTWARE" LICENSE AGREEMENT</a></p>
+            <h2>Asynchronous Implementation (Requires JavaScript)</h2>
+            <p>Font file names have been obfuscated to protect the font software. You can identify font format based on file ending:</p>
+            <ul>
+                <li>1 - TrueType (ttf)</li>
+                <li>2 - Embedded OpenType (eot)</li>
+                <li>3 - Web Open Font Format (woff)</li>
+                <li>4 - Scalable Vector Graphics (svg)</li>
+            </ul>
+            <p class="uc" style="margin: 20px 0px -20px;"><b>Copy and paste following code in head section of the page</b></p>
+            <hr />
+            <textarea style="width: 830px; height: 350px; border: 1 #fff solid; background-color: #fcfcfc;"><style type="text/css">
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_n6";
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix");
+src:url("Fonts/85564178-fd88-4387-9226-0e632723ca24.eot?#iefix") format("eot"),url("Fonts/e9a79553-7093-47c7-8d9c-70dc3619e94b.woff") format("woff"),url("Fonts/7265b8d0-a67c-4a8b-84aa-273d1759270a.ttf") format("truetype"),url("Fonts/75d377f2-28ee-43f8-b231-44f8eba218c4.svg#75d377f2-28ee-43f8-b231-44f8eba218c4") format("svg");
+font-weight: 600;
+font-style: normal;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_o6";
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix");
+src:url("Fonts/e19b7bd0-1d20-4e6a-89ab-a1fa1c037ccb.eot?#iefix") format("eot"),url("Fonts/dc20a858-c78b-4d4e-b595-9f2981f7fb01.woff") format("woff"),url("Fonts/78e9d6a0-3eab-40f1-bd47-94f2496ca5ab.ttf") format("truetype"),url("Fonts/e19a45f4-7180-41a1-9815-c6350e91a172.svg#e19a45f4-7180-41a1-9815-c6350e91a172") format("svg");
+font-weight: 600;
+font-style: oblique;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_n2";
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix");
+src:url("Fonts/2a334c60-3e0d-4f43-b0e9-5284ea33961a.eot?#iefix") format("eot"),url("Fonts/c68f0543-0caf-4988-b234-355520476b8c.woff") format("woff"),url("Fonts/2d4f1d98-ddb3-4acc-ae78-c8b1863f780e.ttf") format("truetype"),url("Fonts/80f98a03-905d-49e6-8614-cec7c32ca4f2.svg#80f98a03-905d-49e6-8614-cec7c32ca4f2") format("svg");
+font-weight: 200;
+font-style: normal;
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01_o2";
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix") format("eot")
+}
+@font-face{
+font-family:"ITC Avant Garde Gothic W01";
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix");
+src:url("Fonts/d6c308a1-6908-40bc-b732-0fec02d083ac.eot?#iefix") format("eot"),url("Fonts/7571e8e6-97a2-48aa-97c1-b8aeeefc5409.woff") format("woff"),url("Fonts/8f1e17ad-3b38-4d51-83f5-4e5469174a77.ttf") format("truetype"),url("Fonts/1ee7d1fd-0f7c-4d70-b970-f4dc602eab62.svg#1ee7d1fd-0f7c-4d70-b970-f4dc602eab62") format("svg");
+font-weight: 200;
+font-style: oblique;
+}
+</style>
+<script type="text/javascript">
+var MTIProjectId='36402cb3-ab36-4948-b666-95956340f86f';
+ (function() {
+        var mtiTracking = document.createElement('script');
+        mtiTracking.type='text/javascript';
+        mtiTracking.async='true';
+        mtiTracking.src=('https:'==document.location.protocol?'https:':'http:')+'//fast.fonts.net/t/trackingCode.js';
+        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild( mtiTracking );
+   })();
+</script></textarea>
+            <h3>Licensing information should be included within the CSS</h3>
+<pre>/*
+This CSS resource incorporates links to font software which is the valuable copyrighted
+property of Monotype Imaging and/or its suppliers. You may not attempt to copy, install,
+redistribute, convert, modify or reverse engineer this font software. Please contact Monotype
+Imaging with any questions regarding Web Fonts:  http://webfonts.fonts.com
+*/</pre>
+        </div>
+    </div>
+</body>
+</html>

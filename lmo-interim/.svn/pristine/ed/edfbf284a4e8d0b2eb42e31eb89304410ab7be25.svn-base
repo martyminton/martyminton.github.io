@@ -1,0 +1,554 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+body { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+/*navbar*/
+/*default nav links*/
+/*Social Media Links*/
+/*font face build*/
+/*****Typography*****/
+h1.white, h2.white, h3.white, h4.white, h5.white, h6.white { color: white; }
+h1.orange, h2.orange, h3.orange, h4.orange, h5.orange, h6.orange { color: #ff4c00; }
+h1.darkGrey, h2.darkGrey, h3.darkGrey, h4.darkGrey, h5.darkGrey, h6.darkGrey { color: #646469; }
+h1.lightGrey, h2.lightGrey, h3.lightGrey, h4.lightGrey, h5.lightGrey, h6.lightGrey { color: #949493; }
+h1.mildBlack, h2.mildBlack, h3.mildBlack, h4.mildBlack, h5.mildBlack, h6.mildBlack { color: #191919; }
+
+h1, h2 { color: black; font-size: 60px; text-transform: uppercase; font-family: "Gotham SSm A", "Gotham SSm B"; }
+
+h3 { color: black; font-size: 36px; text-transform: uppercase; font-family: "Gotham SSm A", "Gotham SSm B"; }
+
+h4 { color: #949493; font-size: 15px; text-transform: uppercase; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+
+h5 { color: #949493; font-size: 18px; text-transform: uppercase; font-family: "Gotham SSm A", "Gotham SSm B"; }
+
+h6 { color: black; font-size: 20px; text-transform: uppercase; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+
+a { text-decoration: none; }
+
+/*navbar*/
+/*default nav links*/
+/*Social Media Links*/
+body { background: white; font-family: "Gotham SSm A", "Gotham SSm B"; overflow-x: hidden; /* min-width:1060px; */ }
+body.cb { overflow: hidden; }
+
+.clear { clear: both; }
+
+.contain { width: 1000px; margin: auto; position: relative; height: 100%; }
+
+a, button, textarea, input { outline: 0; }
+
+button.form { padding: 15px 25px; background: #ff4c00; text-align: center; border: 0; border-radius: 6px; color: white; font-family: "Gotham SSm A", "Gotham SSm B"; text-transform: uppercase; font-size: 18px; margin: 30px auto; display: block; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; min-width: 350px; }
+button.form:hover { cursor: pointer; background: rgba(255, 76, 0, 0.8); -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+
+input, textarea { padding: 20px; background: #303030; border-radius: 6px; border: 0; color: #949493; font-size: 20px; width: 92%; }
+input:focus, textarea:focus { color: #ff4c00; }
+
+input, textarea { font-family: 'Lucida Grande'; }
+
+label { font-family: "ITCFranklinGothicW01-Dm 812677"; text-transform: uppercase; font-size: 20px; color: #646469; }
+
+::-webkit-input-placeholder { color: #949493; }
+
+:-moz-placeholder { /* Firefox 18- */ color: #949493; }
+
+::-moz-placeholder { /* Firefox 19+ */ color: #949493; }
+
+:-ms-input-placeholder { color: #949493; }
+
+/*Header*/
+a.cta { position: absolute; background: rgba(255, 255, 255, 0.85) url(../images/icon-lightbox2.png) no-repeat 440px center; display: block; border-radius: 8px; bottom: 280px; color: #ff4c00; padding: 20px 40px; text-transform: uppercase; }
+a.cta:hover { opacity: .8; }
+
+header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; background: white; z-index: 1000; }
+header nav { display: table; }
+header nav ul { text-align: center; display: table-row; }
+header nav ul li { display: table-cell; opacity: 0; }
+header nav ul li a { color: #949493; text-transform: uppercase; padding: 37px 39px; display: block; -moz-transition: color, background, 0.3s; -o-transition: color, background, 0.3s; -ms-transition: color, background, 0.3s; -webkit-transition: color, background, 0.3s; transition: color, background, 0.3s; background: no-repeat -150px 60px; }
+header nav ul li a:hover { color: #ff4c00; background: url(../images/line-orange.png) no-repeat center 60px; }
+header.default { background: white; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+header.secondary { background: #ff4c00; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+header.secondary li a { color: white; }
+header.secondary li a.active { color: black; }
+header.secondary li a:hover { color: white; background: url(../images/line-white.png) no-repeat center 60px; }
+
+/*Each Individual Section*/
+section { width: 100%; min-width: 1000px; overflow: hidden; position: relative; }
+section .contain { position: relative; max-width: 1000px; }
+section .contain .content { width: 100%; height: 100%; position: relative; }
+section .contain .content.verticalAlign { height: 120px; margin-top: -60px; top: 50%; position: absolute; }
+section .contain h1, section .contain h2, section .contain h3, section .contain h4, section .contain h5, section .contain h6 { width: 100%; text-align: center; padding: 10px; }
+section#home { height: 832px !important; padding-bottom: 20px; min-height: 600px; border-bottom: 1px solid #000; }
+section#home.rsvp { background: url(/RSVP/images/creator_header.png) no-repeat 0 0; padding-top: 412px; overflow: visible; text-align: center; height: 312px !important; min-height: 1px; border-bottom: none; }
+section#home.rsvp h1 { background: url(../images/LMO_RSVP2.png) no-repeat 50% 0; width: 100%; height: 181px; margin: auto; position: relative; text-indent: -9999px; }
+section#home.rsvp h2 { color: #F45124; font-size: 30px; font-size: 3rem; line-height: 1.2; position: relative; top: 0; /*background:url(../images/Open_House.png) no-repeat 50% 0;*/ border: 1px dashed #9A9A9A; border-width: 1px 0; width: 850px; margin: 20px auto; opacity: 1 !important; }
+section#home.rsvp h3 { color: #858584; font-size: 20px; font-size: 2rem; background: #FFF; padding: 20px; display: block; width: 20px auto; }
+section#home.rsvp .orange_arrow { position: absolute; top: 48%; right: 130px; opacity: 0; }
+section#home.rsvp .rsvp_buttons { position: absolute; top: 188px; left: 514px; text-align: left; width: 500px; opacity: 1 !important; }
+section#home.rsvp .rsvp_buttons a { margin-left: 9px; opacity: 1 !important; }
+section#home.rsvp .rsvp_buttons a.cta { padding: 13px 20px; letter-spacing: -0.06em; font-size: 12px; }
+section#home.rsvp .rsvp_buttons a:first-child { margin-left: 0; }
+section#home.rsvp .rsvp_buttons a:last-child:hover { border-right: 1px solid #FFF; }
+section#home.rsvp .contain { margin: 0; }
+section#home.rsvp .contain h1, section#home.rsvp .contain h2, section#home.rsvp .contain h3, section#home.rsvp .contain p { position: absolute; height: 1px; width: 1px; left: -9999px; }
+section#home.rsvp .contain div.h3 h3 { position: relative; height: auto; width: auto; left: 0; margin: -25px 0 0 25px; }
+section#home.rsvp .contain .show_me p, section#home.rsvp .contain .show_me h2 { position: relative; height: auto; width: auto; left: 0; border: none; }
+section#home.rsvp .creator { text-indent: -9999px; background: url(/RSVP/images/creator_copy.png) no-repeat 0 0; height: 295px; }
+section#home.rsvp .date { display: block; /* background:url(../images/RSVP_date.png) no-repeat 50% 0;*/ height: 118px; width: 100%; position: relative; top: 0; color: #666; text-transform: uppercase; font-size: 18px; font-size: 1.8rem; }
+section#home.rsvp .h3 { text-align: center; position: relative; margin: 20px auto; width: 100%; }
+section#home.rsvp .time { font-size: 15px; font-size: 1.5rem; }
+section#home .logo { display: block; position: absolute; text-indent: -9999px; background: url(../images/logo-lmo.png) no-repeat; width: 479px; height: 291px; top: 40%; margin-top: -145.5px; left: 50%; margin-left: -309.5px; opacity: 0; }
+section#home .logo-advertising { display: block; position: absolute; text-indent: -9999px; background: url(../images/logo-advertising.png) no-repeat; width: 479px; height: 291px; top: 40%; margin-top: 119.5px; left: 50%; margin-left: -99.5px; opacity: 0; }
+section#home h2 { font-size: 18px; font-size: 1.8rem; position: absolute; top: 515px; opacity: 0; }
+section#home .cta_button { top: 570px; width: 100%; position: absolute; text-align: center; }
+section#home a.cta { display: inline-block; position: relative; bottom: auto; opacity: 0; color: #FFF; background: #484848; font-size: 16px; width: auto; padding: 19px 30px; }
+section#home a.cta:hover, section#home a.cta:focus { background: #dcdcdc; color: #484848; }
+section#home a.arrow-down { display: block; position: absolute; text-indent: -9999px; background: url(../images/home-arrow.png) no-repeat; width: 101px; height: 134px; bottom: 60px; left: 50%; margin-left: -50.5px; opacity: 0; -moz-transition: 0.25s all; -o-transition: 0.25s all; -ms-transition: 0.25s all; -webkit-transition: 0.25s all; transition: 0.25s all; }
+section#home a.arrow-down:hover, section#home a.arrow-down:focus { bottom: 50px; }
+section#purpose { height: 753px; background: url(../images/team_2.jpg) no-repeat; background-size: cover; background-position: center center; }
+section#purpose h3 { font-size: 20px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#work { height: 1033px; min-height: 1033px; }
+section#work .white_wrap { position: relative; border-top: 2px solid #FFF; }
+section#work h3 { font-size: 20px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#work .contain.title { height: 165px; position: absolute; top: 40px; left: 50%; z-index: 1; width: 1000px; margin-left: -512px; }
+section#work .contain .content .arrow { position: absolute; bottom: -185px; right: 235px; z-index: 10; }
+section#work .showcase { width: 100%; height: 1090px; overflow: hidden; }
+section#work .showcase .bx-viewport { min-height: 1033px; height: 1033px !important; }
+section#work .showcase ul { width: 100%; height: 100%; }
+section#work .showcase ul li { width: 100%; height: 100%; }
+section#work .showcase ul li#national-guard { background: url(../images/bg-client-ng.jpg) no-repeat; background-size: cover; background-position: center top; }
+section#work .showcase ul li#national-guard a.cta { width: 450px; left: 50%; margin-left: -265px; }
+section#work .showcase ul li#fvc-bank { background: url(../images/bg-client-fvc.jpg) no-repeat; background-size: cover; background-position: center top; }
+section#work .showcase ul li#fvc-bank a.cta { width: 370px; left: 50%; margin-left: -205px; background-position: 370px center; }
+section#work .showcase ul li#budget { background: url(../images/bg-client-budget.jpg) no-repeat; background-size: cover; background-position: center top; }
+section#work .showcase ul li#budget a.cta { width: 330px; left: 50%; margin-left: -185px; background-position: 330px center; }
+section#clients .logos .title { border-bottom: 1px solid rgba(255, 76, 0, 0.3); height: 50px; margin-bottom: 50px; text-align: center; }
+section#clients .logos .title h2 { padding: 20px; background: white; position: absolute; bottom: -30px; width: 140px; left: 50%; margin-left: -85px; font-size: 18px; text-transform: uppercase; font-family: "Gotham SSm A", "Gotham SSm B"; border: 1px solid #FFF; }
+section#clients .logos .client-logos { display: table; width: 100%; }
+section#clients .logos .client-logos li { width: 25%; border-bottom: 1px solid rgba(148, 148, 147, 0.5); text-align: center; height: 230px; display: table-cell; vertical-align: middle; }
+section#clients .logos .client-logos li.last { border: 0; }
+section#culture { height: 1110px; background: url(../images/brush-culture-top.png) repeat-x 0 0; z-index: 1; }
+section#culture .bottom { background: url(../images/brush-culture-bottom.png) repeat-x 0 100%; height: 1110px; }
+section#culture .culture-slideshow { width: 100%; background: #ff4c00; position: absolute; top: 223px; padding-top: 100px; }
+section#culture .culture-slideshow h3 { font-size: 20px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#culture .culture-slideshow #slider-prev { left: 50%; margin-left: -100px; }
+section#culture .culture-slideshow #slider-prev a { background: white url(../images/culture-arrow-left.png) no-repeat 10px center; }
+section#culture .culture-slideshow #slider-prev a:hover { background: #303030 url(../images/culture-arrow-left.png) no-repeat 10px center; }
+section#culture .culture-slideshow #slider-next { right: 50%; margin-right: -100px; }
+section#culture .culture-slideshow #slider-next a { background: white url(../images/culture-arrow-right.png) no-repeat 12px center; }
+section#culture .culture-slideshow #slider-next a:hover { background: #303030 url(../images/culture-arrow-right.png) no-repeat 12px center; }
+section#culture .culture-slideshow #slider-prev, section#culture .culture-slideshow #slider-next { position: absolute; bottom: 15px; padding: 10px; height: 30px; width: 30px; display: block; }
+section#culture .culture-slideshow #slider-prev a, section#culture .culture-slideshow #slider-next a { background-size: 26%; display: block; width: 100%; height: 100%; border-radius: 20px; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+section#culture .culture-slideshow #slider-prev a span, section#culture .culture-slideshow #slider-next a span { display: block; text-indent: -9999px; }
+section#culture .culture-slideshow .sliderEdgeLeft { left: 0; }
+section#culture .culture-slideshow .sliderEdgeLeftBottom { left: 0; top: 451px !important; }
+section#culture .culture-slideshow .sliderEdgeRight { right: 0; }
+section#culture .culture-slideshow .sliderEdgeRightBottom { right: 0; top: 451px !important; }
+section#culture .culture-slideshow .sliderEdgeRight, section#culture .culture-slideshow .sliderEdgeLeft, section#culture .culture-slideshow .sliderEdgeRightBottom, section#culture .culture-slideshow .sliderEdgeLeftBottom { height: 209px; z-index: 10; background: rgba(0, 0, 0, 0.8); position: absolute; top: 222px; }
+section#culture .culture-slideshow .bx-wrapper { margin: 122px auto 60px; height: 473px; }
+section#culture .culture-slideshow .bx-wrapper .bx-pager { display: block; bottom: -30px; }
+section#culture .culture-slideshow .bx-wrapper .bx-pager.bx-default-pager a { background: #303030; }
+section#culture .culture-slideshow .bx-wrapper .bx-pager.bx-default-pager a:hover, section#culture .culture-slideshow .bx-wrapper .bx-pager.bx-default-pager a.active { background: white; }
+section#culture .culture-slideshow .bx-wrapper .bx-viewport { min-height: 472px; height: auto !important; }
+section#culture .culture-slideshow li { width: 1024px !important; }
+section#culture .culture-slideshow li .last { margin-right: 0 !important; margin-left: 20px; }
+section#culture .culture-slideshow li img { width: 200%; max-width: 2000px; margin-left: -100%; }
+section#culture .culture-slideshow li .photo { width: 314px; height: 209px; float: left; overflow: hidden; position: relative; margin-bottom: 20px; }
+section#culture .culture-slideshow li .photo.leftSide { margin-left: 20px; margin-right: 20px; }
+.no-touch section#culture .culture-slideshow li .photo:hover { background-position: 0 0 !important; }
+.no-touch section#culture .culture-slideshow li .photo:hover div.desc { left: 0; }
+.no-touch section#culture .culture-slideshow li .photo:hover img { margin-left: 0; }
+section#culture .culture-slideshow li .photo.touched { background-position: 0 0 !important; cursor: pointer; }
+section#culture .culture-slideshow li .photo.touched div.desc { left: 0; }
+section#culture .culture-slideshow li .photo.touched img { margin-left: 0; }
+section#culture .culture-slideshow li .photo div.desc { display: block; width: 45%; height: 100%; background: rgba(255, 255, 255, 0.9); padding: 5%; position: absolute; top: 0; z-index: 1; left: -55%; -moz-transition: left, 0.3s; -o-transition: left, 0.3s; -ms-transition: left, 0.3s; -webkit-transition: left, 0.3s; transition: left, 0.3s; }
+section#culture .culture-slideshow li .photo h4 { font-size: 24px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#culture .culture-slideshow li .photo p { font-weight: bold; margin-top: 10px; line-height: 20px; }
+section#culture .culture-slideshow .bx-controls-direction { display: none; }
+section#culture .culture-slideshow .bx-wrapper .bx-viewport { background: none; }
+section#opportunities { /* height: 1000px; */ background: url(../images/bg-opportunities.png) repeat; margin-top: -140px; padding-bottom: 30px; }
+section#opportunities .title { padding-top: 140px; position: relative; border-bottom: 1px solid rgba(255, 76, 0, 0.3); height: 200px; }
+section#opportunities .title h3 { font-size: 20px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#opportunities .title h4 { padding: 20px; background: url(../images/bg-opportunities.png) repeat; position: absolute; bottom: -30px; width: 200px; left: 50%; margin-left: -120px; font-family: "Gotham SSm A", "Gotham SSm B"; font-size: 18px; text-transform: uppercase; }
+section#opportunities .careers { margin-top: 80px; }
+section#opportunities .careers .job { float: left; width: 31.3%; border-bottom: 1px solid rgba(148, 148, 147, 0.5); line-height: 25px; margin-bottom: 40px; margin-right: 2%; }
+section#opportunities .careers .job.last { margin-right: 0; }
+section#opportunities .careers .job a { color: rgba(255, 255, 255, 0.8); display: block; width: 100%; height: 100%; padding-bottom: 10px; font-size: 14px; position: relative; -moz-transition: color, 0.3s; -o-transition: color, 0.3s; -ms-transition: color, 0.3s; -webkit-transition: color, 0.3s; transition: color, 0.3s; }
+section#opportunities .careers .job a:hover span.jobTitle { color: #ff4c00; }
+section#opportunities .careers .job a span { display: block; }
+section#opportunities .careers .job a span.location { position: absolute; bottom: 4px; right: 0; }
+section#opportunities .careers .job a span.experience { width: 100%; }
+section#opportunities .careers .job a span.jobTitle { width: 100%; color: white; -moz-transition: color, 0.3s; -o-transition: color, 0.3s; -ms-transition: color, 0.3s; -webkit-transition: color, 0.3s; transition: color, 0.3s; }
+section#contact { /*height: 1000px; top: -140px;
+@include transition(height, .3s);*/ }
+section#contact.rsvp .form-container .col-1 { width: 100%; float: none; }
+section#contact.rsvp .contain { margin: 0 0 0 28px; }
+section#contact.rsvp .map .contain { margin: auto; }
+section#contact.rsvp button.form { margin: 30px 0 100px; }
+section#contact h3 { font-size: 20px; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#contact .contain { height: auto; }
+section#contact .title { height: 200px; border-bottom: 1px solid rgba(255, 76, 0, 0.3); }
+section#contact .title h4 { padding: 20px; background: white; position: absolute; bottom: -110px; width: 210px; left: 50%; margin-left: -120px; text-align: center; font-family: "Gotham SSm A", "Gotham SSm B"; font-size: 18px; text-transform: uppercase; border: 1px solid #FFF; }
+section#contact .contacts { margin-top: 80px; }
+section#contact .contacts li { float: left; width: 166px; text-align: center; position: relative; height: 280px; }
+section#contact .contacts li a { display: block; height: 100%; width: auto; }
+section#contact .contacts li a.brush { background: url(../images/brush-circle-selection.png) no-repeat 11px 52px; }
+section#contact .contacts li a.brush h6 { background: url(../images/arrow-orange-contact-form.png) no-repeat 50% 35px; height: 65px; }
+section#contact .contacts li a:hover .staff { background: #f7a700; border: 1px solid #ff4c00; }
+section#contact .contacts li h5 { height: 40px; color: #949493; font-size: 15px; text-transform: uppercase; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#contact .contacts li h6 { font-family: "Gotham SSm A", "Gotham SSm B"; color: #ff4c00; margin-top: 20px; }
+section#contact .contacts li .staff { border-radius: 80px; border: 1px solid rgba(148, 148, 147, 0.5); background: rgba(148, 148, 147, 0.3); width: 129px; height: 129px; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; -webkit-background-clip: padding-box; moz-background-clip: padding; background-clip: padding-box; }
+section#contact .map { width: 100%; height: 396px; background: url(../images/map.jpg) no-repeat; background-size: cover; background-position: center center; position: relative; margin-bottom: 50px; }
+section#contact .map .wrapper { width: 350px; position: absolute; left: 50%; margin-left: -175px; height: 125px; background: #303030; top: 50px; border-radius: 8px; padding: 20px 0; }
+section#contact .map .wrapper:before { position: absolute; background: url(../images/wrapper-x.png) no-repeat; width: 29px; height: 25px; left: 50%; margin-left: -14.5px; top: 180px; z-index: 1; content: ""; }
+section#contact .map .wrapper:after { position: absolute; background: url(../images/wrapper-arrow.png) no-repeat; width: 21px; height: 11px; left: 50%; margin-left: -10.5px; top: 165px; z-index: 2; content: ""; }
+section#contact .map .wrapper p.phone { position: absolute; top: -40px; height: 30px; background: #ff4c00; padding: 10px; width: 330px; border-radius: 8px 8px 0 0; line-height: 40px; font-size: 20px; text-transform: uppercase; font-family: "ITCFranklinGothicW01-Dm 812677"; }
+section#contact .map .wrapper p.phone a { color: white; font-family: "Gotham SSm A", "Gotham SSm B"; display: block; float: left; margin-top: -3px; }
+section#contact .map .wrapper p.phone img { margin-right: 5px; display: block; float: left; margin-top: 5px; margin-left: 85px; }
+section#contact .map .wrapper p.orange, section#contact .map .wrapper address, section#contact .map .wrapper a.directions { width: 100%; text-align: center; text-transform: uppercase; }
+section#contact .map .wrapper p.orange { color: #ff4c00; font-size: 36px; font-family: "Gotham SSm A", "Gotham SSm B"; }
+section#contact .map .wrapper address { color: white; margin-top: 10px; line-height: 20px; font-size: 14px; }
+section#contact .map .wrapper a.directions { display: block; color: #ffce68; margin-top: 10px; font-size: 12px; }
+section#contact .thankyou { background: url(../images/brush-say-hello-thank-you.png) no-repeat center center; width: 100%; height: 200px; display: none; margin-top: 50px; margin-bottom: 140px; }
+section#contact .thankyou h1 { font-size: 60px; width: 100%; text-align: center; padding-top: 80px; display: block; }
+section#contact .thankyou span.thanks { display: block; width: 100%; text-align: center; color: #949493; margin-top: 90px; }
+section#contact .form-container { width: 100%; margin-top: 50px; }
+section#contact .form-container.closed { display: none; }
+section#contact .form-container .col-1 { width: 45%; float: left; margin-right: 3%; margin-left: 2%; }
+section#contact .form-container .col-1 label { display: block; margin-bottom: 5px; }
+section#contact .form-container .col-1 .inputWrapper { width: 100%; position: relative; }
+section#contact .form-container .col-1 .inputWrapper label.error { position: absolute; top: 5px; right: 0px; font-family: "Gotham SSm A", "Gotham SSm B"; font-size: 14px; color: red; }
+section#contact .form-container .col-1 .radio label { display: inline-block; margin-right: 30px; }
+section#contact .form-container .col-1 .radio input { display: inline-block; width: auto; }
+section#contact .form-container .col-1 input, section#contact .form-container .col-1 textarea { margin-bottom: 40px; }
+section#contact .form-container .col-1 input[type="file"] { font-size: 1rem; font-size: 10px; }
+section#contact .form-container .col-1 textarea { height: 153px; }
+section#contact .form-container .col-1 span.sub-message { margin-top: -30px; display: block; color: #949493; }
+
+footer { width: 100%; overflow: hidden; height: 100px; background: #646469; position: relative; }
+footer .contain { height: 100px; }
+footer a { width: 20%; display: block; text-align: center; padding-top: 30px; height: 70px; float: left; background: none; position: absolute; top: 0; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+footer a.linkedin { left: 0; }
+footer a.facebook { left: 20%; }
+footer a.instagram { left: 40%; }
+footer a.pinterest { left: 60%; }
+footer a.twitter { left: 80%; }
+footer a:hover.linkedin { background: #1b86bd; }
+footer a:hover.facebook { background: #1b60bd; }
+footer a:hover.instagram { background: #3d82a6; }
+footer a:hover.pinterest { background: #c23434; }
+footer a:hover.twitter { background: #5ecae1; }
+
+.copyright { padding: 40px 0; width: 100%; text-align: center; }
+.copyright p { color: #949493; font-size: 12px; }
+.copyright a { color: #ff4c00; }
+
+#cboxContent .textfeatures { padding: 40px; }
+#cboxContent .textfeatures h1 { font-size: 25px; }
+#cboxContent .textfeatures p { font-size: 16px; color: #333; line-height: 1.4; margin-bottom: 15px; }
+#cboxContent .textfeatures ul { margin-left: 20px; font-size: 16px; list-style: disc; }
+#cboxContent .textfeatures ul li { color: #333; line-height: 1.4; margin-bottom: 5px; }
+#cboxContent .textfeatures a { color: #FF4C24; }
+
+.rsvp label.error { right: 50px !important; }
+
+.lt-ie8 header nav { display: block; }
+.lt-ie8 header ul { display: block; }
+.lt-ie8 header li { display: block; float: left; }
+.lt-ie8 section#clients .logos .client-logos { display: block; }
+.lt-ie8 section#clients .logos .client-logos li { display: block; float: left; padding-top: 20px; }
+.lt-ie8 section#culture .culture-slideshow .bx-wrapper { padding-top: 100px; }
+
+.lt-ie9 section#clients .logos .client-logos li { border-bottom: 1px solid #949493; }
+.lt-ie9 section#work .showcase ul li a.cta { background: white url(../images/icon-lightbox2.png) no-repeat 440px center; }
+.lt-ie9 section#culture .culture-slideshow li .photo div.desc { background: #FFF; }
+.lt-ie9 section#opportunities .careers .job { border-bottom: 1px solid #949493; }
+.lt-ie9 section#work .showcase ul li a.cta { bottom: 40px; }
+.lt-ie9 section#opportunities .careers .job a span.experience { color: #FFF; }
+.lt-ie9 section#contact .contacts li a:hover { text-decoration: underline; }
+.lt-ie9 section#contact .contacts li a:hover .staff { background: none; }
+
+.clear_fix:after, header nav ul:after, section#opportunities .careers:after, footer .contain:after, .lt-ie8 section#clients .logos .client-logos:after, .no-js section#culture .culture-slideshow ul:after, .no-js section#culture .culture-slideshow li:after { content: ""; display: block; height: 0; clear: both; }
+
+.clear_fix, header nav ul, section#opportunities .careers, footer .contain, .lt-ie8 section#clients .logos .client-logos, .no-js section#culture .culture-slideshow ul, .no-js section#culture .culture-slideshow li { min-height: 1%; }
+
+.no-js section#culture { height: auto; }
+.no-js section#culture .bottom { height: auto; }
+.no-js section#culture .culture-slideshow { position: relative; top: 0; height: auto; }
+.no-js section#culture .culture-slideshow ul { width: 1024px; margin: 40px auto; }
+.no-js section#culture .culture-slideshow li { width: 1024px; position: relative; margin-bottom: 20px; float: none; }
+.no-js section#culture .culture-slideshow li img { width: auto; max-width: auto; margin-left: 0; }
+.no-js header nav { display: block; }
+.no-js header ul { display: block; }
+.no-js header li { opacity: 1; }
+.no-js section#home .logo, .no-js section#home .logo-advertising, .no-js section#home a.arrow-down { opacity: 1; }
+.no-js section#work .showcase a.cta { display: none; }
+.no-js section#contact .form-container.closed { display: block; }
+
+#job { padding-top: 125px; }
+#job h1 { color: #FF4e03; font-size: 53px; text-align: left; text-transform: uppercase; font-weight: 700; }
+#job h2, #job h3, #job h4, #job h5, #job h6 { color: #474749; font-weight: 700; text-transform: uppercase; margin: 36px 0 10px; text-align: left; }
+#job h2 { font-size: 27px; }
+#job h3 { font-size: 27px; }
+#job h4 { font-size: 27px; color: #ff4c00; font-weight: normal; }
+#job h5 { font-size: 19px; }
+#job strong { font-weight: bold; }
+#job p { color: #737373; font-size: 16px; line-height: 1.65; margin-bottom: 36px; text-transform: none; padding-left: 10px; }
+#job p + ul { margin-top: -20px; }
+#job ul { margin-bottom: 36px; margin-left: -4px; }
+#job li { background: url(../images/li.png) no-repeat 0 7px; padding-left: 14px; color: #737373; font-size: 16px; line-height: 1.65; margin-bottom: 18px; }
+#job a { color: #ff4c00; }
+#job a:focus, #job a:hover { color: #ff9b71; text-decoration: underline; }
+
+/*
+Animate.css - http://daneden.me/animate
+Licensed under the MIT license
+
+Copyright (c) 2013 Daniel Eden
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */ -webkit-backface-visibility: hidden; }
+
+.animated { -webkit-animation-duration: 1s; -moz-animation-duration: 1s; -o-animation-duration: 1s; animation-duration: 1s; -webkit-animation-fill-mode: both; -moz-animation-fill-mode: both; -o-animation-fill-mode: both; animation-fill-mode: both; }
+
+@-webkit-keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
+
+@-moz-keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
+
+@-o-keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
+
+@keyframes fadeIn { 0% { opacity: 0; }
+  100% { opacity: 1; } }
+
+.animated.fadeIn { -webkit-animation-name: fadeIn; -moz-animation-name: fadeIn; -o-animation-name: fadeIn; animation-name: fadeIn; }
+
+@-webkit-keyframes bounceInDown { 0% { opacity: 0; -webkit-transform: translateY(-2000px); }
+  60% { opacity: 1; -webkit-transform: translateY(30px); }
+  80% { -webkit-transform: translateY(-10px); }
+  100% { -webkit-transform: translateY(0); } }
+
+@-moz-keyframes bounceInDown { 0% { opacity: 0; -moz-transform: translateY(-2000px); }
+  60% { opacity: 1; -moz-transform: translateY(30px); }
+  80% { -moz-transform: translateY(-10px); }
+  100% { -moz-transform: translateY(0); } }
+
+@-o-keyframes bounceInDown { 0% { opacity: 0; -o-transform: translateY(-2000px); }
+  60% { opacity: 1; -o-transform: translateY(30px); }
+  80% { -o-transform: translateY(-10px); }
+  100% { -o-transform: translateY(0); } }
+
+@keyframes bounceInDown { 0% { opacity: 0; transform: translateY(-2000px); }
+  60% { opacity: 1; transform: translateY(30px); }
+  80% { transform: translateY(-10px); }
+  100% { transform: translateY(0); } }
+
+.animated.bounceInDown { -webkit-animation-name: bounceInDown; -moz-animation-name: bounceInDown; -o-animation-name: bounceInDown; animation-name: bounceInDown; }
+
+@-webkit-keyframes bounceInLeft { 0% { opacity: 0; -webkit-transform: translateX(-2000px); }
+  60% { opacity: 1; -webkit-transform: translateX(30px); }
+  80% { -webkit-transform: translateX(-10px); }
+  100% { -webkit-transform: translateX(0); } }
+
+/** BxSlider v4.0 - Fully loaded, responsive content slider http://bxslider.com  Written by: Steven Wanderski, 2012 http://stevenwanderski.com (while drinking Belgian ales and listening to jazz)  CEO and founder of bxCreative, LTD http://bxcreative.com */
+/** RESET AND LAYOUT
+===================================*/
+.bx-wrapper { position: relative; margin: 0 auto 60px; padding: 0; *zoom: 1; }
+
+.bx-wrapper img { max-width: 100%; display: block; }
+
+/** THEME
+===================================*/
+.bx-wrapper .bx-viewport { background: #fff; }
+
+.bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto { position: absolute; bottom: 40px; width: 100%; }
+
+/* LOADER */
+.bx-wrapper .bx-loading { min-height: 50px; background: url(images/bx_loader.gif) center center no-repeat white; height: 100%; width: 100%; position: absolute; top: 0; left: 0; z-index: 2000; }
+
+/* PAGER */
+.bx-wrapper .bx-pager { text-align: center; font-size: .85em; font-family: Arial; font-weight: bold; color: #666; padding-top: 20px; display: none; }
+
+.bx-wrapper .bx-pager .bx-pager-item, .bx-wrapper .bx-controls-auto .bx-controls-auto-item { display: inline-block; *zoom: 1; *display: inline; }
+
+.bx-wrapper .bx-pager.bx-default-pager a { background: #666; text-indent: -9999px; display: block; width: 10px; height: 10px; margin: 0 5px; outline: 0; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover, .bx-wrapper .bx-pager.bx-default-pager a.active { background: #ff4c00; }
+
+/* DIRECTION CONTROLS (NEXT / PREV) */
+.bx-wrapper .bx-prev { left: -300px; border-radius: 0px 10px 10px 0px; }
+.bx-wrapper .bx-prev span { float: right; }
+.bx-wrapper .bx-prev span.arrow { background: white url(../images/arrow-slideshow-left.png) no-repeat center center; display: block; height: 100%; width: 45px; border-radius: 0px 10px 10px 0px; }
+.bx-wrapper .bx-prev span.prevSlide { display: block; width: 300px; float: left; }
+
+.bx-wrapper .bx-next { right: -300px; border-radius: 10px 0 0px 10px; }
+.bx-wrapper .bx-next span { float: left; }
+.bx-wrapper .bx-next span.arrow { background: white url(../images/arrow-slideshow-right.png) no-repeat center center; display: block; height: 100%; width: 45px; float: left; border-radius: 10px 0 0px 10px; }
+.bx-wrapper .bx-next span.nextSlide { display: block; width: 300px; float: left; }
+
+.bx-wrapper .bx-next span, .bx-wrapper .bx-prev span { display: block; width: 100%; height: 100%; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+.bx-wrapper .bx-next span.national-guard, .bx-wrapper .bx-prev span.national-guard { background: url(../images/slideshow-client-ng-sm.jpg) no-repeat center center; }
+.bx-wrapper .bx-next span.fvc-bank, .bx-wrapper .bx-prev span.fvc-bank { background: url(../images/slideshow-client-fvc-sm.jpg) no-repeat center center; }
+.bx-wrapper .bx-next span.budget, .bx-wrapper .bx-prev span.budget { background: url(../images/slideshow-client-avis-sm.jpg) no-repeat center center; }
+
+.bx-wrapper .bx-prev:hover { left: 0; }
+
+.bx-wrapper .bx-next:hover { right: 0; }
+
+.bx-wrapper .bx-controls-direction a { position: absolute; top: 50%; margin-top: -100px; outline: 0; width: 345px; height: 200px; text-indent: -9999px; z-index: 900; opacity: 1; display: block; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+.bx-wrapper .bx-controls-direction a.bx-prev:hover span.arrow { background: #ff4c00 url(../images/arrow-slideshow-left-white.png) no-repeat center center; -moz-transition: opacity, background, 0.3s; -o-transition: opacity, background, 0.3s; -ms-transition: opacity, background, 0.3s; -webkit-transition: opacity, background, 0.3s; transition: opacity, background, 0.3s; }
+.bx-wrapper .bx-controls-direction a.bx-next:hover span.arrow { background: #ff4c00 url(../images/arrow-slideshow-right-white.png) no-repeat center center; -moz-transition: background, 0.3s; -o-transition: background, 0.3s; -ms-transition: background, 0.3s; -webkit-transition: background, 0.3s; transition: background, 0.3s; }
+
+.bx-wrapper .bx-controls-direction a.disabled { opacity: 0; -moz-transition: opacity, 0.3s; -o-transition: opacity, 0.3s; -ms-transition: opacity, 0.3s; -webkit-transition: opacity, 0.3s; transition: opacity, 0.3s; }
+
+/* AUTO CONTROLS (START / STOP) */
+.bx-wrapper .bx-controls-auto { text-align: center; }
+
+.bx-wrapper .bx-controls-auto .bx-start { display: block; text-indent: -9999px; width: 10px; height: 11px; outline: 0; background: url(images/controls.png) -86px -11px no-repeat; margin: 0 3px; }
+
+.bx-wrapper .bx-controls-auto .bx-start:hover, .bx-wrapper .bx-controls-auto .bx-start.active { background-position: -86px 0; }
+
+.bx-wrapper .bx-controls-auto .bx-stop { display: block; text-indent: -9999px; width: 9px; height: 11px; outline: 0; background: url(images/controls.png) -86px -44px no-repeat; margin: 0 3px; }
+
+.bx-wrapper .bx-controls-auto .bx-stop:hover, .bx-wrapper .bx-controls-auto .bx-stop.active { background-position: -86px -33px; }
+
+/* PAGER WITH AUTO-CONTROLS HYBRID LAYOUT */
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager { text-align: left; width: 80%; }
+
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto { right: 0; width: 35px; }
+
+/* IMAGE CAPTIONS */
+.bx-wrapper .bx-caption { position: absolute; bottom: 0; left: 0; background: #666666 \9; background: rgba(80, 80, 80, 0.75); width: 100%; }
+
+.bx-wrapper .bx-caption span { color: #fff; font-family: Arial; display: block; font-size: .85em; padding: 10px; }
+
+@media only screen and (max-width: 600px) { .contain { width: 100%; }
+  section, ul, li, a, h1, h2, h3, h4, h5, h6 { width: 100% !important; position: relative !important; } }
+/* Colorbox Core Style: The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper { position: absolute; top: 0; left: 0; z-index: 9999; overflow: hidden; }
+
+#cboxWrapper { max-width: none; }
+
+#cboxOverlay { position: fixed; width: 100%; height: 100%; }
+
+#cboxMiddleLeft, #cboxBottomLeft { clear: left; }
+
+#cboxContent { position: relative; }
+
+#cboxLoadedContent { overflow: auto; -webkit-overflow-scrolling: touch; }
+#cboxLoadedContent::-webkit-scrollbar { -webkit-appearance: none; width: 7px; }
+#cboxLoadedContent::-webkit-scrollbar-thumb { border-radius: 6px; background-color: rgba(0, 0, 0, 0.5); -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
+
+#cboxTitle { margin: 0; }
+
+#cboxLoadingOverlay, #cboxLoadingGraphic { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow { cursor: pointer; }
+
+.cboxPhoto { float: left; margin: auto; border: 0; display: block; max-width: none; -ms-interpolation-mode: bicubic; }
+
+.cboxIframe { width: 100%; height: 100%; display: block; border: 0; }
+
+#colorbox, #cboxContent, #cboxLoadedContent { box-sizing: content-box; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; }
+
+/* User Style: Change the following styles to modify the appearance of Colorbox.  They are ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay { background: url(../images/overlay.png) repeat 0 0; }
+
+#colorbox { outline: 0; }
+
+#cboxTopLeft { width: 21px; height: 21px; background: url(../images/controls.png) no-repeat -101px 0; }
+
+#cboxTopRight { width: 21px; height: 21px; background: url(../images/controls.png) no-repeat -130px 0; }
+
+#cboxBottomLeft { width: 21px; height: 21px; background: url(../images/controls.png) no-repeat -101px -29px; }
+
+#cboxBottomRight { width: 21px; height: 21px; background: url(../images/controls.png) no-repeat -130px -29px; }
+
+#cboxMiddleLeft { width: 21px; background: url(../images/controls.png) left top repeat-y; }
+
+#cboxMiddleRight { width: 21px; background: url(../images/controls.png) right top repeat-y; }
+
+#cboxTopCenter { height: 21px; background: url(../images/border.png) 0 0 repeat-x; }
+
+#cboxBottomCenter { height: 21px; background: url(../images/border.png) 0 -29px repeat-x; }
+
+#cboxContent { background: #fff; overflow: hidden; }
+#cboxContent .container { padding: 40px; }
+#cboxContent h1 { color: #949493; font-size: 12px; margin-bottom: 3px; }
+#cboxContent h2 { color: #ff4c00; font-size: 18px; text-transform: uppercase; }
+#cboxContent .line { height: 2px; width: 100%; border-bottom: 1px solid rgba(148, 148, 147, 0.3); margin-top: 10px; margin-bottom: 20px; }
+#cboxContent p { font-size: 14px; line-height: 20px; margin-bottom: 40px; }
+#cboxContent p span.orange { color: #ff4c00; }
+#cboxContent p img { width: 100%; }
+
+.cboxIframe { background: #fff; }
+
+#cboxError { padding: 50px; border: 1px solid #ccc; }
+
+#cboxLoadedContent { margin-bottom: 28px; }
+
+#cboxTitle { position: absolute; bottom: 4px; left: 0; text-align: center; width: 100%; color: #949494; }
+
+#cboxCurrent { position: absolute; bottom: 4px; left: 58px; color: #949494; }
+
+#cboxLoadingOverlay { background: url(../images/loading_background.png) no-repeat center center; }
+
+#cboxLoadingGraphic { background: url(../images/loading.gif) no-repeat center center; }
+
+/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+#cboxPrevious, #cboxNext, #cboxSlideshow { border: 0; padding: 0; margin: 0; overflow: visible; width: auto; background: none; }
+
+/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+#cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active { outline: 0; }
+
+#cboxSlideshow { position: absolute; bottom: 4px; right: 30px; color: #0092ef; }
+
+#cboxPrevious { position: absolute; bottom: 0; left: 0; background: url(../images/controls.png) no-repeat -75px 0; width: 25px; height: 25px; text-indent: -9999px; }
+
+#cboxPrevious:hover { background-position: -75px -25px; }
+
+#cboxNext { position: absolute; bottom: 0; left: 27px; background: url(../images/controls.png) no-repeat -50px 0; width: 25px; height: 25px; text-indent: -9999px; }
+
+#cboxNext:hover { background-position: -50px -25px; }
+
+#cboxClose { position: absolute; top: 10px; right: 15px; background: url(../images/close.png) no-repeat center center; width: 27px; height: 32px; text-indent: -9999px; border: 0; z-index: 9999; opacity: 1; zoom: 1; }
+
+#cboxClose:hover { opacity: .6; }
+
+/* The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill when an alpha filter (opacity change) is set on the element or ancestor element.  This style is not applied to or needed in IE9. See: http://jacklmoore.com/notes/ie-transparency-problems/
+*/
+.cboxIE #cboxTopLeft, .cboxIE #cboxTopCenter, .cboxIE #cboxTopRight, .cboxIE #cboxBottomLeft, .cboxIE #cboxBottomCenter, .cboxIE #cboxBottomRight, .cboxIE #cboxMiddleLeft, .cboxIE #cboxMiddleRight { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF); }
+
+/* Jerry added stuff right here! */
+.server-error { text-align: center; color: #f00; margin-top: 10px; display: none; }
+
+button.disabled, button.disabled:hover { background: #646469; cursor: default; }
+
+#thank-you-page section#contact { height: auto; margin-top: 300px; }
+#thank-you-page section#contact .thankyou { display: block; }
+
+.file_wrapper label { float: left; }
+
+#progress { float: right; }
+#progress p { display: block; width: 240px; padding: 2px 5px; margin: 2px 0; border: 1px inset #446; border-radius: 5px; background: #eeeeee url(../images/progress.png) 100% 0 repeat-y; }
+#progress p.success { background: #0c0 none 0 0 no-repeat; }
+#progress p.failed { background: #c00 none 0 0 no-repeat; }

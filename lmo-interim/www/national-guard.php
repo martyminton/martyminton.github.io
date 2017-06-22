@@ -1,0 +1,12 @@
+<div class="container">
+	<h1 class="title">Client</h1>
+	<h2 class="client-name">National Guard</h2>
+	<div class="line"></div>
+
+	<p><span class="orange">Integrated Campaign</span> / For the National Guard, LMO must convey the truth of service and inspire everyday citizens to step into harm's way. Who else does this? The Man of Steel™. LMO worked with Warner Bros. to marry the movie with the brand by creating "Soldier of Steel" and a campaign that coupled the theater spot with online initiatives, in-person events, social media, and custom fitness routines by leading man Henry Cavill. </p>
+
+	<p><iframe width="853" height="480" src="//www.youtube.com/embed/agWOW5uy3TA?rel=0" frameborder="0" allowfullscreen></iframe></p>
+
+	<p><img src="/assets/images/modal-mos-1.jpg" /></p>
+	<p><img src="/assets/images/modal-ng-2.jpg" /></p>
+</div>

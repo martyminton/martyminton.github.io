@@ -1,0 +1,42 @@
+/* Reset Styles */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, hr {
+margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; outline:none; list-style-type:none;}
+
+/* Custom Styles */
+
+body {font-family:Arial; font-size:12px; text-align:center; background:#18334e url(../images/bg-home.jpg) top left repeat-x; margin:0;}
+
+#container {position:relative; margin:0 auto; width:980px; text-align:left;}
+
+#masthead {width:980px; height:146px; background:url(../images/logo-prosol-associates.gif) top left no-repeat;}
+#logo {float:left; width:200px; height:146px; margin-left:50px; display:block; text-indent:-9999px;}
+
+#nav {float:right; height:78px; width:643px; margin:68px 0 0 0;}
+#nav li {float:left; height:78px;}
+#nav li a {display:block; height:78px; text-indent:-9999px; }
+
+/* Normal State */
+#nav li .home {width:107px; background:url(../images/nav-sprite.gif) 0px 0px no-repeat;}
+#nav li .about {width:132px; background:url(../images/nav-sprite.gif) -107px 0px no-repeat;}
+#nav li .solutions {width:146px; background:url(../images/nav-sprite.gif) -239px 0px no-repeat;}
+#nav li .contracts {width:151px; background:url(../images/nav-sprite.gif) -385px 0px no-repeat;}
+#nav li .careers {width:107px; background:url(../images/nav-sprite.gif) -536px 0px no-repeat;}
+
+/* Hover State */
+#nav li .home:hover {width:107px; background:url(../images/nav-sprite.gif) 0px -78px no-repeat;}
+#nav li .about:hover {width:132px; background:url(../images/nav-sprite.gif) -107px -78px no-repeat;}
+#nav li .solutions:hover {width:146px; background:url(../images/nav-sprite.gif) -239px -78px no-repeat;}
+#nav li .contracts:hover {width:151px; background:url(../images/nav-sprite.gif) -385px -78px no-repeat;}
+#nav li .careers:hover {width:107px; background:url(../images/nav-sprite.gif) -536px -78px no-repeat;}
+
+/* Active State */
+#nav li .home-on {width:107px; background:url(../images/nav-sprite.gif) 0px -156px no-repeat;}
+#nav li .about-on {width:132px; background:url(../images/nav-sprite.gif) -107px -156px no-repeat;}
+#nav li .solutions-on {width:146px; background:url(../images/nav-sprite.gif) -239px -156px no-repeat;}
+#nav li .contracts-on {width:151px; background:url(../images/nav-sprite.gif) -385px -156px no-repeat;}
+#nav li .careers-on {width:107px; background:url(../images/nav-sprite.gif) -536px -156px no-repeat;}
+
+
+/* Universal Elements */
+
+.clear {clear:both;}

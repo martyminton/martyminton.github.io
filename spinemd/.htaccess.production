@@ -1,0 +1,1975 @@
+# Standard .htaccess file
+
+# Secure .htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+# Block access to backup and source files
+# This files may be left by some text/html editors and
+# pose a great security danger, when someone can access them
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</FilesMatch>
+
+# supress php errors
+# turn off on production
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
+# File Upload size
+#php_value upload_max_filesize 30M
+#php_value post_max_size 30M
+
+# Server Memory and Execution
+#php_value max_execution_time 400
+#php_value max_input_time 400
+#php_value memory_limit 128M
+
+# Don't show any directory without an index file
+Options -Indexes
+
+# Dont list files in index pages
+IndexIgnore *
+
+# EE 404 page for missing pages
+# May differ depending on where your template is located.
+ErrorDocument 404 /index.php?/site/404
+
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Remove the www from the URL
+# You may be able to do this through your web host or you may not need it at all.
+#RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Force the www (not used here but listed for reference)
+RewriteCond %{HTTP_HOST} ^spinemd\.
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L] 
+
+# Add a trailing slash to paths without an extension
+# Breaks POST 
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+# RewriteRule ^(.*)$ $1/ [L,R=301]
+
+
+# Force SSL
+#RewriteCond %{HTTP_HOST} ^www.spinemd
+#RewriteCond %{HTTPS} off
+#RewriteRule (.*)$ https://%{HTTP_HOST}/$1 [R=301,L] 
+
+# UnForce SSL on these pages
+#RewriteCond %{QUERY_STRING} (.*)forum/schedule(.*)
+RewriteCond %{HTTPS} on
+RewriteRule (.*)$ http://%{HTTP_HOST}/$1 [R=301,L] 
+
+
+# Remove index.php
+# Exclude files
+RewriteCond $1 !^(index\.php|d19klev13\.php|favicon\.ico) [NC]
+# Exclude folders
+RewriteCond $1 !^(assets|themes|themes_new|html|cache)/ [NC]
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+# Better website experience for IE users ( Chrome frame )
+<IfModule mod_headers.c>
+	Header set X-UA-Compatible "IE=Edge,chrome=1"
+	# mod_headers can't match by content-type, but we don't want to send this header on *everything*...
+	<FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|oex|xpi|safariextz|vcf)$" >
+		Header unset X-UA-Compatible
+	</FilesMatch>
+</IfModule>
+
+# Proper MIME type for all files
+# JavaScript
+# Normalize to standard type (it's sniffed in IE anyways)
+# tools.ietf.org/html/rfc4329#section-7.2
+AddType application/javascript js
+
+# Audio
+AddType audio/ogg oga ogg
+AddType audio/mp4 m4a
+
+# Video
+AddType video/ogg ogv
+AddType video/mp4 mp4 m4v
+AddType video/webm webm
+
+# SVG
+# Required for svg webfonts on iPad
+# twitter.com/FontSquirrel/status/14855840545
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
+
+# Webfonts
+AddType application/vnd.ms-fontobject eot
+AddType application/x-font-ttf ttf ttc
+AddType font/opentype otf
+AddType application/x-font-woff woff
+
+# Assorted types
+AddType image/x-icon ico
+AddType image/webp webp
+AddType text/cache-manifest appcache manifest
+AddType text/x-component htc
+AddType application/x-chrome-extension crx
+AddType application/x-opera-extension oex
+AddType application/x-xpinstall xpi
+AddType application/octet-stream safariextz
+AddType application/x-web-app-manifest+json webapp
+AddType text/x-vcard vcf
+
+# Gzip compression
+<IfModule mod_deflate.c>
+
+	# Force deflate for mangled headers developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping/
+	<IfModule mod_setenvif.c>
+		<IfModule mod_headers.c>
+			SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+			RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+		</IfModule>
+	</IfModule>
+
+	# HTML, TXT, CSS, JavaScript, JSON, XML, HTC:
+	<IfModule filter_module>
+		FilterDeclare COMPRESS
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $text/html
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $text/css
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $text/plain
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $text/xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $text/x-component
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/javascript
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/json
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/xhtml+xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/rss+xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/atom+xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/vnd.ms-fontobject
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $image/svg+xml
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $image/x-icon
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $application/x-font-ttf
+		FilterProvider COMPRESS DEFLATE resp=Content-Type $font/opentype
+		FilterChain COMPRESS
+		FilterProtocol COMPRESS DEFLATE change=yes;byteranges=no
+	</IfModule>
+
+	<IfModule !mod_filter.c>
+		# Legacy versions of Apache
+		AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+		AddOutputFilterByType DEFLATE application/javascript
+		AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+		AddOutputFilterByType DEFLATE application/xhtml+xml application/rss+xml application/atom+xml
+		AddOutputFilterByType DEFLATE image/x-icon image/svg+xml application/vnd.ms-fontobject application/x-font-ttf font/opentype
+	</IfModule>
+
+</IfModule>
+
+# Ensure GZIP Compression is on
+# used on SCG since other one broke
+# php_value output_handler ob_gzhandler
+
+# Expires headers (for better cache control)
+# If you don't use filenames to version, lower the CSS and JS to something like
+# "access plus 1 week" or so.
+
+<IfModule mod_expires.c>
+	ExpiresActive on
+
+# Perhaps better to whitelist expires rules? Perhaps.
+	ExpiresDefault "access plus 1 month"
+
+# cache.appcache needs re-requests in FF 3.6 (thanks Remy ~Introducing HTML5)
+	ExpiresByType text/cache-manifest "access plus 0 seconds"
+
+# Your document html
+	ExpiresByType text/html "access plus 0 seconds"
+
+# Data
+	ExpiresByType text/xml "access plus 0 seconds"
+	ExpiresByType application/xml "access plus 0 seconds"
+	ExpiresByType application/json "access plus 0 seconds"
+
+# Feed
+	ExpiresByType application/rss+xml "access plus 1 hour"
+	ExpiresByType application/atom+xml "access plus 1 hour"
+
+# Favicon (cannot be renamed)
+	ExpiresByType image/x-icon "access plus 1 week"
+
+# Media: images, video, audio
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType image/jpg "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType video/ogg "access plus 1 month"
+	ExpiresByType audio/ogg "access plus 1 month"
+	ExpiresByType video/mp4 "access plus 1 month"
+	ExpiresByType video/webm "access plus 1 month"
+
+# HTC files (css3pie)
+	ExpiresByType text/x-component "access plus 1 month"
+
+# Webfonts
+	ExpiresByType application/x-font-ttf "access plus 1 month"
+	ExpiresByType font/opentype "access plus 1 month"
+	ExpiresByType application/x-font-woff "access plus 1 month"
+	ExpiresByType image/svg+xml "access plus 1 month"
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+
+# CSS and JavaScript
+	ExpiresByType text/css "access plus 1 year"
+	ExpiresByType application/javascript "access plus 1 year"
+
+</IfModule>
+
+# ETag removal
+
+# FileETag None is not enough for every server.
+<IfModule mod_headers.c>
+	Header unset ETag
+</IfModule>
+
+# Since we're sending far-future expires, we don't need ETags for
+# static content.
+# developer.yahoo.com/performance/rules.html#etags
+FileETag None
+
+# Prevent SSL cert warnings
+# Rewrite secure requests properly to prevent SSL cert warnings, e.g. prevent
+# https://www.example.com when your cert only allows https://secure.example.com
+# Uncomment the following lines to use this feature.
+
+# <IfModule mod_rewrite.c>
+# RewriteCond %{SERVER_PORT} !^443
+# RewriteRule ^ https://example-domain-please-change-me.com%{REQUEST_URI} [R=301,L]
+# </IfModule> 
+
+
+
+## Files
+Redirect	301	/news/uploads/3rd_Quarter_2009_VSI_Newsletter.pdf	/assets/uploads/files/3rd_Quarter_2009_VSI_Newsletter.pdf
+Redirect	301	/files/After_Spine_Surgery_Recovery_000.pdf	/assets/uploads/files/After_Spine_Surgery_Recovery_000.pdf
+Redirect	301	/publications/uploads/BRS_Fall_2010_Case_Report.pdf	/assets/uploads/files/BRS_Fall_2010_Case_Report.pdf
+Redirect	301	/publications/uploads/BRS_Fall_2010_SPORT.pdf	/assets/uploads/files/BRS_Fall_2010_SPORT.pdf
+Redirect	301	/publications/uploads/BRS_Metastatic.pdf	/assets/uploads/files/BRS_Metastatic.pdf
+Redirect	301	/publications/uploads/BRS_Sarcoma.pdf	/assets/uploads/files/BRS_Sarcoma.pdf
+Redirect	301	/publications/uploads/BRS_Spring_2010.pdf	/assets/uploads/files/BRS_Spring_2010.pdf
+Redirect	301	/publications/uploads/BRS_Spring_2011.pdf	/assets/uploads/files/BRS_Spring_2011.pdf
+Redirect	301	/news/uploads/Beckers.10_Spine_Surgeon_Practice_Leaders_to_Know.Schuler.01.11.12.pdf	/assets/uploads/files/Beckers.10_Spine_Surgeon_Practice_Leaders_to_Know.Schuler.01.11.12.pdf
+Redirect	301	/news/uploads/Beckers.113_Surgery_Center_Administrators_to_Know.ngoldbranson.04.21.12.pdf	/assets/uploads/files/Beckers.113_Surgery_Center_Administrators_to_Know.ngoldbranson.04.21.12.pdf
+Redirect	301	/news/uploads/Beckers.20_Surgeon_Leaders_in_Independent_Spine_Neurosurgical_Groups.Schuler.03.20.12.pdf	/assets/uploads/files/Beckers.20_Surgeon_Leaders_in_Independent_Spine_Neurosurgical_Groups.Schuler.03.20.12.pdf
+Redirect	301	/publications/uploads/CRG_Fall_2010.pdf	/assets/uploads/files/CRG_Fall_2010.pdf
+Redirect	301	/publications/uploads/CRG_Spine_Trauma.pdf	/assets/uploads/files/CRG_Spine_Trauma.pdf
+Redirect	301	/publications/uploads/CRG_Spine_Tumor.pdf	/assets/uploads/files/CRG_Spine_Tumor.pdf
+Redirect	301	/publications/uploads/CRG_Spring_2010.pdf	/assets/uploads/files/CRG_Spring_2010.pdf
+Redirect	301	/news/uploads/CommunityEducationSeries.pdf	/assets/uploads/files/CommunityEducationSeries.pdf
+Redirect	301	/blog/wp-content/uploads/2012/06/Dry-Needling-Article-SRF-Journal.pdf	/assets/uploads/files/Dry-Needling-Article-SRF-Journal.pdf
+Redirect	301	/news/uploads/Fitness_Calendar_January.pdf	/assets/uploads/files/Fitness_Calendar_January.pdf
+Redirect	301	/files/Good-Spinefusionteachingbook8-1-11.pdf	/assets/uploads/files/Good-Spinefusionteachingbook8-1-11.pdf
+Redirect	301	/files/Good-Spinefusionteachingbook8-1-11_000.pdf	/assets/uploads/files/Good-Spinefusionteachingbook8-1-11_000.pdf
+Redirect	301	/files/Hasz_Profile_000.pdf	/assets/uploads/files/Hasz_Profile_000.pdf
+Redirect	301	/files/Home_Recovery.pdf	/assets/uploads/files/Home_Recovery.pdf
+Redirect	301	/files/Home_Recovery_000.pdf	/assets/uploads/files/Home_Recovery_000.pdf
+Redirect	301	/publications/uploads/Lumbar_Disc_Replacement.pdf	/assets/uploads/files/Lumbar_Disc_Replacement.pdf
+Redirect	301	/publications/uploads/MWH_Fall_2010.pdf	/assets/uploads/files/MWH_Fall_2010.pdf
+Redirect	301	/publications/uploads/MWH_Spring_2010.pdf	/assets/uploads/files/MWH_Spring_2010.pdf
+Redirect	301	/news/uploads/Osteoporosis_-_Taking_Steps_Towards_Bone_Health1.pdf	/assets/uploads/files/Osteoporosis_-_Taking_Steps_Towards_Bone_Health1.pdf
+Redirect	301	/blog/wp-content/uploads/2013/10/PA-Match-Game.pdf	/assets/uploads/files/PA-Match-Game.pdf
+Redirect	301	/files/Preparing_For_Spine_Surgery_000.pdf	/assets/uploads/files/Preparing_For_Spine_Surgery_000.pdf
+Redirect	301	/files/Preparing_For_Spine_Surgery_005.pdf	/assets/uploads/files/Preparing_For_Spine_Surgery_005.pdf
+Redirect	301	/publications/uploads/President_Fall_2008.pdf	/assets/uploads/files/President_Fall_2008.pdf
+Redirect	301	/publications/uploads/President_Fall_2009.pdf	/assets/uploads/files/President_Fall_2009.pdf
+Redirect	301	/publications/uploads/President_Fall_2010_Note.pdf	/assets/uploads/files/President_Fall_2010_Note.pdf
+Redirect	301	/publications/uploads/President_Fall_2011.pdf	/assets/uploads/files/President_Fall_2011.pdf
+Redirect	301	/publications/uploads/President_Spring_2009.pdf	/assets/uploads/files/President_Spring_2009.pdf
+Redirect	301	/publications/uploads/President_Spring_2010.pdf	/assets/uploads/files/President_Spring_2010.pdf
+Redirect	301	/publications/uploads/President_Spring_2011.pdf	/assets/uploads/files/President_Spring_2011.pdf
+Redirect	301	/files/Request_MedInfo.pdf	/assets/uploads/files/Request_MedInfo.pdf
+Redirect	301	/blog/wp-content/uploads/2013/06/SI-Study.pdf	/assets/uploads/files/SI-Study.pdf
+Redirect	301	/files/Schuler_Profile.pdf	/assets/uploads/files/Schuler_Profile.pdf
+Redirect	301	/files/ScoliosisRichardMartin.pdf	/assets/uploads/files/ScoliosisRichardMartin.pdf
+Redirect	301	/files/ScoliosisRichardMartin_000.pdf	/assets/uploads/files/ScoliosisRichardMartin_000.pdf
+Redirect	301	/files/Subach_Profile.08.12.ver1.pdf	/assets/uploads/files/Subach_Profile.08.12.ver1.pdf
+Redirect	301	/news/uploads/Subway_Promo_Flyer_2011_REV.pdf	/assets/uploads/files/Subway_Promo_Flyer_2011_REV.pdf
+Redirect	301	/publications/uploads/TCS_Fall_2010.pdf	/assets/uploads/files/TCS_Fall_2010.pdf
+Redirect	301	/publications/uploads/TTN_Spring_2010.pdf	/assets/uploads/files/TTN_Spring_2010.pdf
+Redirect	301	/publications/uploads/TTN_Spring_2011.pdf	/assets/uploads/files/TTN_Spring_2011.pdf
+Redirect	301	/publications/uploads/The_Genetic_Basis.pdf	/assets/uploads/files/The_Genetic_Basis.pdf
+Redirect	301	/news/uploads/The_inside_story_on_how_London_Fletcher_opened_up_to_SI_-_NFL_-_Tim_Layden_-_SI.pdf	/assets/uploads/files/The_inside_story_on_how_London_Fletcher_opened_up_to_SI_-_NFL_-_Tim_Layden_-_SI.pdf
+Redirect	301	/publications/uploads/Use_of_a_Paravertebral.pdf	/assets/uploads/files/Use_of_a_Paravertebral.pdf
+Redirect	301	/news/uploads/VSI_Blood_Drive_09_09_09.pdf	/assets/uploads/files/VSI_Blood_Drive_09_09_09.pdf
+Redirect	301	/news/uploads/VSI_march_2009_newsletter1.pdf	/assets/uploads/files/VSI_march_2009_newsletter1.pdf
+Redirect	301	/files/controlled-substance-agreenment.pdf	/assets/uploads/files/controlled-substance-agreenment.pdf
+Redirect	301	/news/uploads/december_2009_newsletter.pdf	/assets/uploads/files/december_2009_newsletter.pdf
+Redirect	301	/files/faq-anterior-cervical-surgery.pdf	/assets/uploads/files/faq-anterior-cervical-surgery.pdf
+Redirect	301	/files/faq-print-version.pdf	/assets/uploads/files/faq-print-version.pdf
+Redirect	301	/files/faq-spinal-fusion-scoliosis-and-kyphosis.pdf	/assets/uploads/files/faq-spinal-fusion-scoliosis-and-kyphosis.pdf
+Redirect	301	/news/uploads/may_2009_newsletter.pdf	/assets/uploads/files/may_2009_newsletter.pdf
+Redirect	301	/news/uploads/mdnews.pdf	/assets/uploads/files/mdnews.pdf
+Redirect	301	/news/uploads/observer_article_09_25_09.pdf	/assets/uploads/files/observer_article_09_25_09.pdf
+Redirect	301	/for-patients/patient-registration.php	/assets/uploads/files/patient-registration.php
+Redirect	301	/files/privacy-policy.pdf	/assets/uploads/files/privacy-policy.pdf
+Redirect	301	/files/recheckforms.pdf	/assets/uploads/files/recheckforms.pdf
+Redirect	301	/files/recheckforms_000.pdf	/assets/uploads/files/recheckforms_000.pdf
+Redirect	301	/news/uploads/vsi_smoking_cessation_program.pdf	/assets/uploads/files/vsi_smoking_cessation_program.pdf
+Redirect	301	/files/welcomepacket.pdf	/assets/uploads/files/welcomepacket.pdf
+
+## All Others
+
+Redirect	301	/youtube	http://youtube.com/virginiaspineinst
+Redirect	301	/videos/welcome.html?keepThis=true&TB_iframe=true&height=285&width=500	http://www.youtube.com/watch?v=G9-PAjJJX5A
+Redirect	301	/videos/personal-subach.html?keepThis=true&TB_iframe=true&height=320&width=500	https://youtube.com/watch?v=KHMO4KRkRm0
+Redirect	301	/videos/personal-schuler.html?keepThis=true&TB_iframe=true&height=320&width=500	https://youtube.com/watch?v=XXEwGDA40EY
+Redirect	301	/videos/personal-nguyen.html?keepThis=true&TB_iframe=true&height=320&width=500	https://youtube.com/watch?v=hZ0NH1ITgBI
+Redirect	301	/videos/personal-hasz.html?keepThis=true&TB_iframe=true&height=320&width=500	https://youtube.com/watch?v=TS1bRLUmjH0
+Redirect	301	/videos/personal-good.html?keepThis=true&TB_iframe=true&height=320&width=500	https://youtube.com/watch?v=8DHHx3XiMjQ
+Redirect	301	/videos/personal-good.html?keepThis=true&TB_iframe=true&height=285&width=500	https://youtube.com/watch?v=8DHHx3XiMjQ
+Redirect	301	/terms-of-use.php	/privacy-policy
+Redirect	301	/publications/articles/will-radiosurgery-replace-microsurgery-for-pineal-region-tumors	/news-philanthropy/category/article
+Redirect	301	/publications/articles/whats-your-specialty	/news-philanthropy/category/article
+Redirect	301	/publications/articles/whats-new-in-adolescent-spine-care	/news-philanthropy/category/article
+Redirect	301	/publications/articles/vestibular-schwannoma-management-part-ii-failed-radiosurgery-and-the-role-of-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/ventral-plus-dorsal-techniques-for-thoracolumbar-arthrodesis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/vascular-complications-associated-with-basilar-skull-fracture	/news-philanthropy/category/article
+Redirect	301	/publications/articles/use-of-a-paravertebral-anesthetic-infusion-system-for-post-operative-pain-rel	/news-philanthropy/category/article
+Redirect	301	/publications/articles/understanding-the-minimum-clinically-important-difference-mcid-a-review-of-co	/news-philanthropy/category/article
+Redirect	301	/publications/articles/understanding-the-minimum-clinically-important-difference-a-review-of-concept	/news-philanthropy/category/article
+Redirect	301	/publications/articles/treatment-options-for-osteoporotic-vertebral-compression-fractures	/news-philanthropy/category/article
+Redirect	301	/publications/articles/treatment-of-isthmic-spondylolisthesis-case-presentations-and-discussion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/traumatic-shoulder-dislocation-in-the-adolescent-athlete-advances-in-surgical	/news-philanthropy/category/article
+Redirect	301	/publications/articles/total-disc-arthroplasty-the-wave-of-the-future	/news-philanthropy/category/article
+Redirect	301	/publications/articles/to-the-editor-refairbank-et-al-randomised-controlled-trial-to-compare-surgica	/news-philanthropy/category/article
+Redirect	301	/publications/articles/tlif-as-an-alternative-to-formal-anterior-interbody-fusion-at-the-caudal-end-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/three-month-glasgow-outcome-scores-predict-long-term-functional-outcomes-in-p	/news-philanthropy/category/article
+Redirect	301	/publications/articles/thoracolumbar-spine-trauma	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-use-of-a-resorbable-polymer-in-an-impacted-plif	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-sport-study-four-year-outcomes	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-significance-of-carotid-canal-involvement-in-basilar-cranial-fracture	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-rheumatoid-cervical-spine	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-origin-and-evolution-of-the-university-of-pittsburgh-department-of-neurol	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-only-way-to-cut-healthcare-costs-is-to-ration-healthcare	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-minimum-clinically-important-difference-in-lumbar-spine-surgery-patients-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-genetic-basis-of-adolescent-idiopathic-scoliosis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-future-of-radiosurgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-fallacy-of-evidence-based-medicine	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-effect-of-radiofrequency-energy-on-glenohumeral-fluid-temperature-during-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-effect-of-previous-discectomy-on-outcome-after-lumbar-spinal-fusion-surge	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-effect-of-preoperative-disc-space-height-on-clinical-outcomes-after-anter	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-correlation-between-preoperative-disc-space-height-and-clinical-outcomes-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/the-biology-of-bone-fusion-and-adjuncts-to-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/techniques-of-ventral-thoracic-and-lumbar-spine-stabilization	/news-philanthropy/category/article
+Redirect	301	/publications/articles/technique-for-impacted-posterior-lumbar-interbody-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/symposium-bone-and-biomaterials-infection-inflammation-and-immune-responses	/news-philanthropy/category/article
+Redirect	301	/publications/articles/surgical-treatment-of-symptomatic-bertolottis-syndrome-on-post-fusion-patient	/news-philanthropy/category/article
+Redirect	301	/publications/articles/surgical-treatment-of-symptomatic-bertolottis-syndrome-in-post-fusion-patient	/news-philanthropy/category/article
+Redirect	301	/publications/articles/surgical-irrigation-with-pooled-human-immunoglobulin-g-to-reduce-post-operati	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-in-the-management-of-petroclival-meningiomas-1-2-3-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-in-the-management-of-petroclival-meningiomas-1-2-3	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-in-the-management-of-petroclival-meningiomas	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-in-the-management-of-acoustic-neuromas-associated-w	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-for-pineal-region-tumors	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-radiosurgery-for-arteriovenous-malformations	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stereotactic-and-radiosurgical-management-of-pineal-region-tumors	/news-philanthropy/category/article
+Redirect	301	/publications/articles/stenosis-fractures-and-return-to-play	/news-philanthropy/category/article
+Redirect	301	/publications/articles/standing-tall-neck-and-back-pain-you-are-not-alone	/news-philanthropy/category/article
+Redirect	301	/publications/articles/spondylolisthesis-in-the-athlete	/news-philanthropy/category/article
+Redirect	301	/publications/articles/spine-tumor-multiple-myeloma-a-case-report	/news-philanthropy/category/article
+Redirect	301	/publications/articles/spinal-fusion-for-spastic-neuromuscular-scoliosis-nms-is-anterior-releasing-n	/news-philanthropy/category/article
+Redirect	301	/publications/articles/spinal-fusion-for-spastic-neuromuscular-scoliosis-is-anterior-releasing-neces	/news-philanthropy/category/article
+Redirect	301	/publications/articles/six-year-outcomes-of-anterior-lumbar-interbody-arthrodesis-with-use-of-interb	/news-philanthropy/category/article
+Redirect	301	/publications/articles/simvastatin-protects-bladder-and-renal-functinos-following-spinal-cord-injury	/news-philanthropy/category/article
+Redirect	301	/publications/articles/simvastatin-limits-spinal-cord-injury-induced-neurogenic-bladder-and-renal-dy	/news-philanthropy/category/article
+Redirect	301	/publications/articles/simvastatin-ameliorates-spinal-cord-injury-induced-neurogenic-bladder-and-ren	/news-philanthropy/category/article
+Redirect	301	/publications/articles/should-i-have-spinal-surgery	/patient-resources/current-patients/patient-instructions/should-i-have-spinal-surgery
+Redirect	301	/publications/articles/segmental-lumbar-lordosis-manual-versus-computer-assisted-measurement-using-s	/news-philanthropy/category/article
+Redirect	301	/publications/articles/segmental-lumbar-lordosis-anual-versus-computer-assisted-measurement-using-se	/news-philanthropy/category/article
+Redirect	301	/publications/articles/sciatica-new-surgical-technology-for-patients-with-ruptured-discs	/news-philanthropy/category/article
+Redirect	301	/publications/articles/safety-and-efficacy-of-peek-rods-in-posterior-lumbar-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/safety-and-efficacy-of-bone-morphogenetic-protein-rhbmp-2-in-complex-pediatri	/news-philanthropy/category/article
+Redirect	301	/publications/articles/safety-and-efficacy-of-a-translational-cervical-plate-in-multi-level-cervical	/news-philanthropy/category/article
+Redirect	301	/publications/articles/risk-factors-and-outcomes-for-catastrophic-failures-at-the-top-of-long-pedicl	/news-philanthropy/category/article
+Redirect	301	/publications/articles/revision-rates-following-primary-adult-spinal-deformity-surgery-six-hundred-f	/news-philanthropy/category/article
+Redirect	301	/publications/articles/revision-rates-following-primary-adult-spinal-deformity-surgery-667-consecuti	/news-philanthropy/category/article
+Redirect	301	/publications/articles/reliability-and-accuracy-of-fine-cut-ct-scans-to-determine-the-status-of-ante	/news-philanthropy/category/article
+Redirect	301	/publications/articles/reliability-and-accuracy-of-fine-cut-ct-scans-to-determine-the-statue-of-ante	/news-philanthropy/category/article
+Redirect	301	/publications/articles/reliability-and-accuracy-of-fine-cut-computed-tomography-scans-to-determine-t	/news-philanthropy/category/article
+Redirect	301	/publications/articles/rate-of-spinal-surgery-in-first-encounter-patients	/news-philanthropy/category/article
+Redirect	301	/publications/articles/radiosurgery-as-an-alternative-to-microsurgery-in-the-management-of-petrocliv	/news-philanthropy/category/article
+Redirect	301	/publications/articles/radiofrequency-facet-joint-denervation-in-the-setting-of-chronic-axial-low-ba	/news-philanthropy/category/article
+Redirect	301	/publications/articles/radiation-induced-sarcoma-a-case-report	/news-philanthropy/category/article
+Redirect	301	/publications/articles/prosthetic-disk-design-and-outcome	/news-philanthropy/category/article
+Redirect	301	/publications/articles/prior-surgery-and-outcomes-following-lumbar-fusion-surgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/principles-of-spinal-deformity-evaluation-of-adult-thoracolumbar-deformity-an	/news-philanthropy/category/article
+Redirect	301	/publications/articles/predictors-of-outcome-after-anterior-cervical-discectomy-and-fusion-a-multiva	/news-philanthropy/category/article
+Redirect	301	/publications/articles/posterior-lumbar-interbody-fusion-indications-technique-and-results-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/posterior-lumbar-interbody-fusion-indications-technique-and-results	/news-philanthropy/category/article
+Redirect	301	/publications/articles/posterior-cervical-fixation-using-a-new-polyaxial-screw-and-rod-system-techni	/news-philanthropy/category/article
+Redirect	301	/publications/articles/posterior-atlantoaxial-screw-fixation-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/posterior-atlantoaxial-screw-fixation	/news-philanthropy/category/article
+Redirect	301	/publications/articles/post-operative-care-for-adult-and-pediatric-spinal-deformity-surgery-patients	/news-philanthropy/category/article
+Redirect	301	/publications/articles/pldla-peek-and-bmp-the-future-of-spine-surgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/physician-extenders-in-spine-health-care-physician-assistants	/news-philanthropy/category/article
+Redirect	301	/publications/articles/pediatric-spinal-deformity-and-scoliosis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/oviposition-dynamics-of-two-released-species-of-toxorhynchites-diptera-culcid	/news-philanthropy/category/article
+Redirect	301	/publications/articles/overview-of-frameless-stereotactic-techniques-for-lumbar-spine-surgery-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/overview-of-frameless-stereotactic-techniques-for-lumbar-spine-surgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/outcomes-after-gamma-knife-radiosurgery-in-solitary-acoustic-tumors-and-neuro	/news-philanthropy/category/article
+Redirect	301	/publications/articles/outcome-expectations-in-patients-with-severe-traumatic-brain-injury-associate	/news-philanthropy/category/article
+Redirect	301	/publications/articles/osteoporosis-taking-steps-towards-bone-health	/news-philanthropy/category/article
+Redirect	301	/publications/articles/orthopaedic-surgery-residents-how-to-choose-the-right-practice	/news-philanthropy/category/article
+Redirect	301	/publications/articles/operative-approach-selection-anterior-vs-posterior	/news-philanthropy/category/article
+Redirect	301	/publications/articles/operative-and-non-operative-adolescent-spine-care	/news-philanthropy/category/article
+Redirect	301	/publications/articles/occipito-cervical-junction-and-cervicothoracic-junction-fixation-using-the-ve	/news-philanthropy/category/article
+Redirect	301	/publications/articles/nutrition-and-health-omega-3-fatty-acids-the-role-of-fish-oil	/news-philanthropy/category/article
+Redirect	301	/publications/articles/neuro-navigation-of-the-spine-current-therapies-and-emerging-technology-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/neuro-navigation-of-the-spine-current-therapies-and-emerging-technology	/news-philanthropy/category/article
+Redirect	301	/publications/articles/needle-placement-and-discography-flouroscopic-imaging-indications-and-techniq	/news-philanthropy/category/article
+Redirect	301	/publications/articles/natural-history-of-os-odontoideum	/news-philanthropy/category/article
+Redirect	301	/publications/articles/narrow-versus-wide-positioning-in-anterior-lumbar-interbody-fusion-using-lt-c	/news-philanthropy/category/article
+Redirect	301	/publications/articles/multimodal-therapy-of-brainstem-cavernous-malformations-at-the-university-of-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/morbidity-and-survival-after-bcnu-wafer-implantation-for-recurrent-glioblasto	/news-philanthropy/category/article
+Redirect	301	/publications/articles/morbidity-and-survival-after-13-bis2-chloroethyl-1-nitrosourea-wafer-implanta	/news-philanthropy/category/article
+Redirect	301	/publications/articles/modern-spinal-health-care-provides-millions-the-hope-for-freedom-from-pain-an	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimum-clinically-important-difference-in-lumbar-spine-surgery-patients-a-ch	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-treatment-for-osteoporotic-vertebral-compression-fractures	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-surgery-intradiscal-electrothermal-therapy-idet	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-surgery-endoscopic-microdiscectomy	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-surgery-direct-lateral-interbody-fusion-dlif	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-spine-surgery-amp-intradiscal-electrothermal-idet-procedur	/news-philanthropy/category/article
+Redirect	301	/publications/articles/minimally-invasive-retropleural-thoracic-corpectomy-and-fusion-for-a-patholog	/news-philanthropy/category/article
+Redirect	301	/publications/articles/microvascular-decompression-of-cranial-nerves-lessons-learned-after-4400-oper	/news-philanthropy/category/article
+Redirect	301	/publications/articles/metastatic-spinal-disease-a-case-report	/news-philanthropy/category/article
+Redirect	301	/publications/articles/medical-acupuncture-for-pain-management	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-thoracic-disc-disease	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-petroclival-meningiomas-by-stereotactic-radiosurgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-petroclival-meningiomas-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-low-back-pain	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-infection-following-implantation-of-anterior-spinal-cages	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-acute-odontoid-fractures-with-single-screw-anterior-fixation	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-acute-odontoid-fractures-operative-techniques-and-complication-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/management-of-acute-calcific-tendinitis-of-the-shoulder-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/major-perioperative-neurologic-deficits-in-pediatric-and-adult-spine-surgery-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbosacral-fracture-treatment-in-patients-with-prior-thoracolumbar-fusions	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-spine-study-group-radiographic-measurement-of-lumbar-lordosis-comparis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-spine-instrumentation-and-fusion-design	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-spinal-fusion-surgery-early-differences-in-clinical-outcome-between-ma	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-spinal-fusion-surgery-differences-in-outcome-withwithout-a-prior-disce	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-microdiscectomy-review-of-the-literature-discectomy-is-still-the-stand	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-disc-replacment-a-panacea-or-a-potential-nightmare	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-arthroplasty-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lumbar-arthroplasty	/news-philanthropy/category/article
+Redirect	301	/publications/articles/lower-clival-and-foramen-magnum-lesions-the-pittsburgh-experience	/news-philanthropy/category/article
+Redirect	301	/publications/articles/local-application-of-pooled-human-igg-to-prevent-postoperative-biomaterial-ce	/news-philanthropy/category/article
+Redirect	301	/publications/articles/letter-to-the-editor-regarding-quotrandomized-controlled-trial-to-compare-sur	/news-philanthropy/category/article
+Redirect	301	/publications/articles/laparoscopic-anterior-lumbar-interbody-fusion-technical-note	/news-philanthropy/category/article
+Redirect	301	/publications/articles/laparoscopic-anterior-lumbar-interbody-fusion-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/laparoscopic-anterior-lumbar-interbody-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/laparascopic-versus-mini-open-anterior-lumbar-interbody-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/intraoperative-imaging-what-do-we-really-need	/news-philanthropy/category/article
+Redirect	301	/publications/articles/intraoperative-dislocation-of-a-trial-femoral-head-into-the-pelvis-during-tot	/news-philanthropy/category/article
+Redirect	301	/publications/articles/intradiscal-electrothermal-treatment-idet	/news-philanthropy/category/article
+Redirect	301	/publications/articles/intra-operative-care-for-adult-and-pediatric-spinal-deformity-surgery-patient	/news-philanthropy/category/article
+Redirect	301	/publications/articles/intensive-care-management-of-cranial-trauma	/news-philanthropy/category/article
+Redirect	301	/publications/articles/inspiring-stories-of-successful-spine-care-scoliosis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/impact-of-genetics-on-spinal-health-care	/news-philanthropy/category/article
+Redirect	301	/publications/articles/immunohistochemical-study-of-receptor-activator-of-nuclear-factor-kappa-b-lig	/news-philanthropy/category/article
+Redirect	301	/publications/articles/image-guided-neurosurgery-the-role-of-intraoperative-imaging	/news-philanthropy/category/article
+Redirect	301	/publications/articles/halo-brace-a-case-report	/news-philanthropy/category/article
+Redirect	301	/publications/articles/glenohumeral-chondrolysis-after-shoulder-arthroscopy-with-thermal-capsulorrha	/news-philanthropy/category/article
+Redirect	301	/publications/articles/gamma-knife-radiosurgery-of-cavernous-sinus-meningiomas-results-of-a-two-inst	/news-philanthropy/category/article
+Redirect	301	/publications/articles/from-the-president	/news-philanthropy/category/article
+Redirect	301	/publications/articles/frameless-stereotactic-guidance-for-surgery-of-the-upper-cervical-spine-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/frameless-stereotactic-guidance-for-surgery-of-the-upper-cervical-spine	/news-philanthropy/category/article
+Redirect	301	/publications/articles/fractures-stenosis-and-sports-guidance-for-participation	/news-philanthropy/category/article
+Redirect	301	/publications/articles/failed-radiosurgery-and-the-role-of-microsurgery-for-acoustic-neuromas	/news-philanthropy/category/article
+Redirect	301	/publications/articles/facet-changes-after-maverickt-total-disc-replacement-a-study-of-patient-outco	/news-philanthropy/category/article
+Redirect	301	/publications/articles/evolution-in-the-treatment-of-spinal-deformity-and-spinal-instrumentation	/news-philanthropy/category/article
+Redirect	301	/publications/articles/epidural-spinal-cord-compression-with-neurologic-deficit-associated-with-intr	/news-philanthropy/category/article
+Redirect	301	/publications/articles/effectiveness-of-a-minimally-invasive-surgical-approach-in-the-treatment-of-a	/news-philanthropy/category/article
+Redirect	301	/publications/articles/effect-of-spinal-disease-on-successful-arthrodesis-in-lumbar-pedicle-screw-fi	/news-philanthropy/category/article
+Redirect	301	/publications/articles/effect-of-radiofrequency-energy-on-glenohumeral-fluid-temperature-during-shou	/news-philanthropy/category/article
+Redirect	301	/publications/articles/effect-of-a-collaborative-multidisciplinary-pain-management-program-on-outcom	/news-philanthropy/category/article
+Redirect	301	/publications/articles/effect-of-a-collaborative-multidisciplinary-pain-management-program-on	/news-philanthropy/category/article
+Redirect	301	/publications/articles/early-results-using-the-atlantis-anterior-cervical-plate-system	/news-philanthropy/category/article
+Redirect	301	/publications/articles/dynamic-emg-of-trunk-muscle-in-golfers	/news-philanthropy/category/article
+Redirect	301	/publications/articles/drummond-instrumentation-a-follow-up-study-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/drummond-instrumentation-a-follow-up-study	/news-philanthropy/category/article
+Redirect	301	/publications/articles/do-current-outcomes-data-support-the-technique-of-lumbar-interbody-fusion-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/do-current-outcomes-data-support-the-technique-of-lumbar-interbody-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/discography-a-review-of-the-current-literature	/news-philanthropy/category/article
+Redirect	301	/publications/articles/direct-lateral-interbody-fusion-approach-in-the-treatment-of-a-patient-suffer	/news-philanthropy/category/article
+Redirect	301	/publications/articles/differential-gene-expression-of-fracture-callus-in-response-to-mechanical-loa	/news-philanthropy/category/article
+Redirect	301	/publications/articles/diagnosis-and-treatment-of-si-joint-dysfunction-a-team-approach-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/diagnosis-and-treatment-of-si-joint-dysfunction-a-team-approach	/news-philanthropy/category/article
+Redirect	301	/publications/articles/detecting-non-union-with-metallic-interbody-devices	/news-philanthropy/category/article
+Redirect	301	/publications/articles/detecting-non-union-with-metallic-anterior-interbody-fusion-cages-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/detecting-non-union-with-metallic-anterior-interbody-fusion-cages	/news-philanthropy/category/article
+Redirect	301	/publications/articles/detecting-non-union-with-metallic-anterior-interbody-cages	/news-philanthropy/category/article
+Redirect	301	/publications/articles/defining-substantial-clinical-benefit-following-lumbar-arthodesis	/news-philanthropy/category/article
+Redirect	301	/publications/articles/defining-clinical-benefit-for-lumbar-fusion-1-2	/news-philanthropy/category/article
+Redirect	301	/publications/articles/defining-clinical-benefit-for-lumbar-fusion-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/defining-clinical-benefit-for-lumbar-fusion	/news-philanthropy/category/article
+Redirect	301	/publications/articles/current-techniques-in-image-guided-spine-surgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/current-management-of-pediatric-atlantoaxial-rotatory-subluxation-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/current-management-of-pediatric-atlantoaxial-rotatory-subluxation	/news-philanthropy/category/article
+Redirect	301	/publications/articles/current-indications-and-techniques-for-anterior-approaches-to-the-lumbar-spin	/news-philanthropy/category/article
+Redirect	301	/publications/articles/corporate-culture-and-beyond	/news-philanthropy/category/article
+Redirect	301	/publications/articles/conflicting-forces-impact-the-future-of-spinal-health-care	/news-philanthropy/category/article
+Redirect	301	/publications/articles/comparison-of-the-mini-open-versus-laparoscopic-approach-for-anterior-lumbar-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/clinical-and-radiographic-outcomes-in-patients-undergoing-posterior-lumbar-in	/news-philanthropy/category/article
+Redirect	301	/publications/articles/chondromyxoid-fibroma-with-secondary-aneurysmal-bone-cyst-in-the-cervical-spi	/news-philanthropy/category/article
+Redirect	301	/publications/articles/characterization-of-the-cis-acting-elements-of-the-mouse-myelin-p2-promoter	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cervical-spinal-stenosis-outcome-after-anterior-corpectomy-allograft-reconstr	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cervical-radiculopathy-anterior-cervical-discectomy-and-fusion-review-of-the-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cervical-pedicle-subtraction-osteotomy-for-chin-on-chest-deformity-technique-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cervical-burst-fractures	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cat/thomas-t-nguyen-md-dbpm	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cat/thomas-c-schuler-md-facs	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cat/michael-w-hasz-md-facs	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cat/christopher-r-good-md	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cat/brian-r-subach-md-facs	/news-philanthropy/category/article
+Redirect	301	/publications/articles/cast-wedging-a-cadaveric-study-comparing-wedge-position-at-the-axis-of-inters	/news-philanthropy/category/article
+Redirect	301	/publications/articles/case-of-the-month-7-year-old-girl-with-seizures	/news-philanthropy/category/article
+Redirect	301	/publications/articles/can-posterior-only-surgery-replace-combined-anterior-thoracotomythoracoabdomi	/news-philanthropy/category/article
+Redirect	301	/publications/articles/can-posterior-only-surgery-provide-similar-radiographic-and-clinical-results-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/c1-c2-transarticular-screw-fixation-for-atlantoaxial-instability-a-6-year-exp	/news-philanthropy/category/article
+Redirect	301	/publications/articles/c1-2-transarticular-screw-fixation-for-atlantoaxial-instability-a-six-year-ex	/news-philanthropy/category/article
+Redirect	301	/publications/articles/c-shaped-threaded-cages-increase-radiographic-imaging-capability-of-anterior-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/brain-surgery-with-image-guidance-current-recommendations-based-on-a-20-year-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/bone-morphogenetic-proteins-overview-update-and-fda-status	/news-philanthropy/category/article
+Redirect	301	/publications/articles/bone-morphogenetic-protein-rhbmp-2experimental-review-and-clinical-update	/news-philanthropy/category/article
+Redirect	301	/publications/articles/bone-morphogenetic-protein-in-spinal-fusion-overview-and-clinical-update	/news-philanthropy/category/article
+Redirect	301	/publications/articles/biomechanical-fixation-in-arthroscopic-rotator-cuff-repair	/news-philanthropy/category/article
+Redirect	301	/publications/articles/biomaterials-infection-and-immune-responses-in-prosthetic-joint-replacement	/news-philanthropy/category/article
+Redirect	301	/publications/articles/biomaterials-and-biomechanics-of-spinal-arthroplasty-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/biomaterials-and-biomechanics-of-spinal-arthroplasty	/news-philanthropy/category/article
+Redirect	301	/publications/articles/atlantal-lateral-mass-screws-for-posterior-spinal-reconstruction-technical-no	/news-philanthropy/category/article
+Redirect	301	/publications/articles/atlantal-lateral-mass-screws-for-posterior-spinal-reconstruction	/news-philanthropy/category/article
+Redirect	301	/publications/articles/assessment-of-spine-surgery-outcomes-inconsistency-of-change-amongst-outcome-	/news-philanthropy/category/article
+Redirect	301	/publications/articles/arthroscopic-treatment-of-symptomatic-discoid-meniscus-in-children-classifica	/news-philanthropy/category/article
+Redirect	301	/publications/articles/applications-of-a-resorbable-interbody-spacer-in-posterior-lumbar-interbody-f	/news-philanthropy/category/article
+Redirect	301	/publications/articles/anterior-lumbar-interbody-implants-importance-of-the-interdevice-distance-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/anterior-lumbar-interbody-implants-importance-of-the-interdevice-distance	/news-philanthropy/category/article
+Redirect	301	/publications/articles/anterior-lumbar-interbody-fusion-for-the-management-of-chronic-lower-back-pai	/news-philanthropy/category/article
+Redirect	301	/publications/articles/anterior-cervical-plating-enhances-arthrodesis-after-discectomy-and-fusion-wi	/news-philanthropy/category/article
+Redirect	301	/publications/articles/an-unusual-occurrence-of-chondromyxoid-fibroma-with-secondary-aneurysmal-bone	/news-philanthropy/category/article
+Redirect	301	/publications/articles/alternatives-to-bone-grafting-current-concepts-in-bone-grafting	/news-philanthropy/category/article
+Redirect	301	/publications/articles/allograft-implants-for-posterior-lumbar-interbody-fusion-results-comparing-cy	/news-philanthropy/category/article
+Redirect	301	/publications/articles/advancements-in-spinal-health-care-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/advancements-in-spinal-health-care	/news-philanthropy/category/article
+Redirect	301	/publications/articles/advanced-spinal-surgery-indications-for-minimally-invasive-spinal-surgery	/news-philanthropy/category/article
+Redirect	301	/publications/articles/adult-spine-deformity-1	/news-philanthropy/category/article
+Redirect	301	/publications/articles/adult-spine-deformity	/news-philanthropy/category/article
+Redirect	301	/publications/articles/a-novel-spinal-implant-infection-model-in-rabbits	/news-philanthropy/category/article
+Redirect	301	/publications/articles/1-six-year-outcomes-of-anterior-lumbar-interbody-arthrodesis-with-use-of-inte	/news-philanthropy/category/article
+Redirect	301	/publications/articles	/news-philanthropy/category/article
+Redirect	301	/publications	/news-philanthropy
+Redirect	301	/publications	/news-philanthropy
+Redirect	301	/privacy-policy.php	/privacy-policy
+Redirect	301	/patient-education/aabanp-view.php?SiteGroupID=8606&R=32553	/patient-resources
+Redirect	301	/our-physicians/subach.php	/our-team/spinal-specialists/brian-r-subach
+Redirect	301	/our-physicians/schuler.php	/our-team/spinal-specialists/thomas-c-schuler
+Redirect	301	/our-physicians/physician-assistants.php	/our-team/physician-assistants
+Redirect	301	/our-physicians/physician-assistants-2.php	/our-team/physician-assistants
+Redirect	301	/our-physicians/nguyen.php	/our-team/pain-management/thomas-t-nguyen
+Redirect	301	/our-physicians/index.php	/our-team
+Redirect	301	/our-physicians/hasz.php	/our-team/spinal-specialists/michael-w-hasz
+Redirect	301	/our-physicians/good.php	/our-team/spinal-specialists/christopher-r-good
+Redirect	301	/our-physicians/cicchetti.php	/our-team
+Redirect	301	/our-physicians/bharara.php	/our-team/pain-management/niteesh-bharara
+Redirect	301	/our-physicians	/our-team
+Redirect	301	/our-physicians	/our-team
+Redirect	301	/operative-treatments/tlif-transforaminal-lumbar-interbody-fusion.php	/treatments/tlif
+Redirect	301	/operative-treatments/thoracic-laminectomy-reston-va.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ss-aabanp-view.php?SiteGroupID=8593&R=64361	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ss-aabanp-view.php?SiteGroupID=8585&R=62965	/treatments/category/operative-care
+Redirect	301	/operative-treatments/spinal-surgery-recovery-reston-va.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/spinal-osteotomy-reston-va.php	/treatments/spinal-osteotomy
+Redirect	301	/operative-treatments/scheuermanns-kyphosis-correction-reston-va.php	/treatments/scheuermanns-kyphosis
+Redirect	301	/operative-treatments/posterior-spine-fusion-reston-va.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/minimally-invasive-surgeries.php	/treatments/minimally-invasive-scoliosis-surgery
+Redirect	301	/operative-treatments/minimally-invasive-scoliosis-surgery-reston-va.php	/treatments/minimally-invasive-scoliosis-surgery
+Redirect	301	/operative-treatments/lumbar-flat-back-syndrome-reston-va.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/lumbar-disc-replacement-reston-va.php	/treatments/lumbar-artifical-disc-replacement
+Redirect	301	/operative-treatments/ls-aabanp-view.php?SiteGroupID=8608&R=16226	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ls-aabanp-view.php?SiteGroupID=8606&R=32553	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ls-aabanp-view.php?SiteGroupID=8604&R=79483	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ls-aabanp-view.php?SiteGroupID=8603&R=92080	/treatments/category/operative-care
+Redirect	301	/operative-treatments/ls-aabanp-view.php?SiteGroupID=8600&R=485	/treatments/category/operative-care
+Redirect	301	/operative-treatments/laser-surgery-reston-va.php	/treatments/laser-surgery
+Redirect	301	/operative-treatments/interbody-fusion-reston-va.php	/treatments/lateral-interbody-fusion-xlif-dlif
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=010202postlaminectomy	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000103kyphosis	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101tlif	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101spinalfusion	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101prestigedisc	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101laminectomy	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101laminaplasty	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101discmicro	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101cervpostfor	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101cervcorp	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101artificialdisc	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101antcervdisc	/treatments/category/operative-care
+Redirect	301	/operative-treatments/interactive-tutorials.php?openthis=000101alifmesh	/treatments/category/operative-care
+Redirect	301	/operative-treatments/genetic-engineering.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8576&R=92886	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8572&R=668	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8570&R=64369	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8569&R=79725	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8568&R=75563	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cs-aabanp-view.php?SiteGroupID=8567&R=97175	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cervical-laminoplasty-reston-va.php	/treatments/category/operative-care
+Redirect	301	/operative-treatments/cervical-disc-replacement-reston-va.php	/treatments/anterior-cervical-discectomy-and-replacement
+Redirect	301	/operative-treatments/anterior-lumbar-interbody-fusion-reston-va.php	/treatments/anterior-lumbar-interbody-fusion
+Redirect	301	/operative-treatments/adult-scoliosis-correction-reston-va.php	/treatments/adult-scoliosis-correction
+Redirect	301	/operative-treatments/adolescent-scoliosis-correction-reston-va.php	/treatments/adolescent-scoliosis-correction
+Redirect	301	/operative-treatments	/treatments/category/operative-care
+Redirect	301	/operative-treatments	/treatments/category/operative-care
+Redirect	301	/non-operative-treatments/ultrasound-reston-va.php	/treatments/ultrasound
+Redirect	301	/non-operative-treatments/trigger-point-manipulation-reston-va.php	/news-philanthropy/tired-of-nagging-muscle-joint-pain-check-out-trigger-point
+Redirect	301	/non-operative-treatments/traction-reston-va.php	/treatments/traction
+Redirect	301	/non-operative-treatments/spinal-injections-reston-va.php	/treatments/spinal-injections
+Redirect	301	/non-operative-treatments/spinal-cord-stimulation-reston-va.php	/news-philanthropy/recent-advances-in-spinal-cord-stimulation-technology-gives-chronic-pain-su
+Redirect	301	/non-operative-treatments/re-aabanp-view.php?SiteGroupID=8612&R=78728	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/re-aabanp-view.php?SiteGroupID=8595&R=65411	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/re-aabanp-view.php?SiteGroupID=8590&R=66429	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/re-aabanp-view.php?SiteGroupID=8575&R=61741	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/radiofrequency-ablation-reston-va.php	/treatments/radiofrequency-ablation
+Redirect	301	/non-operative-treatments/prolotherapy-reston-va.php	/treatments/prolotherapy
+Redirect	301	/non-operative-treatments/platelet-rich-plasma-reston-va.php	/treatments/platelet-rich-plasma
+Redirect	301	/non-operative-treatments/pi-aabanp-view.php?SiteGroupID=8640&R=36535	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/pi-aabanp-view.php?SiteGroupID=8639&R=23517	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/pi-aabanp-view.php?SiteGroupID=8638&R=94610	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/pi-aabanp-view.php?SiteGroupID=8637&R=16418	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/phonophoresis-reston-va.php	/treatments/phonophoresis
+Redirect	301	/non-operative-treatments/pain-management-reston-va.php	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/osteoporosis.php	/symptoms-conditions/osteoporosis
+Redirect	301	/non-operative-treatments/nutrition.php	/treatments/nutrtion
+Redirect	301	/non-operative-treatments/nutrition-reston-va.php	/treatments/nutrtion
+Redirect	301	/non-operative-treatments/no-aabanp-view.php?SiteGroupID=8592&R=7875	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/medial-branch-block-reston-va.php	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/massage-reston-va.php	/treatments/massage-therapy
+Redirect	301	/non-operative-treatments/manipulation-reston-va.php	/treatments/manipulation
+Redirect	301	/non-operative-treatments/iontophoresis-reston-va.php	/treatments/iontophoresis
+Redirect	301	/non-operative-treatments/intrathecal-pain-pump-va.php	/treatments/intrathecal-pain-pump
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010301triggerpointinject	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010201costovertebralblock	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010201cervicalselectnerveblock	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010201cervicalrfneurotomy	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010102aboutpainmgmt	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=010101prpoverview	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=000102sacrojointsteroid	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=000102facetinject	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=000102discography	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=000102caudalsteroid	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/interactive-tutorials.php?openthis=000101radioneurot	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/idet.php	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/ergonomics.php	/treatments/idet
+Redirect	301	/non-operative-treatments/emg-electomyogram-reston-va.php	/treatments/emg
+Redirect	301	/non-operative-treatments/electrical-stimulation-reston-va.php	/treatments/electrical-stimulation
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8628&R=6413	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8627&R=53564	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8626&R=22473	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8625&R=50268	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8623&R=48195	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8622&R=73085	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8621&R=19960	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8620&R=34472	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8619&R=81145	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8618&R=46570	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/dt-aabanp-view.php?SiteGroupID=8582&R=33417	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/core-strengthening-reston-va.php	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments/botox-injections-reston-va.php	/treatments/core-strengthening
+Redirect	301	/non-operative-treatments/aquatic-therapy-reston-va.php	/treatments/aquatic-therapy
+Redirect	301	/non-operative-treatments/acupuncture-reston-va.php	/treatments/acupuncture
+Redirect	301	/non-operative-treatments	/treatments/category/non-operative-treatment
+Redirect	301	/non-operative-treatments	/treatments/category/non-operative-treatment
+Redirect	301	/news/articles/weve-got-your-back	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-third-annual-education-day-20th-anniversary-edition	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-spiney-kids-club-halloween-coloring-contest	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-spinal-specialists-named-as-2014-top-doctors-by-washingtonian-magazine	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-practice-administrator-nancy-goldbranson-recognized-nationally-among-her-peers	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-philanthropy-team-cooks-up-dinner-for-reston-area-shelter	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsis-multidisciplinary-approach-earns-the-pain-management-center-of-virginia-recognit	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-weight-loss-challenge	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-to-host-greater-reston-chamber-of-commerce-network-night-on-october-23rd	/news-philanthropy/category/article/vsi-to-host-greater-reston-chamber-of-commerce-network-night-on-october-23r
+Redirect	301	/news/articles/vsi-surgeons-named-in-the-100-best-spine-surgeons-and-specialists-in-americ	/news-philanthropy/category/article/vsi-s
+Redirect	301	/news/articles/vsi-spreads-the-love-by-donating-valentines-day-baskets-to-local-womens-shelter	/news-philanthropy/category/article/vsi-spreads-the-love-by-donating-valentine-baskets-to-local-womens-shelter
+Redirect	301	/news/articles/vsi-sponsors-lake-swim	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-sponosrs-weve-got-your-back-racewalk	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-spinal-specialists-named-2013-super-doctors	/news-philanthropy/category/article/vsi-spinal-specialists-named-2013-super-doctors
+Redirect	301	/news/articles/vsi-spinal-specialists-featured-on-nbc-for-convenience-of-specialty-care-in-washingto	/news-philanthropy/category/article/vsi-spinal-specialists-featured-on-nbc-for-convenience-of-specialty-care-in
+Redirect	301	/news/articles/vsi-raises-over-1500-for-the-national-ms-society	/news-philanthropy/category/article/vsi-raises-over-1500-for-the-national-ms-society
+Redirect	301	/news/articles/vsi-provides-thanksgiving-dinner-for-86-reston-area-families-in-need	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-patients-and-team-members-team-up-for-recording-breaking-back-to-school-drive	/news-philanthropy/category/article/vsi-patients-coworkers-team-up-for-recording-breaking-back-to-school-drive
+Redirect	301	/news/articles/vsi-partners-with-reston-runners-to-bring-first-ever-marathon-to-reston	/news-philanthropy/category/article/vsi-partners-with-reston-runners-to-bring-first-ever-marathon-to-reston
+Redirect	301	/news/articles/vsi-pain-injections-not-associated-with-recent-meningitis-outbreak	/news-philanthropy/category/article/vsi-pain
+Redirect	301	/news/articles/vsi-office-closed-friday-november-1st-for-employee-development	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-newsletter-1	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-newsletter	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-makes-thanksgiving-special-for-needy-families	/news-philanthropy/category/article/vsi-makes-thanksgiving-a-little-brighter-for-neighbors-in-need
+Redirect	301	/news/articles/vsi-makes-thanksgiving-a-little-brighter-for-neighbors-in-need	/news-philanthropy/category/article/vsi-makes-thanksgiving-a-little-brighter-for-neighbors-in-need
+Redirect	301	/news/articles/vsi-is-cover-story-in-md-news	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-hosts-blood-drive	/news-philanthropy/category/article/category/articles
+Redirect	301	/news/articles/vsi-giving-in-action	/news-philanthropy/category/article/vsi-giving-in-action
+Redirect	301	/news/articles/vsi-gives-back-to-the-community	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsi-garners-quotbest-places-to-work-in-greater-washingtonquot-for-2012	/news-philanthropy/category/article/vsi-garners-best-places-to-work-in-greater-washington-for-2012
+Redirect	301	/news/articles/vsi-donates-to-reston-interfaith-1	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsi-donates-to-reston-interfaith	/news-philanthropy/category/article/vsi-donates-to-reston-interfaiths-annual-backpack-drive
+Redirect	301	/news/articles/vsi-donates-backpacks	/news-philanthropy/category/article/vsi-donates-to-reston-interfaiths-annual-backpack-drive
+Redirect	301	/news/articles/vsi-doctors-participate-in-national-youth-leadership-forum-on-medicine	/news-philanthropy/category/article/vsi-spinal-specialists-participate-in-national-youth-leadership-forum-on-me
+Redirect	301	/news/articles/vsi-celebrates-local-heroes-on-the-10th-anniversary-of-911	/news-philanthropy/category/article/vsi-celebrates-local-heroes-on-the-10th-anniversary-of-9-11
+Redirect	301	/news/articles/vsi-blood-drive	/news-philanthropy/category/article
+Redirect	301	/news/articles/vsi-adopts-a-highway	/news-philanthropy/category/article/vsi-lends-a-helping-hand-adopt-a-highway
+Redirect	301	/news/articles/vsi-adopt-a-highway	/news-philanthropy/category/article/vsi-lends-a-helping-hand-adopt-a-highway
+Redirect	301	/news/articles/vsi-2010-best-of-reston-honoree	/news-philanthropy/category/article/vsi-names-as-a-2010-best-of-reston-honoree
+Redirect	301	/news/articles/virginia-spine-institute-to-host-reston-chamber-of-commerce-network-night-on-october-	/news-philanthropy/category/article/vsi-to-host-greater-reston-chamber-of-commerce-network-night-on-october-23r
+Redirect	301	/news/articles/virginia-spine-institute-recognized-in-top-55-spine-practices-to-know-nationwide	/news-philanthropy/category/article/virginia-spine-institute-recognized-in-top-55-spine-practices-to-know-natio
+Redirect	301	/news/articles/virginia-spine-institute-recognized-in-national-top-102-spine-practices-to-know	/news-philanthropy/category/article/virginia-spine-institute-recognized-in-national-top-102-spine-practices-to
+Redirect	301	/news/articles/virginia-spine-institute-hosts-record-breaking-crowd-at-6th-annual-weve-got-your-back	/news-philanthropy/category/article/vsi-hosts-record-breaking-crowd-at-6th-annual-wgyb-race-raises-100000-for-s
+Redirect	301	/news/articles/virginia-spine-institute-garners-national-recognition-named-in-top-quot105-spine-surg	/news-philanthropy/category/article/dr-schuler-receives-distinguished-recognition-top-10-spine-surgeon-advocat
+Redirect	301	/news/articles/virginia-spine-institute-donates-back-to-school-essentials-in-support-of-reston-inter	/news-philanthropy/category/article/vsi-donates-back-to-school-essentials-in-support-of-reston-interfaith
+Redirect	301	/news/articles/usnews-amp-world-report-recently-named-dr-schuler-and-dr-hasz-to-the-top-doctors-list	/news-philanthropy/category/article
+Redirect	301	/news/articles/the-washington-business-journal-names-vsi-as-a-quotbest-places-to-work-2011quot	/news-philanthropy/category/article/the-washington-business-journal-names-vsi-as-a-2011-best-places-to-work
+Redirect	301	/news/articles/thanksgiving-food-drive-vsi-partners-with-reston-interfaith	/news-philanthropy/category/article/vsi-makes-thanksgiving-a-little-brighter-for-neighbors-in-need
+Redirect	301	/news/articles/stockings-for-reston-interfaith	/news-philanthropy/category/article/stockings-hung-with-care-for-reston-interfaith
+Redirect	301	/news/articles/sports-illustrated-features-physical-therapist-rich-bantons-successful-treatment-of-l	/news-philanthropy/category/article/sports-illustrated-features-physical-therapist-rich-bantons-treatment-of-lo
+Redirect	301	/news/articles/sign-up-today-to-improve-the-lives-of-others-vsi-teams-up-with-american-red-cross-to-	/news-philanthropy/category/article
+Redirect	301	/news/articles/sign-up-today-for-the-february-education-webinar	/news-philanthropy/category/article
+Redirect	301	/news/articles/see-vsi-on-quotamerican-health-frontquot	/news-philanthropy/category/article
+Redirect	301	/news/articles/save-a-lifedonate-blood-1	/news-philanthropy/category/article
+Redirect	301	/news/articles/save-a-lifedonate-blood	/news-philanthropy/category/article
+Redirect	301	/news/articles/register-for-free-june-education-eventgetting-you-back-in-the-game-with-intramuscular	/news-philanthropy/category/article
+Redirect	301	/news/articles/patient-promo-wear-your-past-race-shirts-to-our-office-and-receive-promo-code-for-5-o	/news-philanthropy/category/article/weve-got-your-back-patient-promotion
+Redirect	301	/news/articles/office-closed-thursday-february-13th-due-to-inclement-weather	/news-philanthropy/category/article
+Redirect	301	/news/articles/new-year-new-you-fitness-calendar	/news-philanthropy/category/article
+Redirect	301	/news/articles/new-vsi-newsletter	/news-philanthropy/category/article
+Redirect	301	/news/articles/new-vsi-may-newsletter	/news-philanthropy/category/article
+Redirect	301	/news/articles/new-vsi-march-newsletter	/news-philanthropy/category/article
+Redirect	301	/news/articles/new-smoking-cessation-program	/treatments/smoking-cessation
+Redirect	301	/news/articles/national-recognition-17-surgery-centers-with-physical-therapy-programs	/news-philanthropy/category/article/national-recognition-17-surgery-centers-with-physical-therapy-programs
+Redirect	301	/news/articles/national-pa-week-october-6-12	/news-philanthropy/category/article/have-you-hugged-a-pa-today-vsi-celebrates-national-physician-assistants-wee
+Redirect	301	/news/articles/join-vsi-for-red-cross-month-in-march-blood-drive-on-site	/news-philanthropy/category/article
+Redirect	301	/news/articles/join-the-vsi-team-new-job-openings-posted	/news-philanthropy/category/article
+Redirect	301	/news/articles/get-the-scoop-on-the-redskins-week-three-match-up-weekly-back-report-as-heard-on-wtop	/news-philanthropy/category/article/9-19-weekly-back-report-redskins-week-three-match-up-as-heard-on-wtop
+Redirect	301	/news/articles/get-the-scoop-on-the-redskins-season-opener-weekly-back-report-as-heard-on-wtop	/news-philanthropy/category/article/get-the-scoop-on-the-redskins-season-opener-weekly-back-report-as-heard-on
+Redirect	301	/news/articles/free-community-seminar	/news-philanthropy/category/article
+Redirect	301	/news/articles/fourth-annual-weve-got-your-back-2011-date-announced	/news-philanthropy/category/article
+Redirect	301	/news/articles/for-the-third-consecutive-year-washington-business-journal-names-vsi-as-a-quotbest-pl	/news-philanthropy/category/article/for-the-third-consecutive-year-washington-business-journal-names-vsi-as-a-b
+Redirect	301	/news/articles/first-session-of-2011-monthly-community-education-series-will-be-wednesday-january-19	/news-philanthropy/category/article
+Redirect	301	/news/articles/event-recap-fourth-annual-quotweve-got-your-backquot-raised-100000-for-the-spinal-res	/news-philanthropy/category/article/fourth-annual-wgyb-race-for-spinal-health-hosted-by-the-virginia-spine-inst
+Redirect	301	/news/articles/dr-subach-weighs-in-on-leadership-roundtable	/news-philanthropy/category/article
+Redirect	301	/news/articles/dr-schuler-receives-distinguished-recognition-quottop-10-spine-surgeon-advocatesquot	/news-philanthropy/category/article/dr-schuler-receives-distinguished-recognition-top-10-spine-surgeon-advocat
+Redirect	301	/news/articles/dr-schuler-performs-first-hybrid-cervical-spine-surgery-in-the-country	/news-philanthropy/category/article/release
+Redirect	301	/news/articles/dr-schuler-named-to-20-surgeon-leaders-in-independent-spine-amp-neurosurgical-groups	/news-philanthropy/category/article/dr-schuler-named-to-20-surgeon-leaders-in-independent-spine-neurosurgical
+Redirect	301	/news/articles/dr-schuler-named-as-top-10-spine-surgeon-leader-nationwide	/news-philanthropy/category/article/dr-schuler-named-as-top-10-spine-surgeon-leaders-nationwide
+Redirect	301	/news/articles/dr-schuler-named-among-35-spine-surgeons-performing-artificial-disc-replacement	/news-philanthropy/category/article
+Redirect	301	/news/articles/dr-schuler-garners-national-recogntion-quot12-spine-surgeons-for-professional-athlete	/news-philanthropy/category/article/dr-schuler-garners-national-recognition-top-13-spine-surgeons-for-professi
+Redirect	301	/news/articles/dr-schuler-and-dr-subach-noted-as-top-spine-surgeons-in-the-country-focused-on-patien	/news-philanthropy/category/article
+Redirect	301	/news/articles/dr-schuler-and-dr-subach-named-top-doctors-2012-by-washingtonian	/news-philanthropy/category/article/dr-schuler-and-dr-subach-named-top-doctors-2012-by-washingtonian
+Redirect	301	/news/articles/dr-nguyen-top-70-pain-management-physician-in-america-featured-speaker-at-13th-annual	/news-philanthropy/category/article/dr-nguyen-is-named-among-70-of-the-best-pain-management-physicians-in-amer
+Redirect	301	/news/articles/dr-nguyen-performs-the-first-radiofrequency-ablation-rfa-with-new-strykerreg-venom-te	/news-philanthropy/dr-nguyen-performs-first-radiofrequency-ablation-with-stryker-venom-techno
+Redirect	301	/news/articles/dr-nguyen-is-named-among-quot70-of-the-best-pain-management-physicians-in-americaquot	/news-philanthropy/dr-nguyen-featured-speaker-at-13th-annual-josefina-magno-conference
+Redirect	301	/news/articles/dr-nguyen-for-the-win	/news-philanthropy/dr-nguyen-for-the-back-to-back-win
+Redirect	301	/news/articles/dr-hasz-presents-quotlow-back-pains-missing-piece-diagnosing-sacroiliac-joint-painquo	/news-philanthropy
+Redirect	301	/news/articles/dr-hasz-presents-on-a-global-platform-in-beirut-amp-singapore	/news-philanthropy/whats-new-dr-hasz-presents-on-a-global-platform-in-beirut-singapore
+Redirect	301	/news/articles/dr-hasz-and-de-schuler-are-the-first-to-perform-i-fuse-surgery-in-northern-virginia	/news-philanthropy/dr-hasz-and-dr-schuler-are-the-first-to-perform-i-fuse-surgery-in-norther
+Redirect	301	/news/articles/dr-good-wins-2012-talk-of-the-town-award	/news-philanthropy/dr-good-wins-2012-talk-of-the-town-award
+Redirect	301	/news/articles/dr-good-selected-to-serve-on-fairfax-county-public-school-health-advisory-committee	/news-philanthropy/dr-christopher-good-selected-to-serve-on-fairfax-county-public-school-heal
+Redirect	301	/news/articles/dr-good-receives-distinguished-recognition-super-doctors-rising-star-2013	/news-philanthropy/dr-good-receives-distinguished-recognition-super-doctors-rising-star-2013
+Redirect	301	/news/articles/dr-good-performs-first-robot-guided-sacroiliac-si-fusion-surgery-in-north-america	/news-philanthropy/dr-good-performs-first-robot-guided-sacroiliac-si-fusion-surgery-in-north
+Redirect	301	/news/articles/dr-christopher-good-selected-for-patients-choice-award-2011	/news-philanthropy/l
+Redirect	301	/news/articles/donate-your-used-books-cds-and-dvds-to-spine-tales-in-support-of-the-spinal-research-	/news-philanthropy
+Redirect	301	/news/articles/dine-at-mamma-lucia-in-reston-on-412-and-510-and-give-back-to-the-spinal-research-fou	/news-philanthropy
+Redirect	301	/news/articles/congratuations-reston-hospital-center-named-americas-100-best-specialty-care-hospital	/news-philanthropy/congratulations-reston-hospital-center-named-among-americas-100-best-specia
+Redirect	301	/news/articles/community-seminar-advancements-in-spinal-health-care	/news-philanthropy
+Redirect	301	/news/articles/childrens-book-drive	/news-philanthropy
+Redirect	301	/news/articles/cat/vsi-news	/news-philanthropy/category/awards-recognition
+Redirect	301	/news/articles/cat/our-newsletter	/news-philanthropy
+Redirect	301	/news/articles/cat/community-service	/news-philanthropy
+Redirect	301	/news/articles/cat/community-seminars	/news-philanthropy
+Redirect	301	/news/articles/breaking-news-vsis-spinal-specialists-perform-first-robot-guided-spine-surgery-in-mid	/news-philanthropy/vsis-spinal-specialists-perform-first-robot-guided-spine-surgery-in-mid-atl
+Redirect	301	/news/articles/body-after-baby-a-free-seminar-for-all-moms-hosted-by-vtfc	/news-philanthropy
+Redirect	301	/news/articles/back-to-school-quotessentialsquot-drive	/news-philanthropy/vsi-patients-coworkers-team-up-for-recording-breaking-back-to-school-drive
+Redirect	301	/news/articles/adolescent-spine-care-lecture	/news-philanthropy
+Redirect	301	/news/articles/a-great-place-to-work	/news-philanthropy/vsi-hosts-record-breaking-crowd-at-6th-annual-wgyb-race-raises-100000-for-s
+Redirect	301	/news/articles/6th-annual-weve-got-your-back-race-for-spinal-health-on-may-18-2013	/news-philanthropy/2014-weve-got-your-back-race-date-announced
+Redirect	301	/news/articles/2014-weve-got-your-back-race-date-announced	/news-philanthropy/2014-weve-got-your-back-race-date-announced
+Redirect	301	/news/articles/2013-weve-got-your-back-race-date-announced	/news-philanthropy/2013-weve-got-your-back-race-date-announced
+Redirect	301	/news/articles_cp/Michael%20W.%20Hasz,%20M.D.,%20F.A.C.S.	/news-philanthropy/author/michael-w.-hasz/category/article
+Redirect	301	/news/articles	/news-philanthropy/category/article
+Redirect	301	/news/archive	/news-philanthropy
+Redirect	301	/news	/news-philanthropy
+Redirect	301	/for-patients/patient-survey.php	/news-philanthropy
+Redirect	301	/for-patients/operative-instructions.php	/patient-resources/current-patients/patient-instructions/
+Redirect	301	/for-patients/locations.php	/patient-resources/
+Redirect	301	/for-patients/billing-insurance.php	/patient-resources/current-patients/insurance-billing/
+Redirect	301	/for-patients	/patient-resources
+Redirect	301	/contact.php	/contact-us
+Redirect	301	/conditions-diagnoses/video-library.php	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ts-aabanp-view.php?SiteGroupID=8632&R=13269	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ts-aabanp-view.php?SiteGroupID=8616&R=77907	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/top	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/spondylolysis-reston-va.php	/symptoms-conditions/spondylosis
+Redirect	301	/conditions-diagnoses/spinal-tumors-virginia-va.php	/symptoms-conditions/spinal-tumors
+Redirect	301	/conditions-diagnoses/spinal-infections-virginia-va.php	/symptoms-conditions/spinal-infections
+Redirect	301	/conditions-diagnoses/spinal-fractures-virginia-va.php	/symptoms-conditions/spinal-fractures
+Redirect	301	/conditions-diagnoses/spina-bifida-reston-va.php	/symptoms-conditions/spina-bifida
+Redirect	301	/conditions-diagnoses/scheuermanns-kyphosis-reston-va.php	/symptoms-conditions/scheuermanns-kyphosis
+Redirect	301	/conditions-diagnoses/sacroiliac-joint-dysfunction-reston-va.php	/symptoms-conditions/sacroiliac-joint-pain
+Redirect	301	/conditions-diagnoses/pinched-nerve-reston-va.php	/symptoms-conditions/lumbar-pinched-nerve
+Redirect	301	/conditions-diagnoses/myofascial-pain-virginia-va.php	/symptoms-conditions/myofascial-pain
+Redirect	301	/conditions-diagnoses/lumbar-pseudoarthrosis-reston-va.php	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/lumbar-facet-syndrome-reston-va.php	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ls-aabanp-view.php?SiteGroupID=8614&R=20372	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ls-aabanp-view.php?SiteGroupID=8611&R=33842	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ls-aabanp-view.php?SiteGroupID=8602&R=77420	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/ls-aabanp-view.php?SiteGroupID=8601&R=83981	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/kyphosis-reston-va.php	/symptoms-conditions/kyphosis
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=010102myofascialpain	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=010102fibromyalgia	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103stenosis	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103spondy	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103scoliosis	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103lumradsciatica	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103kyphosis	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103ddd	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000103cervrad	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php?openthis=000101vertebroplasty	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/interactive-tutorials.php	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/glossary.php	/glossary
+Redirect	301	/conditions-diagnoses/flat-back-syndrome-reston-va.php	/symptoms-conditions/flat-back-syndrome
+Redirect	301	/conditions-diagnoses/fibromyalgia-virginia-va.php	/symptoms-conditions/fibromyalgia
+Redirect	301	/conditions-diagnoses/faq.php	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/degenerative-disc-disease-reston-va.php	/symptoms-conditions/degenerative-disc-disease
+Redirect	301	/conditions-diagnoses/cs-aabanp-view.php?SiteGroupID=8578&R=93570	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/cs-aabanp-view.php?SiteGroupID=8577&R=3628	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/cs-aabanp-view.php?SiteGroupID=8574&R=54301	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/cs-aabanp-view.php?SiteGroupID=8571&R=80917	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/congenital-scoliosis-reston-va.php	/symptoms-conditions/congenital-scoliosis
+Redirect	301	/conditions-diagnoses/chronic-regional-pain-syndrome-virginia-va.php	/symptoms-conditions/complex-regional-pain-syndrome
+Redirect	301	/conditions-diagnoses/cervical-kyphosis-reston-va.php	/symptoms-conditions/kyphosis
+Redirect	301	/conditions-diagnoses/cervical-facet-syndrome-reston-va.php	/symptoms-conditions/facet-syndrome
+Redirect	301	/conditions-diagnoses/cervical-disc-herniation-reston-va.php	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/cd-aabanp-view.php?SiteGroupID=8583&R=24554	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/cd-aabanp-view.php?SiteGroupID=8581&R=11764	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/bursitis-virginia-va.php	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/bone-spurs-reston-va.php	/symptoms-conditions/bone-spurs
+Redirect	301	/conditions-diagnoses/annular-tear-reston-va.php	/symptoms-conditions/annular-tear
+Redirect	301	/conditions-diagnoses/anatomy.php	/symptoms-conditions/spine-anatomy
+Redirect	301	/conditions-diagnoses/adult-scoliosis-reston-va.php	/symptoms-conditions/adult-scoliosis
+Redirect	301	/conditions-diagnoses/adult-kyphosis-reston-va.php	/symptoms-conditions/kyphosis
+Redirect	301	/conditions-diagnoses/adolescent-scoliosis-reston-va.php	/symptoms-conditions/adolescent-idiopathic-scoliosis
+Redirect	301	/conditions-diagnoses/aabanp-view.php?SiteGroupID=8636&R=41240	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/aabanp-view.php?SiteGroupID=8607&R=15152	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/aabanp-view.php?SiteGroupID=8596&R=2281	/symptoms-conditions
+Redirect	301	/conditions-diagnoses/aabanp-view.php?SiteGroupID=8573&R=17	/symptoms-conditions
+Redirect	301	/conditions-diagnoses	/symptoms-conditions/
+Redirect	301	/conditions-diagnoses	/symptoms-conditions/
+Redirect	301	/careers/job-opportunities/jobs/research-director	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/pmampr-physician	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/new-patient-coordinator	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/chief-development-officer	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/cat/financial	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/cat/clinical	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/cat/administrative	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs/billing-specialistcollector	/about-us/careers/
+Redirect	301	/careers/job-opportunities/jobs	/about-us/careers/
+Redirect	301	/careers/job-opportunities	/about-us/careers/
+Redirect	301	/careers/job-opportunities	/about-us/careers/
+Redirect	301	/careers	/about-us/careers/
+Redirect	301	/careers	/about-us/careers/
+Redirect	301	/blog/your-spinal-condition-in-laymans-terms	/news-philanthropy/category/article/your-spinal-condition-in-laymans-terms
+Redirect	301	/blog/your-doctor-has-ordered-an-electromyography-emg-now-what	/news-philanthropy/your-doctor-ordered-an-electromyography-emg-now-what
+Redirect	301	/blog/wrapping-up-the-olympics-with-kinesio-tape	/news-philanthropy/wrapping-up-the-olympics-with-kinesio-tape
+Redirect	301	/blog/winter-fun-tips-to-prevent-potential-injury-while-ice-skating	/news-philanthropy/winter-fun-tips-to-prevent-potential-injury-while-ice-skating
+Redirect	301	/blog/whos-walking-who-proper-steps-to-avoid-back-pain-while-walking-your-dog	/news-philanthropy/whos-walking-who-proper-steps-to-avoid-back-pain-while-walking-your-dog
+Redirect	301	/blog/where-do-i-seek-treatment-for-my-back-pain-not-all-spine-institutes-are-created-equal	/news-philanthropy/where-do-i-seek-treatment-for-my-back-pain-not-all-spine-institutes-are-cre
+Redirect	301	/blog/whats-the-alternative-spinal-cord-stimulators-and-acupuncture-for-chronic-pain-relief-as-featu	/news-philanthropy/spinal-cord-stimulators-and-acupuncture-for-chronic-pain-relief
+Redirect	301	/blog/what%E2%80%99s-new-dr-hasz-presents-on-a-global-platform-in-beirut-singapore	/news-philanthropy/whats-new-dr-hasz-presents-on-a-global-platform-in-beirut-singapore
+Redirect	301	/blog/what%e2%80%99s-going-on-under-the-roof-at-vsi	/news-philanthropy/whats-going-on-under-the-roof-at-vsi
+Redirect	301	/blog/what-is-athletic-training	/news-philanthropy/what-is-athletic-training
+Redirect	301	/blog/what-does-your-coffee-say-about-you	/news-philanthropy/what-does-your-coffee-say-about-you
+Redirect	301	/blog/welcome-to-our-newest-spinal-health-resource-the-vsi-blog	/news-philanthropy
+Redirect	301	/blog/wear-it-well-top-10-tips-to-lighten-the-load-of-your-child%e2%80%99s-backpack-to-keep-them-pai	/news-philanthropy/wear-it-well-10-tips-to-lighten-the-load-of-your-childs-backpack
+Redirect	301	/blog/we-want-you-join-your-doctor-on-may-18-for-the-6th-annual-weve-got-your-back-race-for-spinal-h	/news-philanthropy/we-want-you-join-your-doctor-for-the-6th-annual-wgyb-race
+Redirect	301	/blog/vsis-spinal-specialists-perform-first-robot-guided-spine-surgery-in-mid-atlantic-region	/news-philanthropy/vsis-spinal-specialists-perform-first-robot-guided-spine-surgery-in-mid-atl
+Redirect	301	/blog/vsi-teams-up-with-reston-interfaith-to-give-back-at-thanksgiving-and-improve-the-lives-of-86-f	/news-philanthropy
+Redirect	301	/blog/vsi-kicks-off-milk-calcium-mustache-campaign-to-promote-bone-health	/news-philanthropy
+Redirect	301	/blog/vsi-hosts-fifth-annual-weve-got-your-back-race-record-breaking-attendance-raises-100000-for-sp	/news-philanthropy/vsi-hosts-5th-annual-wgyb-race
+Redirect	301	/blog/vsi-celebrates-20-years-of-excellence	/news-philanthropy/vsi-celebrates-20-years-of-excellence
+Redirect	301	/blog/virginia-spine-institutes-spinal-specialists-named-as-2014-top-docs-by-washingtonian-magazine	/news-philanthropy/vsis-specialists-named-as-2014-top-docs-by-washingtonian-magazine
+Redirect	301	/blog/uncovering-the-mysterious-correlation-between-weight-loss-and-decreased-back-pain	/news-philanthropy/uncovering-the-mysterious-correlation-between-weight-loss-decreased-back-pa
+Redirect	301	/blog/uncovering-metastatic-spinal-disease	/news-philanthropy
+Redirect	301	/blog/uncover-the-source-of-that-low-back-pain-it-could-be-your-sacroiliac-si-joint	/news-philanthropy/uncover-a-source-of-low-back-pain-look-no-further-it-could-be-your
+Redirect	301	/blog/tune-in-dr-subach-is-a-guest-speaker-on-nprs-the-diane-rehm-show	/news-philanthropy/tune-in-dr-subach-as-guest-speaker-on-nprs-the-diane-rehm-show
+Redirect	301	/blog/true-storymegan-underwent-a-spinal-fusion-and-is-back-to-being-an-active-adventurer-again	/about-us/patient-testimonials/megan-d
+Redirect	301	/blog/true-story-tom-felt-44-years-younger-after-surgery	/about-us/patient-testimonials/tom-c
+Redirect	301	/blog/true-story-rudy-underwent-a-lumbar-fusion-to-get-back-to-the-life-he-loves	/about-us/patient-testimonials/rudy
+Redirect	301	/blog/true-story-olympian-cyclist-giddeon-massie-shares-his-journey-on-conquering-back-pain-to-get-b	/about-us/patient-testimonials/giddeon-massie
+Redirect	301	/blog/true-story-officer-peter-m-experienced-back-pain-for-years-after-two-surgeries-he-is-back-to-f	/about-us/patient-testimonials/officer
+Redirect	301	/blog/true-story-officer-mcknight-underwent-cervical-spine-surgery-to-return-to-his-active-lifestyle	/about-us/patient-testimonials/officer-mcknight
+Redirect	301	/blog/true-story-mr-baker-spent-15-years-in-pain-now-hes-back-to-his-livelihood	/about-us/patient-testimonials/mr-baker
+Redirect	301	/blog/true-story-mary-underwent-a-tlif-and-is-now-back-to-the-life-she-loves	/about-us/patient-testimonials/mary
+Redirect	301	/blog/true-story-marley-suffered-from-low-back-pain-for-years-after-non-operative-treatment-she-was-	/about-us/patient-testimonials/marley-r
+Redirect	301	/blog/true-story-linda-came-to-vsi-for-a-second-opinion-underwent-a-tlif-and-is-now-back-to-enjoying	/about-us/patient-testimonials/linda-c
+Redirect	301	/blog/true-story-joseph-experienced-debilitating-pain-after-a-fusion-his-future-looks-bright-and-pai	/about-us/patient-testimonials/joseph
+Redirect	301	/blog/true-story-jazmin-underwent-scoliosis-correction-surgery-and-is-looking-forward-to-a-bright-pa	/about-us/patient-testimonials/jazmin-m
+Redirect	301	/blog/true-story-ike-didnt-want-to-live-another-day-in-pain	/about-us/patient-testimonials/ike-f
+Redirect	301	/blog/true-story-francis-is-back-to-fishing-and-the-life-he-loves	/about-us/patient-testimonials/francis
+Redirect	301	/blog/true-story-emily-underwent-a-lumbar-fusion-and-is-now-back-to-her-active-lifestyle-3	/about-us/patient-testimonials/emily-s
+Redirect	301	/blog/true-story-byron-suffered-years-of-back-pain-while-serving-our-country-he-underwent-an-acdf-an	/about-us/patient-testimonials/byron
+Redirect	301	/blog/true-story-bret-underwent-a-spinal-fusion-and-is-more-active-than-ever-while-being-free-of-pai	/about-us/patient-testimonials/bret-k
+Redirect	301	/blog/true-story-after-years-of-failed-therapy-susan-underwent-spinal-fusion-surgery-to-get-back-to-	/about-us/patient-testimonials/susan
+Redirect	301	/blog/true-story-after-years-of-degenerative-disc-disease-corey-didnt-want-to-live-another-day-in-pa	/about-us/patient-testimonials/corey
+Redirect	301	/blog/true-story-after-undergoing-a-tlif-susan-shares-her-remarkable-recovery-on-being-pain-free-and	/about-us/patient-testimonials/susan-1
+Redirect	301	/blog/true-story-after-three-failed-back-surgeries-tom-found-vsi-and-is-now-back-to-enjoying-life	/about-us/patient-testimonials/tom-h
+Redirect	301	/blog/true-story-after-recovery-emily-went-on-to-compete-in-the-pre-olympic-trials-2	/about-us/patient-testimonials/emily-f
+Redirect	301	/blog/true-story	/about-us/patient-testimonials
+Redirect	301	/blog/tracking-your-pain	/news-philanthropy/tracking-your-pain
+Redirect	301	/blog/top-health-impacts-of-weather-change-tips-to-overcome-them	/news-philanthropy/top-health-impacts-of-weather-change-tips-to-overcome-them
+Redirect	301	/blog/top-four-healing-powers-of-ginger	/news-philanthropy/top-four-healing-powers-of-ginger
+Redirect	301	/blog/top-11-non-operative-treatments-for-that-pain-in-your-neck	/news-philanthropy/top-11-non-operative-treatments-for-that-pain-in-your-neck
+Redirect	301	/blog/top-10-sneaky-ways-to-burn-calories-during-the-holiday	/news-philanthropy/top-10-sneaky-ways-to-burn-calories-during-the-holiday-season
+Redirect	301	/blog/together-we-can-make-a-difference-in-spinal-health-care	/news-philanthropy/together-we-can-make-a-difference-in-spinal-health-care
+Redirect	301	/blog/to-have-spinal-surgery-or-not-to-have-spinal-surgery-that-is-the-question	/news-philanthropy/to-have-spinal-surgery-or-not-to-have-spinal-surgery-that-is-the-question
+Redirect	301	/blog/tips-to-serve-up-a-pain-free-game-of-tennis	/news-philanthropy/tips-to-serve-up-a-pain-free-game-of-tennis
+Redirect	301	/blog/tips-to-relieve-stress-and-tension	/news-philanthropy/stress
+Redirect	301	/blog/tips-to-prevent-a-herniated-disc-at-the-gym	/news-philanthropy/tips-to-prevent-a-herniated-disc-at-the-gym
+Redirect	301	/blog/tips-to-cycle-through-back-pain	/news-philanthropy/tips-to-cycle-through-back-pain
+Redirect	301	/blog/tips-to-avoid-back-pain-while-raking-up-autumnal-debris	/news-philanthropy/tips-to-avoid-back-pain-while-raking-up-autumnal-debris
+Redirect	301	/blog/the-weekend-warriors-guide-to-ice-versus-heat-at-home-pain-relief	/news-philanthropy/the-weekend-warriors-guide-to-ice-versus-heat-at-home-pain-relief
+Redirect	301	/blog/the-smoking-spine	/news-philanthropy/the-smoking-spine
+Redirect	301	/blog/the-quest-to-find-the-workout-that-works-for-you-in-2012	/news-philanthropy/the-quest-to-find-the-workout-that-works-for-you
+Redirect	301	/blog/the-nuts-bolts-of-spinal-hardware	/news-philanthropy/the-nuts-bolts-of-spinal-hardware
+Redirect	301	/blog/the-nutritional-aspect-of-bone-health	/news-philanthropy/the-nutritional-aspect-of-bone-health-1
+Redirect	301	/blog/the-genetics-of-bone-density	/news-philanthropy/the-genetics-of-bone-density-1
+Redirect	301	/blog/the-brace-kase-life-beyond-scoliosis-through-the-eyes-of-adolescent-girl	/news-philanthropy/the-brace-kase-life-beyond-scoliosis-through-the-eyes-of-an-adolescent-girl
+Redirect	301	/blog/tag/yummy-treats	/news-philanthropy
+Redirect	301	/blog/tag/yoga	/news-philanthropy
+Redirect	301	/blog/tag/yard-work	/news-philanthropy
+Redirect	301	/blog/tag/wrist-pain	/news-philanthropy
+Redirect	301	/blog/tag/world-spine-day	/news-philanthropy
+Redirect	301	/blog/tag/workplace-wellness	/news-philanthropy
+Redirect	301	/blog/tag/workplace-pain	/news-philanthropy
+Redirect	301	/blog/tag/workplace-ergonomics-2	/news-philanthropy
+Redirect	301	/blog/tag/workouts	/news-philanthropy
+Redirect	301	/blog/tag/workout-routine-tips	/news-philanthropy
+Redirect	301	/blog/tag/work-conditioning	/news-philanthropy
+Redirect	301	/blog/tag/womens-health	/news-philanthropy
+Redirect	301	/blog/tag/winter-sports	/news-philanthropy
+Redirect	301	/blog/tag/winter-2	/news-philanthropy
+Redirect	301	/blog/tag/willpower	/news-philanthropy
+Redirect	301	/blog/tag/whiplash	/news-philanthropy
+Redirect	301	/blog/tag/weve-got-your-back-race-for-spinal-health-2	/news-philanthropy
+Redirect	301	/blog/tag/weve-got-your-back	/news-philanthropy
+Redirect	301	/blog/tag/wellness	/news-philanthropy
+Redirect	301	/blog/tag/welcome-2	/news-philanthropy
+Redirect	301	/blog/tag/weight-reduction	/news-philanthropy
+Redirect	301	/blog/tag/weight-management	/news-philanthropy
+Redirect	301	/blog/tag/weight-loss-2	/news-philanthropy
+Redirect	301	/blog/tag/weight-lifting	/news-philanthropy
+Redirect	301	/blog/tag/weight-gain	/news-philanthropy
+Redirect	301	/blog/tag/weight	/news-philanthropy
+Redirect	301	/blog/tag/weekend-warrior	/news-philanthropy
+Redirect	301	/blog/tag/weather-related-pain	/news-philanthropy
+Redirect	301	/blog/tag/weakness	/news-philanthropy
+Redirect	301	/blog/tag/we-love-our-patients	/news-philanthropy
+Redirect	301	/blog/tag/we-love-our-coworkers	/news-philanthropy
+Redirect	301	/blog/tag/water-therapy	/news-philanthropy
+Redirect	301	/blog/tag/water	/news-philanthropy
+Redirect	301	/blog/tag/washington-post	/news-philanthropy
+Redirect	301	/blog/tag/walking	/news-philanthropy
+Redirect	301	/blog/tag/walk	/news-philanthropy
+Redirect	301	/blog/tag/vsi-team	/news-philanthropy
+Redirect	301	/blog/tag/vsi-history	/news-philanthropy
+Redirect	301	/blog/tag/vitamin-k	/news-philanthropy
+Redirect	301	/blog/tag/vitamin-d-sources	/news-philanthropy
+Redirect	301	/blog/tag/vitamin-d	/news-philanthropy
+Redirect	301	/blog/tag/vitamin-c	/news-philanthropy
+Redirect	301	/blog/tag/visual	/news-philanthropy
+Redirect	301	/blog/tag/virginia-therapy-fitness-center	/news-philanthropy
+Redirect	301	/blog/tag/virginia-spine-institute	/news-philanthropy
+Redirect	301	/blog/tag/virginia-garden-week-2012	/news-philanthropy
+Redirect	301	/blog/tag/vertebroplasty	/news-philanthropy
+Redirect	301	/blog/tag/vertebrae	/news-philanthropy
+Redirect	301	/blog/tag/uvb-rays	/news-philanthropy
+Redirect	301	/blog/tag/uva-rays	/news-philanthropy
+Redirect	301	/blog/tag/upset-stomach	/news-philanthropy
+Redirect	301	/blog/tag/tylenol	/news-philanthropy
+Redirect	301	/blog/tag/true-story	/news-philanthropy
+Redirect	301	/blog/tag/triathlete	/news-philanthropy
+Redirect	301	/blog/tag/treatment-outcomes	/news-philanthropy
+Redirect	301	/blog/tag/treatment-options	/news-philanthropy
+Redirect	301	/blog/tag/treatment-of-low-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/treatment	/news-philanthropy
+Redirect	301	/blog/tag/transforaminal-lumber-interbody-fusion	/news-philanthropy
+Redirect	301	/blog/tag/transforaminal-lumbar-interbody-fusion	/news-philanthropy
+Redirect	301	/blog/tag/transcranial-magnetic-stimulation	/news-philanthropy
+Redirect	301	/blog/tag/topical-medication	/news-philanthropy
+Redirect	301	/blog/tag/tmj-disorders	/news-philanthropy
+Redirect	301	/blog/tag/tlif	/news-philanthropy
+Redirect	301	/blog/tag/tips-2	/news-philanthropy
+Redirect	301	/blog/tag/tingling	/news-philanthropy
+Redirect	301	/blog/tag/the-diane-rehm-show	/news-philanthropy
+Redirect	301	/blog/tag/the-american-physical-therapy-association	/news-philanthropy
+Redirect	301	/blog/tag/thanksgiving	/news-philanthropy
+Redirect	301	/blog/tag/tension	/news-philanthropy
+Redirect	301	/blog/tag/tennis-elbow	/news-philanthropy
+Redirect	301	/blog/tag/tennis	/news-philanthropy
+Redirect	301	/blog/tag/teamwork	/news-philanthropy
+Redirect	301	/blog/tag/symptoms-2	/news-philanthropy
+Redirect	301	/blog/tag/swimming	/news-philanthropy
+Redirect	301	/blog/tag/swedish-massage	/news-philanthropy
+Redirect	301	/blog/tag/surgery	/news-philanthropy
+Redirect	301	/blog/tag/supplements	/news-philanthropy
+Redirect	301	/blog/tag/sunshine	/news-philanthropy
+Redirect	301	/blog/tag/summertime-fruit	/news-philanthropy
+Redirect	301	/blog/tag/sugar	/news-philanthropy
+Redirect	301	/blog/tag/successful-outcome	/news-philanthropy
+Redirect	301	/blog/tag/study	/news-philanthropy
+Redirect	301	/blog/tag/studies	/news-philanthropy
+Redirect	301	/blog/tag/strokes	/news-philanthropy
+Redirect	301	/blog/tag/stretching	/news-philanthropy
+Redirect	301	/blog/tag/stretch	/news-philanthropy
+Redirect	301	/blog/tag/stress-fracture	/news-philanthropy
+Redirect	301	/blog/tag/stress	/news-philanthropy
+Redirect	301	/blog/tag/strengthening	/news-philanthropy
+Redirect	301	/blog/tag/strength-excercises	/news-philanthropy
+Redirect	301	/blog/tag/strength-and-motion	/news-philanthropy
+Redirect	301	/blog/tag/steroids	/news-philanthropy
+Redirect	301	/blog/tag/stem-cell-therapy	/news-philanthropy
+Redirect	301	/blog/tag/state-of-healthcare	/news-philanthropy
+Redirect	301	/blog/tag/srf	/news-philanthropy
+Redirect	301	/blog/tag/springtime	/news-philanthropy
+Redirect	301	/blog/tag/sports-related-injuries	/news-philanthropy
+Redirect	301	/blog/tag/sports-massage	/news-philanthropy
+Redirect	301	/blog/tag/sports-injury	/news-philanthropy
+Redirect	301	/blog/tag/sport-injury	/news-philanthropy
+Redirect	301	/blog/tag/spondylolysis	/news-philanthropy
+Redirect	301	/blog/tag/spondylolisthesis	/news-philanthropy
+Redirect	301	/blog/tag/spine-surgery	/news-philanthropy
+Redirect	301	/blog/tag/spine-procedures	/news-philanthropy
+Redirect	301	/blog/tag/spine-institute	/news-philanthropy
+Redirect	301	/blog/tag/spine-expert	/news-philanthropy
+Redirect	301	/blog/tag/spine-doctor	/news-philanthropy
+Redirect	301	/blog/tag/spine-curvature	/news-philanthropy
+Redirect	301	/blog/tag/spine	/news-philanthropy
+Redirect	301	/blog/tag/spinal-surgery-recovery	/news-philanthropy
+Redirect	301	/blog/tag/spinal-surgery	/news-philanthropy
+Redirect	301	/blog/tag/spinal-surgeon	/news-philanthropy
+Redirect	301	/blog/tag/spinal-stenosis	/news-philanthropy
+Redirect	301	/blog/tag/spinal-stablity	/news-philanthropy
+Redirect	301	/blog/tag/spinal-specialists	/news-philanthropy
+Redirect	301	/blog/tag/spinal-specialist	/news-philanthropy
+Redirect	301	/blog/tag/spinal-segmental-instability	/news-philanthropy
+Redirect	301	/blog/tag/spinal-ressearch-foundation	/news-philanthropy
+Redirect	301	/blog/tag/spinal-research-foundation	/news-philanthropy
+Redirect	301	/blog/tag/spinal-range-of-motion	/news-philanthropy
+Redirect	301	/blog/tag/spinal-injections	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-source	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-experts	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-care-experts	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-care-center	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-care-advances	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health-care	/news-philanthropy
+Redirect	301	/blog/tag/spinal-health	/news-philanthropy
+Redirect	301	/blog/tag/spinal-hardware	/news-philanthropy
+Redirect	301	/blog/tag/spinal-fusion/page/2	/news-philanthropy
+Redirect	301	/blog/tag/spinal-fusion-surgery	/news-philanthropy
+Redirect	301	/blog/tag/spinal-fusion	/news-philanthropy
+Redirect	301	/blog/tag/spinal-deformity	/news-philanthropy
+Redirect	301	/blog/tag/spinal-curve-correction	/news-philanthropy
+Redirect	301	/blog/tag/spinal-cord-stimulator-trials	/news-philanthropy
+Redirect	301	/blog/tag/spinal-cord-stimulator	/news-philanthropy
+Redirect	301	/blog/tag/spinal-cord-stimulation	/news-philanthropy
+Redirect	301	/blog/tag/spinal-cord	/news-philanthropy
+Redirect	301	/blog/tag/spinal-conditions	/news-philanthropy
+Redirect	301	/blog/tag/spinal-champions	/news-philanthropy
+Redirect	301	/blog/tag/spinal-champion	/news-philanthropy
+Redirect	301	/blog/tag/spinal-bracing	/news-philanthropy
+Redirect	301	/blog/tag/spina-bifida-occulta	/news-philanthropy
+Redirect	301	/blog/tag/spina-bifida	/news-philanthropy
+Redirect	301	/blog/tag/spidertech	/news-philanthropy
+Redirect	301	/blog/tag/sore-shoulders	/news-philanthropy
+Redirect	301	/blog/tag/soda	/news-philanthropy
+Redirect	301	/blog/tag/snow-shoveling	/news-philanthropy
+Redirect	301	/blog/tag/snow-safety	/news-philanthropy
+Redirect	301	/blog/tag/snow	/news-philanthropy
+Redirect	301	/blog/tag/smoking-cessation	/news-philanthropy
+Redirect	301	/blog/tag/smoking	/news-philanthropy
+Redirect	301	/blog/tag/slumber	/news-philanthropy
+Redirect	301	/blog/tag/sleeping	/news-philanthropy
+Redirect	301	/blog/tag/sleep-deprivation	/news-philanthropy
+Redirect	301	/blog/tag/sleep	/news-philanthropy
+Redirect	301	/blog/tag/skipping-breakfast	/news-philanthropy
+Redirect	301	/blog/tag/si-joint-treatment	/news-philanthropy
+Redirect	301	/blog/tag/si-joint-pain	/news-philanthropy
+Redirect	301	/blog/tag/si-joint	/news-philanthropy
+Redirect	301	/blog/tag/si-fusion	/news-philanthropy
+Redirect	301	/blog/tag/shoveling	/news-philanthropy
+Redirect	301	/blog/tag/shoulder-pain	/news-philanthropy
+Redirect	301	/blog/tag/shoulder	/news-philanthropy
+Redirect	301	/blog/tag/shin-splints	/news-philanthropy
+Redirect	301	/blog/tag/sedentary	/news-philanthropy
+Redirect	301	/blog/tag/second-opinion	/news-philanthropy
+Redirect	301	/blog/tag/seat-belt	/news-philanthropy
+Redirect	301	/blog/tag/scoliscore	/news-philanthropy
+Redirect	301	/blog/tag/scoliosis-2	/news-philanthropy
+Redirect	301	/blog/tag/sciatica	/news-philanthropy
+Redirect	301	/blog/tag/sciatic-nerve	/news-philanthropy
+Redirect	301	/blog/tag/school-supplies	/news-philanthropy
+Redirect	301	/blog/tag/safety	/news-philanthropy
+Redirect	301	/blog/tag/safe-gardening	/news-philanthropy
+Redirect	301	/blog/tag/safe-fishing-tips	/news-philanthropy
+Redirect	301	/blog/tag/sacroiliac-si-joint	/news-philanthropy
+Redirect	301	/blog/tag/sacroiliac-joint	/news-philanthropy
+Redirect	301	/blog/tag/s-p-i-n-e-conference	/news-philanthropy
+Redirect	301	/blog/tag/running-injury	/news-philanthropy
+Redirect	301	/blog/tag/running	/news-philanthropy
+Redirect	301	/blog/tag/runners-knee	/news-philanthropy
+Redirect	301	/blog/tag/runner	/news-philanthropy
+Redirect	301	/blog/tag/run	/news-philanthropy
+Redirect	301	/blog/tag/rotator-cuff-injuries	/news-philanthropy
+Redirect	301	/blog/tag/robot-guided-spine-surgery	/news-philanthropy
+Redirect	301	/blog/tag/robert-griffin-iii	/news-philanthropy
+Redirect	301	/blog/tag/rheumatoid-arthritis	/news-philanthropy
+Redirect	301	/blog/tag/rfa	/news-philanthropy
+Redirect	301	/blog/tag/rewards-program	/news-philanthropy
+Redirect	301	/blog/tag/reward	/news-philanthropy
+Redirect	301	/blog/tag/retrospective-research	/news-philanthropy
+Redirect	301	/blog/tag/restorative-sleep	/news-philanthropy
+Redirect	301	/blog/tag/reston-interfaith	/news-philanthropy
+Redirect	301	/blog/tag/reston-hospital-center	/news-philanthropy
+Redirect	301	/blog/tag/rest	/news-philanthropy
+Redirect	301	/blog/tag/resolutions	/news-philanthropy
+Redirect	301	/blog/tag/relieve-inflammation	/news-philanthropy
+Redirect	301	/blog/tag/relaxation	/news-philanthropy
+Redirect	301	/blog/tag/rehabilitation	/news-philanthropy
+Redirect	301	/blog/tag/regular-excercise	/news-philanthropy
+Redirect	301	/blog/tag/regenokine-procedure	/news-philanthropy
+Redirect	301	/blog/tag/regeneration	/news-philanthropy
+Redirect	301	/blog/tag/refined-sugar	/news-philanthropy
+Redirect	301	/blog/tag/referral-promotion	/news-philanthropy
+Redirect	301	/blog/tag/reduce-injury	/news-philanthropy
+Redirect	301	/blog/tag/reduce-inflammation-that-causes-arthritis	/news-philanthropy
+Redirect	301	/blog/tag/redskins	/news-philanthropy
+Redirect	301	/blog/tag/recovery	/news-philanthropy
+Redirect	301	/blog/tag/recipe	/news-philanthropy
+Redirect	301	/blog/tag/range-of-motion	/news-philanthropy
+Redirect	301	/blog/tag/raking-leaves	/news-philanthropy
+Redirect	301	/blog/tag/radiofrequency-ablation	/news-philanthropy
+Redirect	301	/blog/tag/radio-frequency-ablation	/news-philanthropy
+Redirect	301	/blog/tag/radiculopathy	/news-philanthropy
+Redirect	301	/blog/tag/quit-smoking	/news-philanthropy
+Redirect	301	/blog/tag/quadratus-lumborum	/news-philanthropy
+Redirect	301	/blog/tag/pumpkin-seeds	/news-philanthropy
+Redirect	301	/blog/tag/pumpkin-health-benefits	/news-philanthropy
+Redirect	301	/blog/tag/providing-hope	/news-philanthropy
+Redirect	301	/blog/tag/protocols	/news-philanthropy
+Redirect	301	/blog/tag/prospective-research	/news-philanthropy
+Redirect	301	/blog/tag/proper-posture	/news-philanthropy
+Redirect	301	/blog/tag/proper-lifting	/news-philanthropy
+Redirect	301	/blog/tag/proper-footwear	/news-philanthropy
+Redirect	301	/blog/tag/prevention-tips	/news-philanthropy
+Redirect	301	/blog/tag/prevention	/news-philanthropy
+Redirect	301	/blog/tag/preventint-potential-injury	/news-philanthropy
+Redirect	301	/blog/tag/preventative-tips	/news-philanthropy
+Redirect	301	/blog/tag/prevent-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/pregnancy	/news-philanthropy
+Redirect	301	/blog/tag/prediabetes	/news-philanthropy
+Redirect	301	/blog/tag/pre-olympic-trials	/news-philanthropy
+Redirect	301	/blog/tag/posture	/news-philanthropy
+Redirect	301	/blog/tag/posterior-fusion	/news-philanthropy
+Redirect	301	/blog/tag/postaglandins	/news-philanthropy
+Redirect	301	/blog/tag/post-surgical-rehabilitation-2	/news-philanthropy
+Redirect	301	/blog/tag/post-surgical	/news-philanthropy
+Redirect	301	/blog/tag/post-surgery	/news-philanthropy
+Redirect	301	/blog/tag/positive-attitude	/news-philanthropy
+Redirect	301	/blog/tag/platelet-rich-plasma-therapy	/news-philanthropy
+Redirect	301	/blog/tag/plantar-fasciitis	/news-philanthropy
+Redirect	301	/blog/tag/pioneers	/news-philanthropy
+Redirect	301	/blog/tag/pinched-spinal-cord	/news-philanthropy
+Redirect	301	/blog/tag/pinched-nerve	/news-philanthropy
+Redirect	301	/blog/tag/pillow	/news-philanthropy
+Redirect	301	/blog/tag/pill-reminder	/news-philanthropy
+Redirect	301	/blog/tag/physician-assistant	/news-philanthropy
+Redirect	301	/blog/tag/physical-therapy	/news-philanthropy
+Redirect	301	/blog/tag/physical-activity	/news-philanthropy
+Redirect	301	/blog/tag/pet-walking	/news-philanthropy
+Redirect	301	/blog/tag/personal-training-2	/news-philanthropy
+Redirect	301	/blog/tag/period-symptoms	/news-philanthropy
+Redirect	301	/blog/tag/period	/news-philanthropy
+Redirect	301	/blog/tag/performance	/news-philanthropy
+Redirect	301	/blog/tag/pelvis-stability	/news-philanthropy
+Redirect	301	/blog/tag/pediatric-spinal-deformity	/news-philanthropy
+Redirect	301	/blog/tag/patient-true-story	/news-philanthropy
+Redirect	301	/blog/tag/patient-questions-2	/news-philanthropy
+Redirect	301	/blog/tag/patient-inspiration	/news-philanthropy
+Redirect	301	/blog/tag/patient-benefits	/news-philanthropy
+Redirect	301	/blog/tag/patient-appreciation	/news-philanthropy
+Redirect	301	/blog/tag/patellofemoral-pain-syndrome	/news-philanthropy
+Redirect	301	/blog/tag/participate	/news-philanthropy
+Redirect	301	/blog/tag/parent-questions	/news-philanthropy
+Redirect	301	/blog/tag/panel-discussion	/news-philanthropy
+Redirect	301	/blog/tag/painful-menses	/news-philanthropy
+Redirect	301	/blog/tag/painful-maneuvers	/news-philanthropy
+Redirect	301	/blog/tag/pain-tracker	/news-philanthropy
+Redirect	301	/blog/tag/pain-relief	/news-philanthropy
+Redirect	301	/blog/tag/pain-reduction	/news-philanthropy
+Redirect	301	/blog/tag/pain-psychology	/news-philanthropy
+Redirect	301	/blog/tag/pain-patch	/news-philanthropy
+Redirect	301	/blog/tag/pain-management-center-of-virginia	/news-philanthropy
+Redirect	301	/blog/tag/pain-management-2	/news-philanthropy
+Redirect	301	/blog/tag/pain-free-travel	/news-philanthropy
+Redirect	301	/blog/tag/pain-free	/news-philanthropy
+Redirect	301	/blog/tag/pain-altering-lifestyle	/news-philanthropy
+Redirect	301	/blog/tag/pain	/news-philanthropy
+Redirect	301	/blog/tag/overcoming-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/over-the-counter	/news-philanthropy
+Redirect	301	/blog/tag/outdoor-workouts	/news-philanthropy
+Redirect	301	/blog/tag/osteoporotiv-fracture	/news-philanthropy
+Redirect	301	/blog/tag/osteoporosis	/news-philanthropy
+Redirect	301	/blog/tag/orthopaedic-surgeon	/news-philanthropy
+Redirect	301	/blog/tag/opiate-analgesics	/news-philanthropy
+Redirect	301	/blog/tag/olympics	/news-philanthropy
+Redirect	301	/blog/tag/olympic-athletes	/news-philanthropy
+Redirect	301	/blog/tag/olympian	/news-philanthropy
+Redirect	301	/blog/tag/office	/news-philanthropy
+Redirect	301	/blog/tag/nutritional-education	/news-philanthropy
+Redirect	301	/blog/tag/nutritional-benefits	/news-philanthropy
+Redirect	301	/blog/tag/nutrition	/news-philanthropy
+Redirect	301	/blog/tag/numbness	/news-philanthropy
+Redirect	301	/blog/tag/nsaids	/news-philanthropy
+Redirect	301	/blog/tag/npr	/news-philanthropy
+Redirect	301	/blog/tag/nonprofit-organization	/news-philanthropy
+Redirect	301	/blog/tag/non-operative-treatment-options	/news-philanthropy
+Redirect	301	/blog/tag/non-operative-treatment-2	/news-philanthropy
+Redirect	301	/blog/tag/non-operative	/news-philanthropy
+Redirect	301	/blog/tag/news	/news-philanthropy
+Redirect	301	/blog/tag/new-years-resolutions	/news-philanthropy
+Redirect	301	/blog/tag/new-years-resolution	/news-philanthropy
+Redirect	301	/blog/tag/new-year-resolutions	/news-philanthropy
+Redirect	301	/blog/tag/new-technology	/news-philanthropy
+Redirect	301	/blog/tag/neurosurgeon	/news-philanthropy
+Redirect	301	/blog/tag/nerves	/news-philanthropy
+Redirect	301	/blog/tag/nerve-irritation	/news-philanthropy
+Redirect	301	/blog/tag/nerve-damage	/news-philanthropy
+Redirect	301	/blog/tag/nerve-conduction-study	/news-philanthropy
+Redirect	301	/blog/tag/nerve-compression	/news-philanthropy
+Redirect	301	/blog/tag/neck-surgery	/news-philanthropy
+Redirect	301	/blog/tag/neck-pain-2/page/2	/news-philanthropy
+Redirect	301	/blog/tag/neck-pain-2	/news-philanthropy
+Redirect	301	/blog/tag/neck	/news-philanthropy
+Redirect	301	/blog/tag/ncs	/news-philanthropy
+Redirect	301	/blog/tag/national-television	/news-philanthropy
+Redirect	301	/blog/tag/national-recognition	/news-philanthropy
+Redirect	301	/blog/tag/national-public-radio	/news-philanthropy
+Redirect	301	/blog/tag/national-iced-tea-day	/news-philanthropy
+Redirect	301	/blog/tag/national-ice-cream-soda-day	/news-philanthropy
+Redirect	301	/blog/tag/national-childhood-obesity-awareness-month	/news-philanthropy
+Redirect	301	/blog/tag/naggging-muscle-or-joint-pain	/news-philanthropy
+Redirect	301	/blog/tag/myofascial-trigger-points	/news-philanthropy
+Redirect	301	/blog/tag/myofascial-release	/news-philanthropy
+Redirect	301	/blog/tag/myelomeningocele	/news-philanthropy
+Redirect	301	/blog/tag/my-story	/news-philanthropy
+Redirect	301	/blog/tag/muscular-balance	/news-philanthropy
+Redirect	301	/blog/tag/muscle-weakness	/news-philanthropy
+Redirect	301	/blog/tag/muscle-tension	/news-philanthropy
+Redirect	301	/blog/tag/muscle-strain	/news-philanthropy
+Redirect	301	/blog/tag/muscle-joint-pain	/news-philanthropy
+Redirect	301	/blog/tag/multidisciplinary-medical-practice	/news-philanthropy
+Redirect	301	/blog/tag/mri	/news-philanthropy
+Redirect	301	/blog/tag/motivation	/news-philanthropy
+Redirect	301	/blog/tag/motion-sickness	/news-philanthropy
+Redirect	301	/blog/tag/most-important-meal-of-the-day	/news-philanthropy
+Redirect	301	/blog/tag/morning-routine	/news-philanthropy
+Redirect	301	/blog/tag/modification	/news-philanthropy
+Redirect	301	/blog/tag/modern-spinal-health-care	/news-philanthropy
+Redirect	301	/blog/tag/miss	/news-philanthropy
+Redirect	301	/blog/tag/mis	/news-philanthropy
+Redirect	301	/blog/tag/minimally-invasive-surgery	/news-philanthropy
+Redirect	301	/blog/tag/minimally-invasive-spine-surgery	/news-philanthropy
+Redirect	301	/blog/tag/mindless-eating	/news-philanthropy
+Redirect	301	/blog/tag/milk-mustache	/news-philanthropy
+Redirect	301	/blog/tag/migraine-headache	/news-philanthropy
+Redirect	301	/blog/tag/metastatic-spinal-disease	/news-philanthropy
+Redirect	301	/blog/tag/meralgia-paresthetica	/news-philanthropy
+Redirect	301	/blog/tag/menstrual-cramps	/news-philanthropy
+Redirect	301	/blog/tag/mens-health-month	/news-philanthropy
+Redirect	301	/blog/tag/meningoceles	/news-philanthropy
+Redirect	301	/blog/tag/medtronic	/news-philanthropy
+Redirect	301	/blog/tag/medication-reminder	/news-philanthropy
+Redirect	301	/blog/tag/medication	/news-philanthropy
+Redirect	301	/blog/tag/medical-research	/news-philanthropy
+Redirect	301	/blog/tag/medical-practice	/news-philanthropy
+Redirect	301	/blog/tag/medical-executive-committee	/news-philanthropy
+Redirect	301	/blog/tag/mazor-robotics	/news-philanthropy
+Redirect	301	/blog/tag/mattress	/news-philanthropy
+Redirect	301	/blog/tag/magnetic-resonance-imaging	/news-philanthropy
+Redirect	301	/blog/tag/magnesium	/news-philanthropy
+Redirect	301	/blog/tag/lung-cancer	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-support	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-spine	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-spinal-stenosis	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-microdiscectomy	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-fusion	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-artificial-disc	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-anterior-fusion	/news-philanthropy
+Redirect	301	/blog/tag/lumbar-annular-tear	/news-philanthropy
+Redirect	301	/blog/tag/lower-blood-pressure	/news-philanthropy
+Redirect	301	/blog/tag/lower-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/lower-back	/news-philanthropy
+Redirect	301	/blog/tag/low-calorie-snack	/news-philanthropy
+Redirect	301	/blog/tag/low-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/low-back	/news-philanthropy
+Redirect	301	/blog/tag/lobster-meat	/news-philanthropy
+Redirect	301	/blog/tag/lifting	/news-philanthropy
+Redirect	301	/blog/tag/leg-spasms	/news-philanthropy
+Redirect	301	/blog/tag/leg-pain	/news-philanthropy
+Redirect	301	/blog/tag/leg-numbness	/news-philanthropy
+Redirect	301	/blog/tag/leg-length-discrepancy	/news-philanthropy
+Redirect	301	/blog/tag/leaders-in-spinal-health-care	/news-philanthropy
+Redirect	301	/blog/tag/lateral-epicondylitis	/news-philanthropy
+Redirect	301	/blog/tag/laser-spine-surgery	/news-philanthropy
+Redirect	301	/blog/tag/laser-sharp-pain	/news-philanthropy
+Redirect	301	/blog/tag/kyphoplasty	/news-philanthropy
+Redirect	301	/blog/tag/knee-pain	/news-philanthropy
+Redirect	301	/blog/tag/knee-injury	/news-philanthropy
+Redirect	301	/blog/tag/knee-braces	/news-philanthropy
+Redirect	301	/blog/tag/kinesio-tape	/news-philanthropy
+Redirect	301	/blog/tag/kids-2	/news-philanthropy
+Redirect	301	/blog/tag/june-2013	/news-philanthropy
+Redirect	301	/blog/tag/joint-replacement	/news-philanthropy
+Redirect	301	/blog/tag/joint-pain	/news-philanthropy
+Redirect	301	/blog/tag/joint-laxity	/news-philanthropy
+Redirect	301	/blog/tag/intrathecal-pumps	/news-philanthropy
+Redirect	301	/blog/tag/intramuscular-manual-therapy	/news-philanthropy
+Redirect	301	/blog/tag/intervertebral-disc	/news-philanthropy
+Redirect	301	/blog/tag/innovation	/news-philanthropy
+Redirect	301	/blog/tag/injury-prevention	/news-philanthropy
+Redirect	301	/blog/tag/injured-disc	/news-philanthropy
+Redirect	301	/blog/tag/injections	/news-philanthropy
+Redirect	301	/blog/tag/inflammatory-pain	/news-philanthropy
+Redirect	301	/blog/tag/infertility	/news-philanthropy
+Redirect	301	/blog/tag/improved-accuracy	/news-philanthropy
+Redirect	301	/blog/tag/improve-mood	/news-philanthropy
+Redirect	301	/blog/tag/idiopathic-scoliosis	/news-philanthropy
+Redirect	301	/blog/tag/iced-tea	/news-philanthropy
+Redirect	301	/blog/tag/ice-therapy	/news-philanthropy
+Redirect	301	/blog/tag/ice-skating	/news-philanthropy
+Redirect	301	/blog/tag/hypomobility	/news-philanthropy
+Redirect	301	/blog/tag/hypermobility	/news-philanthropy
+Redirect	301	/blog/tag/hydration	/news-philanthropy
+Redirect	301	/blog/tag/hybrid-multi-level-artificial-disc-replacement	/news-philanthropy
+Redirect	301	/blog/tag/how-to-wear-backpack	/news-philanthropy
+Redirect	301	/blog/tag/hope	/news-philanthropy
+Redirect	301	/blog/tag/holiday-weight-gain	/news-philanthropy
+Redirect	301	/blog/tag/holiday-cheer	/news-philanthropy
+Redirect	301	/blog/tag/hobby	/news-philanthropy
+Redirect	301	/blog/tag/hip-stabilization	/news-philanthropy
+Redirect	301	/blog/tag/hip-pain	/news-philanthropy
+Redirect	301	/blog/tag/high-heels	/news-philanthropy
+Redirect	301	/blog/tag/high-cholesterol	/news-philanthropy
+Redirect	301	/blog/tag/high-blood-pressure	/news-philanthropy
+Redirect	301	/blog/tag/herniated-disc	/news-philanthropy
+Redirect	301	/blog/tag/heel-pain	/news-philanthropy
+Redirect	301	/blog/tag/heel-lift	/news-philanthropy
+Redirect	301	/blog/tag/heat-therapy	/news-philanthropy
+Redirect	301	/blog/tag/heart-risk	/news-philanthropy
+Redirect	301	/blog/tag/heart-health	/news-philanthropy
+Redirect	301	/blog/tag/heart-disease	/news-philanthropy
+Redirect	301	/blog/tag/healthy-lifestyle	/news-philanthropy
+Redirect	301	/blog/tag/healthy-eating	/news-philanthropy
+Redirect	301	/blog/tag/healthy-diet	/news-philanthropy
+Redirect	301	/blog/tag/healthy-body-weight	/news-philanthropy
+Redirect	301	/blog/tag/healthful-eating	/news-philanthropy
+Redirect	301	/blog/tag/healthcare-blog	/news-philanthropy
+Redirect	301	/blog/tag/health-study	/news-philanthropy
+Redirect	301	/blog/tag/health-benefits	/news-philanthropy
+Redirect	301	/blog/tag/health	/news-philanthropy
+Redirect	301	/blog/tag/healing-spine	/news-philanthropy
+Redirect	301	/blog/tag/headaches	/news-philanthropy
+Redirect	301	/blog/tag/headache	/news-philanthropy
+Redirect	301	/blog/tag/happy-patients	/news-philanthropy
+Redirect	301	/blog/tag/happy-holidays	/news-philanthropy
+Redirect	301	/blog/tag/hand-washing	/news-philanthropy
+Redirect	301	/blog/tag/hand-sanitizer	/news-philanthropy
+Redirect	301	/blog/tag/hand-pain	/news-philanthropy
+Redirect	301	/blog/tag/half-ironman	/news-philanthropy
+Redirect	301	/blog/tag/haglunds-deformity	/news-philanthropy
+Redirect	301	/blog/tag/h2o	/news-philanthropy
+Redirect	301	/blog/tag/gymnastics	/news-philanthropy
+Redirect	301	/blog/tag/group-exercise	/news-philanthropy
+Redirect	301	/blog/tag/green-thumb	/news-philanthropy
+Redirect	301	/blog/tag/golf	/news-philanthropy
+Redirect	301	/blog/tag/goals	/news-philanthropy
+Redirect	301	/blog/tag/goal	/news-philanthropy
+Redirect	301	/blog/tag/gluteus-medius	/news-philanthropy
+Redirect	301	/blog/tag/ginger	/news-philanthropy
+Redirect	301	/blog/tag/gi-function	/news-philanthropy
+Redirect	301	/blog/tag/germany	/news-philanthropy
+Redirect	301	/blog/tag/genetics-and-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/genetics	/news-philanthropy
+Redirect	301	/blog/tag/gait	/news-philanthropy
+Redirect	301	/blog/tag/fusion	/news-philanthropy
+Redirect	301	/blog/tag/freestyle	/news-philanthropy
+Redirect	301	/blog/tag/football	/news-philanthropy
+Redirect	301	/blog/tag/foot-pain	/news-philanthropy
+Redirect	301	/blog/tag/foot-injury	/news-philanthropy
+Redirect	301	/blog/tag/foot-drop	/news-philanthropy
+Redirect	301	/blog/tag/foot	/news-philanthropy
+Redirect	301	/blog/tag/food-drive	/news-philanthropy
+Redirect	301	/blog/tag/folic-acid	/news-philanthropy
+Redirect	301	/blog/tag/flu-symptoms	/news-philanthropy
+Redirect	301	/blog/tag/flu-shot	/news-philanthropy
+Redirect	301	/blog/tag/flu-season	/news-philanthropy
+Redirect	301	/blog/tag/flu	/news-philanthropy
+Redirect	301	/blog/tag/flexibility	/news-philanthropy
+Redirect	301	/blog/tag/fitness-routines	/news-philanthropy
+Redirect	301	/blog/tag/fitness-goals	/news-philanthropy
+Redirect	301	/blog/tag/fitness	/news-philanthropy
+Redirect	301	/blog/tag/fishing-belt	/news-philanthropy
+Redirect	301	/blog/tag/fishing	/news-philanthropy
+Redirect	301	/blog/tag/fentanyl-hcl-iontophoretic-transdermal-system	/news-philanthropy
+Redirect	301	/blog/tag/feet	/news-philanthropy
+Redirect	301	/blog/tag/fcps-school-board	/news-philanthropy
+Redirect	301	/blog/tag/faster-recovery	/news-philanthropy
+Redirect	301	/blog/tag/fall	/news-philanthropy
+Redirect	301	/blog/tag/fairfax-county-schools-health-advisory-committee	/news-philanthropy
+Redirect	301	/blog/tag/expert-advice	/news-philanthropy
+Redirect	301	/blog/tag/expectant-mothers	/news-philanthropy
+Redirect	301	/blog/tag/exercise	/news-philanthropy
+Redirect	301	/blog/tag/excercise	/news-philanthropy
+Redirect	301	/blog/tag/events-2	/news-philanthropy
+Redirect	301	/blog/tag/essential-nutrients-2	/news-philanthropy
+Redirect	301	/blog/tag/ergonomics	/news-philanthropy
+Redirect	301	/blog/tag/empowered-wellness	/news-philanthropy
+Redirect	301	/blog/tag/emotional-pain	/news-philanthropy
+Redirect	301	/blog/tag/emg	/news-philanthropy
+Redirect	301	/blog/tag/eliminate-pain-at-work	/news-philanthropy
+Redirect	301	/blog/tag/electromyography	/news-philanthropy
+Redirect	301	/blog/tag/electrical-stimulation	/news-philanthropy
+Redirect	301	/blog/tag/elbow-pain	/news-philanthropy
+Redirect	301	/blog/tag/education	/news-philanthropy
+Redirect	301	/blog/tag/drop-foot	/news-philanthropy
+Redirect	301	/blog/tag/drive-safely	/news-philanthropy
+Redirect	301	/blog/tag/dr-subach	/news-philanthropy
+Redirect	301	/blog/tag/dr-schuler	/news-philanthropy
+Redirect	301	/blog/tag/dr-hasz	/news-philanthropy
+Redirect	301	/blog/tag/dr-good-2	/news-philanthropy
+Redirect	301	/blog/tag/dr-good	/news-philanthropy
+Redirect	301	/blog/tag/dr-christopher-good	/news-philanthropy
+Redirect	301	/blog/tag/doses	/news-philanthropy
+Redirect	301	/blog/tag/disease	/news-philanthropy
+Redirect	301	/blog/tag/discomfort	/news-philanthropy
+Redirect	301	/blog/tag/discography	/news-philanthropy
+Redirect	301	/blog/tag/disc-herniation	/news-philanthropy
+Redirect	301	/blog/tag/disc-degeneration	/news-philanthropy
+Redirect	301	/blog/tag/diagnostic	/news-philanthropy
+Redirect	301	/blog/tag/diagnoses	/news-philanthropy
+Redirect	301	/blog/tag/diabetes	/news-philanthropy
+Redirect	301	/blog/tag/dexa-scan	/news-philanthropy
+Redirect	301	/blog/tag/desk-work	/news-philanthropy
+Redirect	301	/blog/tag/depression	/news-philanthropy
+Redirect	301	/blog/tag/degenerative-disc-disease	/news-philanthropy
+Redirect	301	/blog/tag/deficiency	/news-philanthropy
+Redirect	301	/blog/tag/deep-tissue-massage	/news-philanthropy
+Redirect	301	/blog/tag/deep-brain-stimulation	/news-philanthropy
+Redirect	301	/blog/tag/decrease-inflammation	/news-philanthropy
+Redirect	301	/blog/tag/dealing-with-chronic-pain	/news-philanthropy
+Redirect	301	/blog/tag/cyclist	/news-philanthropy
+Redirect	301	/blog/tag/culinary	/news-philanthropy
+Redirect	301	/blog/tag/credentials	/news-philanthropy
+Redirect	301	/blog/tag/cramping	/news-philanthropy
+Redirect	301	/blog/tag/cortisone-shots	/news-philanthropy
+Redirect	301	/blog/tag/core-values	/news-philanthropy
+Redirect	301	/blog/tag/core-strengthening	/news-philanthropy
+Redirect	301	/blog/tag/coping	/news-philanthropy
+Redirect	301	/blog/tag/convenience	/news-philanthropy
+Redirect	301	/blog/tag/compression-of-nerves	/news-philanthropy
+Redirect	301	/blog/tag/comprehensive-care	/news-philanthropy
+Redirect	301	/blog/tag/compassionate	/news-philanthropy
+Redirect	301	/blog/tag/community-service	/news-philanthropy
+Redirect	301	/blog/tag/collagen	/news-philanthropy
+Redirect	301	/blog/tag/cold-weather-safety	/news-philanthropy
+Redirect	301	/blog/tag/cold-weather-running-gear	/news-philanthropy
+Redirect	301	/blog/tag/cold-weather	/news-philanthropy
+Redirect	301	/blog/tag/cold	/news-philanthropy
+Redirect	301	/blog/tag/cognition	/news-philanthropy
+Redirect	301	/blog/tag/coffee	/news-philanthropy
+Redirect	301	/blog/tag/clinical-trial	/news-philanthropy
+Redirect	301	/blog/tag/clincial-trial	/news-philanthropy
+Redirect	301	/blog/tag/chronic-pain-relief	/news-philanthropy
+Redirect	301	/blog/tag/chronic-pain	/news-philanthropy
+Redirect	301	/blog/tag/childhood-obesity	/news-philanthropy
+Redirect	301	/blog/tag/cervical-spine	/news-philanthropy
+Redirect	301	/blog/tag/cervical-radiculopathy	/news-philanthropy
+Redirect	301	/blog/tag/cervical-laminoplasty	/news-philanthropy
+Redirect	301	/blog/tag/cervical-fusion	/news-philanthropy
+Redirect	301	/blog/tag/certified-health-counselor	/news-philanthropy
+Redirect	301	/blog/tag/cell-based-therapy	/news-philanthropy
+Redirect	301	/blog/tag/celebrate	/news-philanthropy
+Redirect	301	/blog/tag/causes-of-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/carpal-tunnel-syndrome	/news-philanthropy
+Redirect	301	/blog/tag/carpal-tunnel	/news-philanthropy
+Redirect	301	/blog/tag/cariovascular-disease	/news-philanthropy
+Redirect	301	/blog/tag/caring	/news-philanthropy
+Redirect	301	/blog/tag/car-travel	/news-philanthropy
+Redirect	301	/blog/tag/car-accident	/news-philanthropy
+Redirect	301	/blog/tag/cancer-cells	/news-philanthropy
+Redirect	301	/blog/tag/cancer	/news-philanthropy
+Redirect	301	/blog/tag/calories	/news-philanthropy
+Redirect	301	/blog/tag/calf-pain	/news-philanthropy
+Redirect	301	/blog/tag/calcium	/news-philanthropy
+Redirect	301	/blog/tag/caffeine	/news-philanthropy
+Redirect	301	/blog/tag/burn-calories	/news-philanthropy
+Redirect	301	/blog/tag/bryan-implant	/news-philanthropy
+Redirect	301	/blog/tag/breaststroke	/news-philanthropy
+Redirect	301	/blog/tag/breast-cancer-awareness	/news-philanthropy
+Redirect	301	/blog/tag/breast-cancer	/news-philanthropy
+Redirect	301	/blog/tag/breaking-news	/news-philanthropy
+Redirect	301	/blog/tag/breakfast	/news-philanthropy
+Redirect	301	/blog/tag/brace-treatment	/news-philanthropy
+Redirect	301	/blog/tag/bootcamp	/news-philanthropy
+Redirect	301	/blog/tag/bone-morphogenetic-protein	/news-philanthropy
+Redirect	301	/blog/tag/bone-loss	/news-philanthropy
+Redirect	301	/blog/tag/bone-health-2	/news-philanthropy
+Redirect	301	/blog/tag/bone-fracture	/news-philanthropy
+Redirect	301	/blog/tag/bone-density	/news-philanthropy
+Redirect	301	/blog/tag/body-mass-index	/news-philanthropy
+Redirect	301	/blog/tag/blog-resource	/news-philanthropy
+Redirect	301	/blog/tag/bing-cherries	/news-philanthropy
+Redirect	301	/blog/tag/bike-safety	/news-philanthropy
+Redirect	301	/blog/tag/beta-carotene	/news-philanthropy
+Redirect	301	/blog/tag/best-calcium-sources	/news-philanthropy
+Redirect	301	/blog/tag/best-calcium-source	/news-philanthropy
+Redirect	301	/blog/tag/backstroke	/news-philanthropy
+Redirect	301	/blog/tag/backpack	/news-philanthropy
+Redirect	301	/blog/tag/back-to-school	/news-philanthropy
+Redirect	301	/blog/tag/back-surgery	/news-philanthropy
+Redirect	301	/blog/tag/back-support	/news-philanthropy
+Redirect	301	/blog/tag/back-pain/page/3	/news-philanthropy
+Redirect	301	/blog/tag/back-pain/page/2	/news-philanthropy
+Redirect	301	/blog/tag/back-pain	/news-philanthropy
+Redirect	301	/blog/tag/back-doctor	/news-philanthropy
+Redirect	301	/blog/tag/awareness-2	/news-philanthropy
+Redirect	301	/blog/tag/awards-2	/news-philanthropy
+Redirect	301	/blog/tag/avoid-back-pain	/news-philanthropy
+Redirect	301	/blog/tag/athletic-training	/news-philanthropy
+Redirect	301	/blog/tag/athletic-trainer	/news-philanthropy
+Redirect	301	/blog/tag/asthma	/news-philanthropy
+Redirect	301	/blog/tag/ask-the-expert-2	/news-philanthropy
+Redirect	301	/blog/tag/artificial-discs-and-motion-preservation	/news-philanthropy
+Redirect	301	/blog/tag/artificial-disc-replacement	/news-philanthropy
+Redirect	301	/blog/tag/arthritis	/news-philanthropy
+Redirect	301	/blog/tag/arthritic-joints	/news-philanthropy
+Redirect	301	/blog/tag/arm-pain	/news-philanthropy
+Redirect	301	/blog/tag/aquatic-therapy	/news-philanthropy
+Redirect	301	/blog/tag/applications	/news-philanthropy
+Redirect	301	/blog/tag/app-review	/news-philanthropy
+Redirect	301	/blog/tag/antidepressants	/news-philanthropy
+Redirect	301	/blog/tag/anterior-lumbar-interbody-fusion	/news-philanthropy
+Redirect	301	/blog/tag/anterior-cruciate-ligament	/news-philanthropy
+Redirect	301	/blog/tag/anterior-cervical-discectomy-and-fusion	/news-philanthropy
+Redirect	301	/blog/tag/annual-event	/news-philanthropy
+Redirect	301	/blog/tag/ankle-pain	/news-philanthropy
+Redirect	301	/blog/tag/animals	/news-philanthropy
+Redirect	301	/blog/tag/allergies	/news-philanthropy
+Redirect	301	/blog/tag/airplane-travel	/news-philanthropy
+Redirect	301	/blog/tag/affiliations	/news-philanthropy
+Redirect	301	/blog/tag/advances	/news-philanthropy
+Redirect	301	/blog/tag/advancements-in-spinal-health-care	/news-philanthropy
+Redirect	301	/blog/tag/adult-scoliosis	/news-philanthropy
+Redirect	301	/blog/tag/adolescent-scoliosis	/news-philanthropy
+Redirect	301	/blog/tag/adolescent-idiopathic-scoliosis	/news-philanthropy
+Redirect	301	/blog/tag/adolescent-health	/news-philanthropy
+Redirect	301	/blog/tag/acute-pain	/news-philanthropy
+Redirect	301	/blog/tag/acupuncture	/news-philanthropy
+Redirect	301	/blog/tag/active-isolated-stretching	/news-philanthropy
+Redirect	301	/blog/tag/achy-joints	/news-philanthropy
+Redirect	301	/blog/tag/aches-and-pains	/news-philanthropy
+Redirect	301	/blog/tag/acetaminophen	/news-philanthropy
+Redirect	301	/blog/tag/accomplishments	/news-philanthropy
+Redirect	301	/blog/tag/5k-run	/news-philanthropy
+Redirect	301	/blog/tag/2012-olympics	/news-philanthropy
+Redirect	301	/blog/stretch-it-out-three-yoga-poses-to-ease-back-and-neck-pain	/news-philanthropy/yoga
+Redirect	301	/blog/strengthen-your-bones-and-spine-with-vitamin-d	/news-philanthropy/strengthen-your-bones-and-spine-with-vitamin-d
+Redirect	301	/blog/stop-hunching-slumping-check-out-this-guide-to-good-posture	/news-philanthropy/stop-hunching-slumping-check-out-this-guide-to-good-posture
+Redirect	301	/blog/spondylolisthesis-all-you-need-to-know-about-this-condition-beyond-it-being-a-30-point-scrabbl	/news-philanthropy/spondylolisthesis-all-you-need-to-know-beyond-it-being-a-30-point-scrabble
+Redirect	301	/blog/splash-away-back-pain-by-swimming-this-summer	/news-philanthropy/splash-away-back-pain-by-swimming-this-summer
+Redirect	301	/blog/spinal-segmental-instability-is-not-a-game-learn-how-spinal-fusion-may-be-the-best-option	/news-philanthropy/spinal-segmental-instability-is-not-a-game-learn-how-spinal-fusion-may-be-t
+Redirect	301	/blog/spinal-range-of-motion	/news-philanthropy
+Redirect	301	/blog/spinal-injections-101-your-questions-answered	/news-philanthropy
+Redirect	301	/blog/spinal-champion-tom-presents-dr-schuler-with-a-token-of-his-gratitude	/news-philanthropy
+Redirect	301	/blog/sleep-its-not-an-indulgence-its-a-necessity	/news-philanthropy/sleep-its-not-an-indulgence-its-a-necessity
+Redirect	301	/blog/sleep-app-reviewsget-more-zzzs-awake-refreshed	/news-philanthropy/app-review-get-more-zzzs-awake-refreshed
+Redirect	301	/blog/seven-tips-on-reducing-lower-back-pain-caused-by-pregnancy	/news-philanthropy/seven-tips-on-reducing-lower-back-pain-caused-by-pregnancy
+Redirect	301	/blog/schools-out-for-summer-avoid-back-pain-while-traveling-to-your-summer-vacation	/news-philanthropy
+Redirect	301	/blog/risk-factors-prevention-tips-for-anterior-cruciate-ligament-acl	/news-philanthropy/risk-factors-prevention-tips-for-anterior-cruciate-ligament-acl
+Redirect	301	/blog/reel-in-that-nagging-back-pain-with-these-safe-fishing-tips	/news-philanthropy/reel-in-nagging-back-pain-with-safe-fishing-tips
+Redirect	301	/blog/reduce-or-prevent-injury-buckle-up	/news-philanthropy
+Redirect	301	/blog/recent-advances-in-treatment-of-sacroiliac-si-joint-dysfunction	/news-philanthropy/recent-advances-in-treatment-of-sacroiliac-joint-dysfunction
+Redirect	301	/blog/recent-advances-in-spinal-cord-stimulation-technology-gives-chronic-pain-sufferers-another-opt	/news-philanthropy/recent-advances-in-spinal-cord-stimulation-technology-gives-chronic-pain-su
+Redirect	301	/blog/patient-question-i-experienced-whiplash-from-an-auto-accident-and-have-prolonged-pain	/news-philanthropy/ask-the-expert-is-laser-spine-surgery-right-for-me
+Redirect	301	/blog/pain-management-series-part-two-procedures-and-injections	/news-philanthropy/p
+Redirect	301	/blog/pain-management-series-part-three-interventional-therapies-and-new-horizons	/news-philanthropy/pain-management-series-part-three-interventional-therapies-new-horizons
+Redirect	301	/blog/pain-management-series-part-one-medication	/news-philanthropy/pain-management-series-part-one-medication
+Redirect	301	/blog/pain-in-the-neck-tips-to-alleviate-symptoms	/news-philanthropy/pain-in-the-neck-tips-to-alleviate-symptoms
+Redirect	301	/blog/page/9	/news-philanthropy
+Redirect	301	/blog/page/8	/news-philanthropy
+Redirect	301	/blog/page/7	/news-philanthropy
+Redirect	301	/blog/page/6	/news-philanthropy
+Redirect	301	/blog/page/5	/news-philanthropy
+Redirect	301	/blog/page/4	/news-philanthropy
+Redirect	301	/blog/page/3	/news-philanthropy
+Redirect	301	/blog/page/20	/news-philanthropy
+Redirect	301	/blog/page/2	/news-philanthropy
+Redirect	301	/blog/page/19/aapa.org	/news-philanthropy
+Redirect	301	/blog/page/19	/news-philanthropy
+Redirect	301	/blog/page/18	/news-philanthropy
+Redirect	301	/blog/page/17	/news-philanthropy
+Redirect	301	/blog/page/16	/news-philanthropy
+Redirect	301	/blog/page/15	/news-philanthropy
+Redirect	301	/blog/page/14	/news-philanthropy
+Redirect	301	/blog/page/13	/news-philanthropy
+Redirect	301	/blog/page/12	/news-philanthropy
+Redirect	301	/blog/page/11	/news-philanthropy
+Redirect	301	/blog/page/10	/news-philanthropy
+Redirect	301	/blog/overcome-mindless-eating-with-the-secret-to-improve-willpower	/news-philanthropy
+Redirect	301	/blog/osteoporosis-and-compression-fratures-what-gives	/news-philanthropy/osteoporosis-and-compression-fractures-what-gives
+Redirect	301	/blog/one-year-post-surgery-dr-schuler-shares-his-journey-from-neck-pain-to-full-recovery	/news-philanthropy/one-year-post-surgery-dr-schuler-shares-his-journey-from-neck-pain-to-full
+Redirect	301	/blog/ode-to-the-spine	/news-philanthropy
+Redirect	301	/blog/not-sure-where-to-turn-when-experiencing-neck-andor-back-pain-you%e2%80%99re-not-alone-spinal-	/news-philanthropy
+Redirect	301	/blog/new-for-2012-recent-vtfc-expansion-to-offer-personal-training-services	/news-philanthropy
+Redirect	301	/blog/neck_pain_causing_headaches	/news-philanthropy/could-that-pain-in-your-neck-be-causing-headaches
+Redirect	301	/blog/mens-health-month-june-2013	/news-philanthropy
+Redirect	301	/blog/meet-our-newest-addition-to-the-medical-assistant-team	/news-philanthropy
+Redirect	301	/blog/medication-is-often-an-important-part-of-treatment-find-out-how-to-get-the-most-benefit-from-y	/news-philanthropy
+Redirect	301	/blog/massage-therapy-styles-benefits	/news-philanthropy/massage-therapy-styles-benefits
+Redirect	301	/blog/lung-cancer-awareness-month-quit-smoking-for-the-health-of-it	/news-philanthropy/lung-cancer-awareness-month-quit-smoking-for-the-health-of-it
+Redirect	301	/blog/lumbar-artificial-disc-replacement-case-study	/news-philanthropy/lumbar-artificial-disc-replacement-case-study
+Redirect	301	/blog/loosen-up-your-clothes-and-belts-that-is	/news-philanthropy/loosen-up-your-clothes-and-belts-that-is
+Redirect	301	/blog/live-life-to-the-fallest-with-the-benefits-of-the-almighty-pumpkin	/news-philanthropy/live-life-to-the-fallest-with-the-benefits-of-the-almighty-pumpkin
+Redirect	301	/blog/lifting-101-back-pain-prevention	/news-philanthropy/lifting-101-back-pain-prevention-1
+Redirect	301	/blog/leg-length-discrepancy-linked-to-lower-back-pain-2	/news-philanthropy/leg-length-discrepancy-linked-to-lower-back-pain
+Redirect	301	/blog/knock-out-osteoporotic-fracture-pain-with-minimally-invasive-prodcedures-vertebroplasty-and-ky	/news-philanthropy/knock-out-osteoporotic-fracture-pain-with-minimally-invasive-procedures
+Redirect	301	/blog/just-can%e2%80%99t-get-rid-of-that-nagging-muscle-or-joint-pain-getting-back-in-the-game-with-	/news-philanthropy/tired-of-nagging-muscle-joint-pain-check-out-trigger-point
+Redirect	301	/blog/jacquies-passport-to-a-pain-free-life-helps-her-reach-impressive-world-traveling-goals	/news-philanthropy
+Redirect	301	/blog/it-isn%e2%80%99t-truly-summer-until-you%e2%80%99ve-enjoyed-the-health-benefits-of-watermelon	/news-philanthropy/it-isnt-truly-summer-until-youve-enjoyed-the-health-benefits-of-watermelon
+Redirect	301	/blog/is-laser-spine-surgery-right-for-me	/news-philanthropy/ask-the-expert-is-laser-spine-surgery-right-for-me
+Redirect	301	/blog/innovative-implant-to-treat-sacroiliac-si-joint-dysfunction-reaches-new-milestone	/news-philanthropy/innovative-implant-to-treat-sacroiliac-joint-dysfunction-reaches-new-milest
+Redirect	301	/blog/in-observace-of-veterans-day-we-salute-our-spines-of-service-lt-colonel-melitos-true-story	/news-philanthropy
+Redirect	301	/blog/i-scream-you-scream-we-all-scream-for-vsice-cream	/news-philanthropy/i-scream-you-scream-we-all-scream-for-vsice-cream
+Redirect	301	/blog/hydration-app-reviews-get-drinking-h2o-start-tracking	/news-philanthropy/app-review-get-drinking-water-start-tracking
+Redirect	301	/blog/hunched-over-your-desk-all-day-get-up-and-stretch	/news-philanthropy/hunched-over-your-desk-all-day-get-up-stretch
+Redirect	301	/blog/how-vsi-spreads-holiday-cheer	/news-philanthropy/vsi-spreads-the-love-by-donating-valentine-baskets-to-local-womens-shelter
+Redirect	301	/blog/how-to-submit-a-true-story-%e2%9d%a4	/news-philanthropy/how-to-submit-a-true-story
+Redirect	301	/blog/how-are-back-pain-and-genetics-related-how-shedding-excess-weight-can-minimize-pain	/news-philanthropy/is-back-pain-and-genetics-related-shedding-excess-weight-minimize-pain
+Redirect	301	/blog/high-heels-can-cost-you-more-than-money-back-pain-is-one-of-many-negative-effects	/news-philanthropy/high-heels-can-cost-back-pain-is-one-of-many-negative
+Redirect	301	/blog/hey-athletes-dont-let-sports-injuries-break-your-back	/news-philanthropy/hey-athletes
+Redirect	301	/blog/herniated-disc-causes-symptoms-treatment-2	/news-philanthropy/herniated-disc-causes-symptoms-treatment
+Redirect	301	/blog/help-prevent-the-spread-of-illness-with-one-simple-step	/news-philanthropy/help-prevent-the-spread-of-illness-with-one-simple-step
+Redirect	301	/blog/healthy-eating-leads-to-a-healthier-you	/news-philanthropy/healthy-eating-leads-to-a-healther-you
+Redirect	301	/blog/healing-waters-get-pain-relief-and-increased-mobility-with-aquatic-therapy	/news-philanthropy/healing-waters-get-pain-relief-and-increased-mobility-with-aquatic-therapy
+Redirect	301	/blog/have-you-hugged-a-pa-today-vsi-celebrates-national-physician-assistants-week-2011	/news-philanthropy/have-you-hugged-a-pa-today-vsi-celebrates-national-physician-assistants-wee
+Redirect	301	/blog/happy-pa-week-get-ready-to-test-your-knowledge	/news-philanthropy
+Redirect	301	/blog/happy-garden-week-virginia-green-thumbs-safe-back-techniques-before-you-hit-the-garden	/news-philanthropy/calling-all-green-thumbs-safe-back-techniques-before-you-garden
+Redirect	301	/blog/give-your-pain-a-name-sciatica	/news-philanthropy/give-your-pain-a-name-sciatica
+Redirect	301	/blog/get-up-get-moving-6-health-benefits-of-walking	/news-philanthropy/get
+Redirect	301	/blog/get-to-the-root-of-arm-numbness-or-tingling	/news-philanthropy/get-to-the-root-of-arm-numbness-or-tingling
+Redirect	301	/blog/get-to-know-your-gluteus-medius-muscle	/news-philanthropy/get-to-know-your-gluteus-medius-muscle
+Redirect	301	/blog/get-that-monkey-off-your-back-with-5-workplace-ergonomics-tips	/news-philanthropy/get-that-monkey-off-your-back-with-5-workplace-ergonomics-tips
+Redirect	301	/blog/get-clear-on-the-health-benefits-of-staying-hydrated	/news-philanthropy/get-clear-on-the-health-benefits-of-staying-hydrated
+Redirect	301	/blog/get-back-to-a-better-sleep-with-the-right-mattress	/news-philanthropy/get-back-to-a-better-sleep-with-the-right-mattress
+Redirect	301	/blog/four-techniques-to-remember-when-heading-out-to-shovel-this-winter	/news-philanthropy/four-techniques-to-remember-when-shoveling-this-winter
+Redirect	301	/blog/five-surprisingly-sweet-health-benefits-of-cherries-2	/news-philanthropy/five-surprisingly-sweet-health-benefits-of-cherries
+Redirect	301	/blog/five-simple-tips-to-maintain-and-achieve-your-new-yearâ€™s-resolutions	/news-philanthropy/resolutions
+Redirect	301	/blog/five-simple-tips-to-maintain-and-achieve-your-new-year%e2%80%99s-resolutions	/news-philanthropy/resolutions
+Redirect	301	/blog/find-out-the-most-common-injury-to-a-runner-how-to-prevent-it	/news-philanthropy/find-out-the-most-common-injury-to-a-runner-how-to-prevent-it
+Redirect	301	/blog/exploring-the-alternatives-to-spinal-fusion-surgery-with-artificial-disc-replacement	/news-philanthropy/exploring-the-alternatives-to-spinal-fusion-surgery-with-artificial-disc-re
+Redirect	301	/blog/exploring-new-horizons-in-spinal-treatment-robot-guided-spine-surgery	/news-philanthropy/exploring-new-horizons-in-spinal-treatment-robot-guided-spine-surgery
+Redirect	301	/blog/everything-you-need-to-know-about-minimally-invasive-surgery-mis-as-told-by-dr-hasz	/news-philanthropy/everything-you-need-to-know-about-minimally-invasive-surgery-mis-as-told-by
+Redirect	301	/blog/even-the-famous-suffer-from-cervical-neck-dic-herniation-proven-tips-to-alleviate-symptoms-at-	/news-philanthropy/pain-in-the-neck-tips-to-alleviate-symptoms
+Redirect	301	/blog/dr-subach-featured-among-neurosurgeons-making-headlines-on-spine-care	/news-philanthropy/dr-subach-featured-among-neurosurgeons-making-headlines-on-spine-care
+Redirect	301	/blog/dr-schuler-performs-first-hybrid-cervical-spine-surgery-in-the-country	/news-philanthropy/release
+Redirect	301	/blog/dr-good-is-admitted-as-a-fellow-of-the-american-college-of-surgeons-congratulations	/news-philanthropy/dr-good-admitted-as-a-fellow-of-the-american-college-of-surgeons-congr
+Redirect	301	/blog/dr-good-elected-to-reston-hospital-centers-medical-executive-committee	/news-philanthropy/dr-good-selected-to-reston-hospital-centers-medical-executive-committee
+Redirect	301	/blog/dr-christopher-good-selected-to-serve-on-fairfax-county-public-school-health-advisory-committe	/news-philanthropy/dr-christopher-good-selected-to-serve-on-fairfax-county-public-school-heal
+Redirect	301	/blog/dont-let-your-winter-workout-hibernate-four-useful-tips-for-a-safe-and-comfortable-workout.	/news-philanthropy/dont-let-your-winter-workout-hibernate-tips-for-a-safe-comfortable-worko
+Redirect	301	/blog/dont-let-your-winter-workout-hibernate-four-useful-tips-for-a-safe-and-comfortable-workout	/news-philanthropy/dont-let-your-winter-workout-hibernate-tips-for-a-safe-comfortable-worko
+Redirect	301	/blog/dont-let-the-super-bowl-overshadow-groundhog-day	/news-philanthropy/dont-let-the-super-bowl-overshadow-groundhog-day
+Redirect	301	/blog/dont-let-back-pain-be-your-handicap-on-the-golf-course	/news-philanthropy/dont-let-back-pain-be-your-handicap-on-the-golf-course
+Redirect	301	/blog/does-your-pre-pregnancy-checklist-include-folic-acid	/news-philanthropy/folic
+Redirect	301	/blog/does-smoking-flare-up-low-back-pain	/news-philanthropy/does-smoking-flare-up-low-back-pain
+Redirect	301	/blog/does-aerobic-exercise-really-improve-pain	/news-philanthropy/does-aerobic-exercise-really-improve-pain
+Redirect	301	/blog/do-you-suffer-from-heel-pain-it-might-be-plantar-fasciitis	/news-philanthropy/do-you-suffer-from-heel-pain-it-might-be-plantar-fasciitis
+Redirect	301	/blog/dispelling-the-rumor-not-all-fats-are-bad-get-the-inside-scoop-on-omega-3s	/news-philanthropy/dispelling-the-rumor-not-all-fats-are-bad-get-the-inside-scoop-on-omeaga-3s
+Redirect	301	/blog/disc-degeneration-sufferers-have-new-hope-with-regenerative-treatment-options	/news-philanthropy
+Redirect	301	/blog/diabetes-awareness-spotlight-get-all-the-facts-on-how-to-reduce-your-childs-risk	/news-philanthropy/diabetes-awareness-spotlight-get-all-the-facts-on-how-to-reduce-your-childs
+Redirect	301	/blog/dealing-with-the-emotional-effects-of-chronic-pain	/news-philanthropy/dealing-with-the-emotional-effects-of-chronic-pain
+Redirect	301	/blog/current-clinical-trials-promote-essential-innovation-for-spinal-health-care	/news-philanthropy/clinical-trials-101-what-you-should-know-before-you-pay-it-forward-in-spina
+Redirect	301	/blog/clinical-trials-101-what-you-should-know-before-you-pay-it-forward-in-spinal-health-care	/news-philanthropy/clinical-trials-101-what-you-should-know-before-you-pay-it-forward-in-spina
+Redirect	301	/blog/childhood-obesitiy-spotlight-get-tips-on-how-to-reduce-your-childs-risk-and-maintain-a-healthy	/news-philanthropy/childhood-obesity-spotlight-get-tips-on-how-to-reduce-your-childs-risk-main
+Redirect	301	/blog/celebrating-national-iced-tea-day-health-benefits	/news-philanthropy/celebrating-national-iced-tea-day-health-benefits
+Redirect	301	/blog/celebrate-our-20th-anniversary-with-us-participate-in-you-scratch-our-back-well-scratch-yours-	/news-philanthropy/celebrate-our-20th-anniversary-with-us-exclusive-promotion
+Redirect	301	/blog/causes-of-low-back-pain-during-menstruation-8-tips-to-minimize-this-monthly-occurance-many-wom	/news-philanthropy/causes-of-low-back-pain-during-menstruation-tips-to-minimize-pain
+Redirect	301	/blog/category/workplace-ergonomics	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/winter	/news-philanthropy
+Redirect	301	/blog/category/whiplash	/news-philanthropy
+Redirect	301	/blog/category/weve-got-your-back-race-for-spinal-health	/news-philanthropy
+Redirect	301	/blog/category/were-different	/news-philanthropy
+Redirect	301	/blog/category/welcome	/news-philanthropy
+Redirect	301	/blog/category/weight-loss/page/2	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/weight-loss	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/virginia-therapy-fitness-center-vtfc/page/3	/news-philanthropy
+Redirect	301	/blog/category/virginia-therapy-fitness-center-vtfc/page/2	/news-philanthropy
+Redirect	301	/blog/category/virginia-therapy-fitness-center-vtfc	/news-philanthropy
+Redirect	301	/blog/category/video	/news-philanthropy
+Redirect	301	/blog/category/unique-aspects-of-vsi	/news-philanthropy
+Redirect	301	/blog/category/uncategorized/page/5	/news-philanthropy
+Redirect	301	/blog/category/uncategorized/page/4	/news-philanthropy
+Redirect	301	/blog/category/uncategorized/page/3	/news-philanthropy
+Redirect	301	/blog/category/uncategorized/page/2	/news-philanthropy
+Redirect	301	/blog/category/uncategorized	/news-philanthropy
+Redirect	301	/blog/category/true-story/page/3	/news-philanthropy
+Redirect	301	/blog/category/true-story/page/2	/about-us/patient-testimonials/
+Redirect	301	/blog/category/true-story	/about-us/patient-testimonials/
+Redirect	301	/blog/category/treatments/page/6	/news-philanthropy
+Redirect	301	/blog/category/treatments/page/5	/news-philanthropy
+Redirect	301	/blog/category/treatments/page/4	/news-philanthropy
+Redirect	301	/blog/category/treatments/page/3	/news-philanthropy
+Redirect	301	/blog/category/treatments/page/2	/news-philanthropy
+Redirect	301	/blog/category/treatments	/news-philanthropy
+Redirect	301	/blog/category/tips/page/8	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/7	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/6	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/5	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/4	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/3	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips/page/2	/news-philanthropy/category/tips
+Redirect	301	/blog/category/tips	/news-philanthropy/category/tips
+Redirect	301	/blog/category/the-spinal-research-foundation/page/2	/news-philanthropy/category/spinal-research-foundation
+Redirect	301	/blog/category/the-spinal-research-foundation	/news-philanthropy/category/spinal-research-foundation
+Redirect	301	/blog/category/teamwork-at-vsi/page/2	/news-philanthropy
+Redirect	301	/blog/category/teamwork-at-vsi	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/7	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/6	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/5	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/4	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/3	/news-philanthropy
+Redirect	301	/blog/category/symptoms/page/2	/news-philanthropy
+Redirect	301	/blog/category/symptoms	/news-philanthropy
+Redirect	301	/blog/category/summer/page/2	/news-philanthropy
+Redirect	301	/blog/category/summer	/news-philanthropy
+Redirect	301	/blog/category/statistics/page/2	/news-philanthropy
+Redirect	301	/blog/category/statistics	/news-philanthropy
+Redirect	301	/blog/category/spring	/news-philanthropy
+Redirect	301	/blog/category/spondylosis	/news-philanthropy
+Redirect	301	/blog/category/spondylolisthesis-2	/news-philanthropy
+Redirect	301	/blog/category/spinal-surgery-recovery/page/3	/news-philanthropy
+Redirect	301	/blog/category/spinal-surgery-recovery/page/2	/news-philanthropy
+Redirect	301	/blog/category/spinal-surgery-recovery	/news-philanthropy
+Redirect	301	/blog/category/spinal-champions-2/page/3	/news-philanthropy
+Redirect	301	/blog/category/spinal-champions-2/page/2	/news-philanthropy
+Redirect	301	/blog/category/spinal-champions-2	/news-philanthropy
+Redirect	301	/blog/category/smoking-cessation-2	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/scoliosis	/news-philanthropy
+Redirect	301	/blog/category/recipes	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/prevention-2/page/5	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/prevention-2/page/4	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/prevention-2/page/3	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/prevention-2/page/2	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/prevention-2	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/post-surgical-rehabilitation/page/2	/news-philanthropy
+Redirect	301	/blog/category/post-surgical-rehabilitation	/news-philanthropy
+Redirect	301	/blog/category/physician-assistants-pa	/news-philanthropy/category/physical-therapy
+Redirect	301	/blog/category/physical-therapy-2/page/4	/news-philanthropy/category/physical-therapy
+Redirect	301	/blog/category/physical-therapy-2/page/3	/news-philanthropy/category/physical-therapy
+Redirect	301	/blog/category/physical-therapy-2/page/2	/news-philanthropy/category/physical-therapy
+Redirect	301	/blog/category/physical-therapy-2	/news-philanthropy/category/physical-therapy
+Redirect	301	/blog/category/philanthropy	/news-philanthropy
+Redirect	301	/blog/category/personal-training	/news-philanthropy
+Redirect	301	/blog/category/patient-stories/page/4	/about-us/patient-testimonials/
+Redirect	301	/blog/category/patient-stories/page/3	/about-us/patient-testimonials/
+Redirect	301	/blog/category/patient-stories/page/2	/about-us/patient-testimonials/
+Redirect	301	/blog/category/patient-stories	/about-us/patient-testimonials/
+Redirect	301	/blog/category/patient-questions/page/2	/news-philanthropy
+Redirect	301	/blog/category/patient-questions	/news-philanthropy
+Redirect	301	/blog/category/pain-management/page/6	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/pain-management/page/5	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/pain-management/page/4	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/pain-management/page/3	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/pain-management/page/2	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/pain-management	/news-philanthropy/category/pain-management-news
+Redirect	301	/blog/category/osteoporosis	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment/page/6	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment/page/5	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment/page/4	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment/page/3	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment/page/2	/news-philanthropy
+Redirect	301	/blog/category/operative-treatment	/news-philanthropy
+Redirect	301	/blog/category/nutrition/page/2	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/nutrition	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/notes-from-the-presidents-desk	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/7	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/6	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/5	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/4	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/3	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment/page/2	/news-philanthropy
+Redirect	301	/blog/category/non-operative-treatment	/news-philanthropy
+Redirect	301	/blog/category/news/page/2	/news-philanthropy/category/awards-recognition
+Redirect	301	/blog/category/news	/news-philanthropy/category/awards-recognition
+Redirect	301	/blog/category/neck-pain/page/4	/news-philanthropy/category/neck-pain
+Redirect	301	/blog/category/neck-pain/page/3	/news-philanthropy/category/neck-pain
+Redirect	301	/blog/category/neck-pain/page/2	/news-philanthropy/category/neck-pain
+Redirect	301	/blog/category/neck-pain	/news-philanthropy/category/neck-pain
+Redirect	301	/blog/category/nancy-goldbranson	/news-philanthropy
+Redirect	301	/blog/category/mens-health	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/medications/page/2	/news-philanthropy
+Redirect	301	/blog/category/medications	/news-philanthropy
+Redirect	301	/blog/category/kids/page/2	/news-philanthropy
+Redirect	301	/blog/category/kids	/news-philanthropy
+Redirect	301	/blog/category/golf	/news-philanthropy
+Redirect	301	/blog/category/genetics	/news-philanthropy
+Redirect	301	/blog/category/exercise-sports/page/6	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/exercise-sports/page/5	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/exercise-sports/page/4	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/exercise-sports/page/3	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/exercise-sports/page/2	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/exercise-sports	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/events	/news-philanthropy
+Redirect	301	/blog/category/essential-nutrients/page/2	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/essential-nutrients	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/ergonomics-2	/news-philanthropy/category/wellness-prevention
+Redirect	301	/blog/category/dr-subach/page/4	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/category/dr-subach/page/3	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/category/dr-subach/page/2	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/category/dr-subach	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/category/dr-schuler/page/4	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/category/dr-schuler/page/3	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/category/dr-schuler/page/2	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/category/dr-schuler	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/category/dr-nguyen/page/2	/news-philanthropy/author/thomas-t-nguyen
+Redirect	301	/blog/category/dr-nguyen	/news-philanthropy/author/thomas-t-nguyen
+Redirect	301	/blog/category/dr-hasz/page/2	/news-philanthropy/author/michael-w.-hasz
+Redirect	301	/blog/category/dr-hasz	/news-philanthropy/author/michael-w.-hasz
+Redirect	301	/blog/category/dr-good/page/4	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/category/dr-good/page/3	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/category/dr-good/page/2	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/category/dr-good	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/category/dr-bharara	/news-philanthropy/author/thomas-t-nguyen
+Redirect	301	/blog/category/coporate-social-responsibility	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/7	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/6	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/5	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/4	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/3	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses/page/2	/news-philanthropy
+Redirect	301	/blog/category/conditions-diagnoses	/news-philanthropy
+Redirect	301	/blog/category/community	/news-philanthropy
+Redirect	301	/blog/category/bone-health/page/2	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/bone-health	/news-philanthropy/category/nutrition
+Redirect	301	/blog/category/blogging-manifesto	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/9	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/8	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/7	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/6	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/5	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/4	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/3	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/2	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2/page/10	/news-philanthropy
+Redirect	301	/blog/category/back-pain-2	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/8	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/7	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/6	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/5	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/4	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/3	/news-philanthropy
+Redirect	301	/blog/category/awareness/page/2	/news-philanthropy
+Redirect	301	/blog/category/awareness	/news-philanthropy
+Redirect	301	/blog/category/awards	/news-philanthropy/category/awards-recognition
+Redirect	301	/blog/category/autumn	/news-philanthropy
+Redirect	301	/blog/category/athletics/page/3	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/athletics/page/2	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/athletics	/news-philanthropy/category/exercise-sports
+Redirect	301	/blog/category/associations-organizations	/news-philanthropy
+Redirect	301	/blog/category/ask-the-expert/page/3	/news-philanthropy/category/ask-the-expert
+Redirect	301	/blog/category/ask-the-expert/page/2	/news-philanthropy/category/ask-the-expert
+Redirect	301	/blog/category/ask-the-expert	/news-philanthropy/category/ask-the-expert
+Redirect	301	/blog/category/as-heard-on-wtop	/news-philanthropy
+Redirect	301	/blog/category/_acupuncture	/news-philanthropy
+Redirect	301	/blog/can-physical-therapy-help-ease-my-rheumatoid-arthritis-ra-pain	/news-philanthropy/can-physical-therapy-help-ease-my-rheumatoid-arthritis-pain
+Redirect	301	/blog/breakthrough-cell-based-therapy-has-promising-outcomes-for-patients-suffering-from-back-pain-a	/news-philanthropy/breakthrough-therapy-shows-promise
+Redirect	301	/blog/breaking-down-redskins%e2%80%99-quarterback-kirk-cousin%e2%80%99s-foot-injury	/news-philanthropy/breaking-down-redskins-quarterback-kirk-cousins-foot-injury
+Redirect	301	/blog/breaking-down-redskins-quarterback-robert-griffin-iiis-knee-injury	/news-philanthropy/breaking-down-redskins-quarterback-rgiiis-knee-injury
+Redirect	301	/blog/breakfast-101-the-meal-you-dont-want-to-miss	/news-philanthropy/breakfast-101-the-meal-you-dont-want-to-miss
+Redirect	301	/blog/behind-the-scenes-with-vsi%e2%80%99s-newest-physician-dr-niteesh-bharara-physical-medicine-reh	/news-philanthropy/meet-greet-vsis-newest-physician-dr-niteesh-bharara
+Redirect	301	/blog/before-you-reach-into-that-medicine-cabinet-what-you-need-to-know-about-acetaminophen-tylenol	/news-philanthropy/before-you-reach-into-that-medicine-cabinet-what-you-need-to-know-about-ace
+Redirect	301	/blog/backs-in-motion-can-activity-help-ease-your-back-pain	/news-philanthropy/backs-in-motion-can-activity-help-ease-your-back-pain
+Redirect	301	/blog/back-pain-not-just-for-adults-uncovering-idiopathic-scoliosis	/news-philanthropy/back-pain-not-just-for-adults-uncovering-idiopathic-scoliosis
+Redirect	301	/blog/avoid-bone-loss-from-breast-cancer-treatment-with-these-tips	/news-philanthropy/avoid-bone-loss-from-breast-cancer-treatment-with-these-tips
+Redirect	301	/blog/author/vtfc/page/3	/news-philanthropy/
+Redirect	301	/blog/author/vtfc/page/2	/news-philanthropy/
+Redirect	301	/blog/author/vtfc	/news-philanthropy/
+Redirect	301	/blog/author/vsi/page/9	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/8	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/7	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/6	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/5	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/4	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/3	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/2	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi/page/10	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/vsi	/news-philanthropy/author/vsi
+Redirect	301	/blog/author/tnguyen/page/2	/news-philanthropy/author/thomas-t-nguyen
+Redirect	301	/blog/author/tnguyen	/news-philanthropy/author/thomas-t-nguyen
+Redirect	301	/blog/author/tcschuler/page/2	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/author/tcschuler	/news-philanthropy/author/thomas-c.-schuler
+Redirect	301	/blog/author/rlonnett	/news-philanthropy/
+Redirect	301	/blog/author/ngold	/news-philanthropy/
+Redirect	301	/blog/author/mhasz/page/2	/news-philanthropy/author/michael-w.-hasz
+Redirect	301	/blog/author/mhasz	/news-philanthropy/author/michael-w.-hasz
+Redirect	301	/blog/author/crgood/page/2	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/author/crgood	/news-philanthropy/author/christopher-r.-good
+Redirect	301	/blog/author/brsubach/page/2	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/author/brsubach	/news-philanthropy/author/brian-r.-subach
+Redirect	301	/blog/ask-the-expert-what-is-tennis-elbow	/news-philanthropy/ask-the-expert-what-is-tennis-elbow
+Redirect	301	/blog/ask-the-expert-what-is-foot-drop-and-how-is-it-treated	/news-philanthropy/ask-the-expert-what-is-foot-drop-how-is-it-treated
+Redirect	301	/blog/ask-the-expert-what-happens-if-scoliosis-is-not-treated-is-surgery-the-best-option-to-treat-sc	/news-philanthropy/ask-the-expert-what-happens-if-scoliosis-is-not-treated-is-surgery-the-best
+Redirect	301	/blog/ask-the-expert-spinal-hardware-qa	/news-philanthropy/ask-the-expert-spinal-hardware-q-a
+Redirect	301	/blog/ask-the-expert-is-the-regenokine-procedure-being-performed-in-germany-a-legitimate-procedure-t	/news-philanthropy/ask-the-expert-is-the-regenokine-procedure-a-possiblity-to-help-my-pain
+Redirect	301	/blog/ask-the-expert-i-have-radiating-pain-down-my-legs-caused-by-herndiated-dics-and-have-tried-eve	/news-philanthropy
+Redirect	301	/blog/ask-the-expert-how-does-a-low-back-muscle-strain-occur-and-how-is-it-treated	/news-philanthropy/ask-the-expert-how-does-a-low-back-muscle-strain-occur-how-is-it-treated
+Redirect	301	/blog/ask-the-expert-carpal-tunnel-syndrome-vs-cervical-radiculopathy	/news-philanthropy/ask-the-expert-carpal-tunnel-syndrome-vs-cervical-radiculopathy
+Redirect	301	/blog/ask-the-expert-can-repeated-spinal-injections-over-time-cause-further-disc-degeneration	/news-philanthropy/ask-the-expert-can-repeated-spinal-injections-over-time-cause-further-disc
+Redirect	301	/blog/arm-yourself-with-these-helpful-tips-to-combat-the-early-start-to-flu-season	/news-philanthropy/arm-yourself-with-these-helpful-tips-to-combat-the-early-start-to-flu-seaso
+Redirect	301	/blog/are-you-a-spinal-champion	/news-philanthropy/are-you-a-spinal-champion
+Redirect	301	/blog/app-review-medication-reminders-for-the-busy-individual	/news-philanthropy/app-review-medication-reminders-for-the-busy-individual
+Redirect	301	/blog/acupuncture-for-back-pain	/news-philanthropy/acupuncture-for-back-pain
+Redirect	301	/blog/a-simple-prescription-to-improve-your-life-3	/news-philanthropy/a-simple-prescription-to-improve-your-life
+Redirect	301	/blog/a-healthy-lifestyle-is-the-key-to-success-with-these-four-easy-steps	/news-philanthropy/a-healthy-lifestyle-is-the-key-to-success-with-these-four-easy-steps
+Redirect	301	/blog/5-tips-to-keep-your-back-safe-healthy-this-winter-season	/news-philanthropy/5-tips-to-keep-your-back-safe-healthy-this-winter-season
+Redirect	301	/blog/%e2%80%9cwe%e2%80%99ve-got-your-back%e2%80%9d-race-for-spinal-health-raises-100000	/news-philanthropy/fourth-annual-wgyb-race-for-spinal-health-hosted-by-the-virginia-spine-inst
+Redirect	301	/blog/?p=80	/news-philanthropy
+Redirect	301	/blog/?p=260	/news-philanthropy
+Redirect	301	/blog	/news-philanthropy
+Redirect	301	/about-us/top	/about-us
+Redirect	301	/about-us/testimonial-giddeon-massie.php	/about-us/patient-testimonials/giddeon-massie
+Redirect	301	/about-us/patient-stories.php	/about-us/patient-testimonials/
+Redirect	301	/about-us/medical-education-research.php	/about-us/research-affiliations/
+Redirect	301	/about-us/facility.php	/about-us
+Redirect	301	/about-us/community-outreach.php	/about-us
+Redirect	301	/about-us/athletic-care.php	/about-us
+Redirect	301	/about-us/affiliations.php	/about-us/research-affiliations
+

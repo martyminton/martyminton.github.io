@@ -1,0 +1,109 @@
+
+@mixin cols($number_of_cols, $float:true, $offset_left:0, $offset_right:0, $bw:$base_width, $noc:$number_of_columns, $gs: $gutter_size){
+	$gw:gutter_width($offset_left, $gs, $bw, $noc);
+
+
+	@if($number_of_cols == $number_of_columns){
+		width:column_width($number_of_cols, $bw, $noc, $gs);
+		margin-left:column_width($offset_left, $bw, $noc, $gs) + ($gw * 3);
+		margin-right:column_width($offset_right, $bw, $noc, $gs) + ($gw * 3);
+	}@else{
+		width:column_width($number_of_cols, $bw, $noc, $gs);
+		@if($offset_left == 0){
+			margin-left:$gw;
+		}@else{
+			margin-left:column_width($offset_left, $bw, $noc, $gs) + ($gw * 3);
+		}
+		@if($offset_right == 0){
+			margin-right:$gw;
+		}@else{
+			margin-right:column_width($offset_right, $bw, $noc, $gs) + ($gw * 3);
+		}
+		@if($float == true){
+			float:left;
+		}
+	}
+	@extend .clearFix;
+}
+
+
+@mixin nested_cols($number_of_cols, $float:true, $offset_left:0, $offset_right:0, $bw:$base_width, $noc:$number_of_columns, $gs: $gutter_size){
+	$gw:gutter_width($offset_left, $gs, $bw, $noc);
+	$diff:($gw * 2)/$number_of_columns;
+
+
+	@if($number_of_cols == $number_of_columns){
+		width:column_width($number_of_cols, $bw, $noc, $gs);
+	}@else{
+		width:column_width($number_of_cols, $bw, $noc, $gs) + ($diff * $number_of_cols);
+		@if($offset_left == 0){
+			margin-left:$gw;
+		}@else{
+			margin-left:column_width($offset_left, $bw, $noc, $gs) + ($gw * 3);
+		}
+		@if($offset_right == 0){
+			margin-right:$gw;
+		}@else{
+			margin-right:column_width($offset_right, $bw, $noc, $gs) + ($gw * 3);
+		}
+		@if($float == true){
+			float:left;
+		}
+	}
+	&:first-child{margin-left:0;}
+	&:last-child{margin-right:0;}
+	@extend .clearFix;
+}
+
+// @mixin nested_cols($number_of_cols, $float:true, $offset_left:0, $offset_right:0, $bw:$base_width, $noc:$number_of_columns, $gs: $gutter_size){
+// 	$gw:gutter_width($offset_left, $gs, $bw, $noc);
+// 	width:column_width_nested($number_of_cols, $bw, $noc, $gs, $gw);
+// 	@if($offset_left == 0){
+// 		margin-left:$gw + (($gw*2) /$number_of_cols); //+ (($gw/2.6)/ ($number_of_cols)) //+ ($gw / (($number_of_cols - 2) * 2));
+// 	}@else{
+// 		margin-left:column_width_nested($offset_left, $bw, $noc, $gs, $gw) + ($gw * 3);
+// 	}
+
+// 	@if($offset_right == 0){
+// 		margin-right:$gw + (($gw*2) / $number_of_cols);
+// 	}@else{
+// 		margin-right:column_width_nested($offset_right, $bw, $noc, $gs, $gw) + ($gw * 3);
+// 	}
+// 	@if($float == true){
+// 		float:left;
+// 	}
+// 	@extend .clearFix;
+// 	&:first-child{margin-left:0;}
+// 	&:last-child{margin-right:0;}
+// }
+
+
+@mixin cols_reset($number_of_cols, $float:true, $offset_left:0, $offset_right:0, $bw:$base_width, $noc:$number_of_columns, $gs: $gutter_size){
+	@include cols($number_of_cols, $float, $offset_left, $offset_right, $bw, $noc, $gs);
+	@include base;
+}
+
+@mixin nested_cols_reset($number_of_cols, $float:true, $offset_left:0, $offset_right:0, $bw:$base_width, $noc:$number_of_columns, $gs: $gutter_size){
+	@include nested_cols($number_of_cols, $float, $offset_left, $offset_right, $bw, $noc, $gs);
+	@include base;
+}
+
+
+
+/* functions */
+@function c_width($base_width, $number_of_columns){
+	@return ($base_width / $number_of_columns) * 1%;
+}
+
+@function column_width($number_of_cols, $base_width, $number_of_columns, $gutter_size){
+	@return (((c_width($base_width, $number_of_columns) * $number_of_cols) - ($gutter_size * 2)) / $base_width) * 100;
+}
+
+@function column_width_nested($number_of_cols, $base_width, $number_of_columns, $gutter_size, $gw){
+	@return ((((c_width($base_width, $number_of_columns) * $number_of_cols) - ($gutter_size * 2)) / $base_width) * 100) + ((($gw*2)/$number_of_columns) * $number_of_cols);
+}
+
+@function gutter_width($offset, $gutter_size, $base_width, $number_of_columns){
+		@return ($gutter_size/$base_width) * 100%;
+}
+

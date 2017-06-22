@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Apiphany - Holiday Special</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro|Candal" rel="stylesheet" type="text/css">
+		<link href="js/jquery.fancybox.css" rel="stylesheet" type="text/css">
+		<!-- Add jQuery library -->
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+	
+		<!-- Add mousewheel plugin (this is optional) -->
+		<script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
+	
+		<!-- Add fancyBox main JS and CSS files -->
+		<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.3"></script>
+		<link rel="stylesheet" type="text/css" href="js/jquery.fancybox.css?v=2.1.2" media="screen" />
+	
+		<!-- Add Button helper (this is optional) -->
+		<link rel="stylesheet" type="text/css" href="js/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+		<script type="text/javascript" src="js/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	
+		<!-- Add Thumbnail helper (this is optional) -->
+		<link rel="stylesheet" type="text/css" href="js/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+		<script type="text/javascript" src="js/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+	
+		<!-- Add Media helper (this is optional) -->
+		<script type="text/javascript" src="js/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+		
+		<!--Validation-->
+		<script type="text/javascript" src="js/jquery.validate.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {	
+			//fancybox popup
+				$('.fancybox').fancybox();
+				$(".terms").click(function() {
+					$.fancybox.open({
+						href : 'terms.html',
+						type : 'iframe',
+						padding : 5
+					});
+				});
+				//form validation
+				$("#leadForm").validate({
+				   success: "valid",
+				   submitHandler: function() {
+					   $("#leadForm").hide();
+					   $(".content").fadeIn("100");
+				   }
+				});
+			});
+		</script>
+			
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="col1">
+			<a class="logo imgTxt trans" href="http://www.apiphany.com">Apiphany</a>
+				<div class="video">
+					<iframe src="http://player.vimeo.com/video/53942891" width="419" height="235" style="border: 0 none;" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				</div>
+				<p class="desc">As part of the Jumpstart offer, Apiphany will:
+				<span>(1)</span> design, customize, and launch your developer portal, <span>(2)</span> deliver sample applications 
+				and code that use your API, <span>(3)</span> host your API on the Apiphany 
+				API Delivery Platform for 3 months at no cost </p>
+			</div>
+			<div class="col2">
+			<a class="download trans" href="#">Download Product Datasheet</a>
+			<h3>Jumpstart your</h3>
+			<h4><span>Api Program</span> With</h4>
+				<h1>Sign Up by December 31, 2012</h1>
+				<h2>To Receive <span>FREE:</span></h2>
+				<ul>
+					<li>3 Months of Hosted Service</li>
+					<li>Customized Portal Design</li>
+					<li>Sample App and Code</li>
+				</ul>
+				<p class="getStarted">
+					To get started with this offer, please submit your information below and we will contact you within 24 hours.
+				</p>
+				<div class="form">
+				<p class="content">Thank you for contacting Apiphany - A Representative will be in touch within 24 hours.</p>
+					<form id="leadForm" name="leadForm">
+						<div class="input">
+							<label>First Name</label>
+							<input type="text" id="firstName" class="trans required">
+							<div class="clear"></div>
+						</div>
+						<div class="input">
+							<label>Last Name</label>
+							<input type="text" id="lastName" class="trans required">
+							<div class="clear"></div>
+						</div>
+						<div class="input">
+							<label>Email</label>
+							<input type="text" id="email" class="trans required email">
+							<div class="clear"></div>
+						</div>
+						<div class="input">
+							<input type="submit" id="submit" value="Submit" class="trans">
+							<div class="clear"></div>
+						</div>
+					</form>
+					
+				</div>
+				
+				
+				
+				<p class="link"><a class="fancybox fancybox.iframe terms trans" href="terms.html">Click here</a> for Terms and Conditions</p>
+				
+				<a class="twitter imgTxt trans" href="#">Twitter</a>
+				<a class="facebook imgTxt trans" href="#">Facebook</a>
+				<div class="clear"></div>
+				<p class="copyright"><a href="http://www.apiphany.com" class="trans">www.apiphany.com</a> <span>|</span> &copy; Apiphany All Rights Reserved</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="ground"><img src="images/ground.png" alt="Apiphany"></div>
+	</body>
+</html>

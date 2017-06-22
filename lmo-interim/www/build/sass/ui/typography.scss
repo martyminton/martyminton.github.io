@@ -1,0 +1,71 @@
+/*font face build*/
+$franklin: 'ITCFranklinGothicW01-Dm 812677';
+$gotham: 'Gotham SSm A','Gotham SSm B';
+
+@mixin font($font){
+	@font-face {
+		font-family: $font;
+	}
+}
+
+/*****Typography*****/
+h1, h2, h3, h4, h5, h6 {
+	&.white {
+		color: $white;
+	}
+
+	&.orange {
+		color: $orange;
+	}
+
+	&.darkGrey {
+		color: $darkGrey;
+	}
+
+	&.lightGrey {
+		color: $lightGrey;
+	}
+
+	&.mildBlack {
+		color: $mildBlack;
+	}
+}
+
+h1,h2 {
+	color: $black;
+	font-size: 60px;
+	text-transform: uppercase;
+	font-family: $gotham;
+}
+
+h3 {
+	color: $black;
+	font-size: 36px;
+	text-transform: uppercase;
+	font-family: $gotham;
+}
+
+h4 {
+	color: $lightGrey;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-family: $franklin;
+}
+
+h5 {
+	color: $lightGrey;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-family: $gotham;
+}
+
+h6 {
+	color: $black;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-family: $franklin;
+}
+
+a {
+	text-decoration: none;
+}

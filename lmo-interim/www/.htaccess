@@ -1,0 +1,49 @@
+# Standard .htaccess file
+
+# Secure .htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+# Block access to backup and source files
+# This files may be left by some text/html editors and
+# pose a great security danger, when someone can access them
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+# Don't show any directory without an index file
+Options -Indexes
+
+# Dont list files in index pages
+IndexIgnore *
+
+# EE 404 page for missing pages
+# May differ depending on where your template is located.
+ErrorDocument 404 /index.php?/site/404
+
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+Redirect 301 /bingo /nerdprombingo.pdf
+
+# Remove index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Exclude files
+RewriteCond $1 !^(budget\.php|fvc-bank\.php|index\.php|mailer\.php|national-gaurd\.php|favicon\.ico|pp\.html|thank-you\.php) [NC]
+# Exclude folders
+RewriteCond $1 !^(assets|build|upload|RSVP|nerdprombingo.pdf)/ [NC]
+RewriteRule ^(.*)$ /index.php/$1 [L]
+
+AddType text/calendar .ics
+
+# turn off on production
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
