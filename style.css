@@ -1,0 +1,27 @@
+.list-wrapper {
+	max-width: 1100px;
+	margin: 0 auto;
+	background: #fff;
+	box-sizing: border-box;
+	padding: 40px;
+	border: 1px solid #eee;
+}
+
+.list-wrapper .list-wrapper__list {
+	margin: 0;
+	list-style: none;
+}
+
+.list-wrapper .list-wrapper__list li a {
+	display: block;
+	padding: 20px;
+	font-size: 40px;
+	text-decoration: none;
+	font-family: arial;
+	color: rgb(255, 105, 51);
+}
+
+.list-wrapper .list-wrapper__list li:nth-child(odd) a {
+	background: #eee;
+	color: rgba(16, 21, 96, 0.46);
+}
